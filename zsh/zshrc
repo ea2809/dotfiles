@@ -1,0 +1,35 @@
+
+source ~/dotfiles/zsh/antigen.zsh
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+case `uname` in
+  Darwin)
+    antigen bundle brew
+  ;;
+  Linux)
+    antigen bundle archlinux
+  ;;
+esac
+
+
+antigen bundle git
+antigen bundle docker
+antigen bundle pip
+antigen bundle command-not-found
+antigen bundle autojump
+antigen bundle common-aliases
+antigen bundle compleat
+antigen bundle npm
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle golang
+antigen bundle colorize
+
+antigen theme
+
+antigen apply
+
+source ~/dotfiles/zsh/zsh-autosuggestions.zsh/zsh-autosuggestions.zsh
+   
+zle -N zle-line-init 
