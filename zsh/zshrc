@@ -1,6 +1,6 @@
 
 source ~/dotfiles/zsh/antigen.zsh
-
+PATH+=:~/go/bin
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
