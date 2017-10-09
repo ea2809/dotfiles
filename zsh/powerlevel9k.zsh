@@ -1,0 +1,4 @@
+POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv  dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
