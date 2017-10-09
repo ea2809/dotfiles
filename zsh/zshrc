@@ -1,8 +1,9 @@
 
 source ~/dotfiles/zsh/antigen.zsh
 PATH+=:~/go/bin
-# Load the oh-my-zsh's library.
 #antigen use oh-my-zsh
+
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 case `uname` in
   Darwin)
@@ -22,14 +23,17 @@ antigen bundle command-not-found
 #antigen bundle autojump
 #antigen bundle common-aliases
 antigen bundle compleat
+antigen bundle zsh-users/fizsh
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle golang
 antigen bundle colorize
+antigen bundle zsh-users/zsh-history-substring-search
+antigen bundle tarruda/zsh-autosuggestions
+
 
 antigen theme bhilburn/powerlevel9k powerlevel9k
 antigen apply
 
-source ~/dotfiles/zsh/zsh-autosuggestions.zsh/zsh-autosuggestions.zsh
+# source ~/dotfiles/zsh/zsh-autosuggestions.zsh/zsh-autosuggestions.zsh
    
-#zle -N zle-line-init 
 setopt prompt_subst
