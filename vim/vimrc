@@ -13,3 +13,4 @@ set path+=**
 " Display all matching files when we tab complete
 set wildmenu
 
+set backspace=indent,eol,start

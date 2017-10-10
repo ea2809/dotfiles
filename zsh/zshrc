@@ -37,3 +37,12 @@ antigen apply
 # source ~/dotfiles/zsh/zsh-autosuggestions.zsh/zsh-autosuggestions.zsh
    
 setopt prompt_subst
+
+echo "  ________                            ";
+echo " /  _____/_____ _______   ____ ___.__.";
+echo "/   \  ___\__  \\_  __ \_/ ___<   |  |";
+echo "\    \_\  \/ __ \|  | \/\  \___\___  |";
+echo " \______  (____  /__|    \___  > ____|";
+echo "        \/     \/            \/\/     ";
+echo "";
+# Font Graffiti 
