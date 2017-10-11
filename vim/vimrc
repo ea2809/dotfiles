@@ -14,3 +14,10 @@ set path+=**
 set wildmenu
 
 set backspace=indent,eol,start
+
+
+nmap <c-s> :w<CR>
+imap <c-s> <Esc>:w<CR>
+
+" Show always the status
+set laststatus=2
