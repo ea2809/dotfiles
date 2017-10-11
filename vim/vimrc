@@ -21,3 +21,9 @@ imap <c-s> <Esc>:w<CR>
 
 " Show always the status
 set laststatus=2
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'fatih/vim-go'
+
+call plug#end()
