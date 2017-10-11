@@ -25,5 +25,10 @@ set laststatus=2
 call plug#begin('~/.vim/plugged')
 
 Plug 'fatih/vim-go'
+Plug 'altercation/vim-colors-solarized'
 
 call plug#end()
+
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
