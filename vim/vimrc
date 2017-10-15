@@ -2,6 +2,8 @@ set nocompatible
 
 set clipboard=unnamed
 
+let mapleader = ","
+
 " enable syntax and plugins (for netrw)
 syntax enable
 filetype plugin on
@@ -25,10 +27,17 @@ set laststatus=2
 call plug#begin('~/.vim/plugged')
 
 Plug 'fatih/vim-go'
-Plug 'altercation/vim-colors-solarized'
+Plug 'itchyny/lightline.vim'
+Plug 'NLKNguyen/papercolor-theme'
 
 call plug#end()
 
 set background=dark
-let g:solarized_termcolors=256
-colorscheme solarized
+
+set number relativenumber
+
+set termguicolors
+
+colorscheme PaperColor
+
+set ttimeoutlen=50
