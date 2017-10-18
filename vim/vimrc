@@ -29,7 +29,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'fatih/vim-go'
 Plug 'itchyny/lightline.vim'
 Plug 'NLKNguyen/papercolor-theme'
-
+Plug 'Valloric/YouCompleteMe'
 call plug#end()
 
 set background=dark
@@ -41,3 +41,11 @@ set termguicolors
 colorscheme PaperColor
 
 set ttimeoutlen=50
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
