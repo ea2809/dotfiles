@@ -2,6 +2,7 @@ set nocompatible
 
 set clipboard=unnamed
 
+let maplocalleader = ","
 let mapleader = ","
 
 " enable syntax and plugins (for netrw)
@@ -14,9 +15,44 @@ set path+=**
 
 " Display all matching files when we tab complete
 set wildmenu
+set wildignore+=*/.git/*
+
 
 set backspace=indent,eol,start
 
+" Display problematic whitespace
+" set listchars=tab:▸▹,trail:•,extends:#,precedes:#,nbsp:⌻
+:set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+set list
+
+" Toggle hlsearch show
+nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+" Show other match
+set showmatch
+
+" Display linebreaks and tabs
+set linebreak
+set showbreak=━━
+set breakindent
+set tabstop=4
+
+let vimDir = '$HOME/.vim'
+
+if has('persistent_undo')
+		" Set persistent undo
+		let myUndoDir = expand(vimDir . '/undodir')
+		set undofile
+		set undodir=~/.vim/undo
+		" Create dirs
+		call system('mkdir -p ' . myUndoDir)
+endif
+
+
+" Set levels for history an undo
+set history=1000
+set undolevels=1000
+
+set hlsearch
 
 nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>
@@ -36,7 +72,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-
+Plug 'gioele/vim-autoswap'
 call plug#end()
 
 set background=dark
