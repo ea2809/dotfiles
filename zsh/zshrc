@@ -14,7 +14,9 @@ case `uname` in
   ;;
 esac
 
-POWERLEVEL9K_MODE='awesome-fontconfig'
+
+# POWERLEVEL9K_MODE='nerdfont-complete'
+# POWERLEVEL9K_MODE='awesome-fontconfig'
 source ~/dotfiles/zsh/powerlevel9k.zsh
 
 antigen bundle git

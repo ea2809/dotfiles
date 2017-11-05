@@ -26,7 +26,8 @@ set backspace=indent,eol,start
 set list
 
 " Toggle hlsearch show
-nnoremap <silent><expr> <Leader>h (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+" :nnoremap <silent> <Leader>h :nohlsearch<Bar>:echo<CR>
+nnoremap <Leader>t :set hlsearch! hlsearch?<CR>
 " Show other match
 set showmatch
 
@@ -36,8 +37,8 @@ set showbreak=━━
 set breakindent
 set tabstop=4
 
+" Set up undo configuration
 let vimDir = '$HOME/.vim'
-
 if has('persistent_undo')
 		" Set persistent undo
 		let myUndoDir = expand(vimDir . '/undodir')
@@ -47,15 +48,15 @@ if has('persistent_undo')
 		call system('mkdir -p ' . myUndoDir)
 endif
 
-
 " Set levels for history an undo
 set history=1000
 set undolevels=1000
 
+" Activar las búsquedas
 set hlsearch
 
-nmap <c-s> :w<CR>
-imap <c-s> <Esc>:w<CR>
+" Disable mode show
+set noshowmode
 
 " Show always the status
 set laststatus=2
@@ -65,7 +66,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'fatih/vim-go'
 Plug 'itchyny/lightline.vim'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'Valloric/YouCompleteMe'
 Plug 'junegunn/goyo.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
@@ -73,6 +73,15 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'gioele/vim-autoswap'
+Plug 'davidhalter/jedi-vim', {'for': 'python'}
+
+if has("nvim")
+		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+		Plug 'zchee/deoplete-jedi', {'for': 'python'}
+else
+		Plug 'Valloric/YouCompleteMe'
+endif
+
 call plug#end()
 
 set background=dark
@@ -91,12 +100,14 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Save with control+s
+nmap <C-s> :w<CR>
+imap <C-s> <Esc>:w<CR>
+
+" Mapping go to function
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
-
-
-
-
+" Modo prosa
 function! ProseMode()
   call goyo#execute(0, [])
   set spell noci nosi noai nolist noshowmode noshowcmd
@@ -110,4 +121,11 @@ endfunction
 
 command! ProseMode call ProseMode()
 nmap <leader>p :ProseMode<CR>
+
+
+" Deople config
+if has("nvim")
+		let g:deoplete#enable_at_startup = 1
+endif
+
 
