@@ -28,6 +28,7 @@ set list
 " Toggle hlsearch show
 " :nnoremap <silent> <Leader>h :nohlsearch<Bar>:echo<CR>
 nnoremap <Leader>t :set hlsearch! hlsearch?<CR>
+
 " Show other match
 set showmatch
 
@@ -35,7 +36,11 @@ set showmatch
 set linebreak
 set showbreak=━━
 set breakindent
-set tabstop=4
+set tabstop=2
+set showtabline=2
+
+set cursorline
+
 
 " Set up undo configuration
 let vimDir = '$HOME/.vim'
@@ -72,6 +77,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
 Plug 'gioele/vim-autoswap'
 Plug 'davidhalter/jedi-vim', {'for': 'python'}
 
@@ -126,6 +132,21 @@ nmap <leader>p :ProseMode<CR>
 " Deople config
 if has("nvim")
 		let g:deoplete#enable_at_startup = 1
+
+		" Configure deoplete so that it uses tabs
+		let g:SuperTabDefaultCompletionType = "<C-n>"
+		inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 endif
 
+" Lightline configuration
 
+let g:lightline = {
+      \ 'colorscheme': 'powerline',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
