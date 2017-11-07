@@ -69,7 +69,6 @@ set laststatus=2
 call plug#begin('~/.vim/plugged')
 
 Plug 'fatih/vim-go'
-Plug 'itchyny/lightline.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'junegunn/goyo.vim'
 Plug 'airblade/vim-gitgutter'
@@ -80,6 +79,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'gioele/vim-autoswap'
 Plug 'davidhalter/jedi-vim', {'for': 'python'}
+Plug 'bling/vim-airline'
 
 if has("nvim")
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -138,15 +138,3 @@ if has("nvim")
 		inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 endif
 
-" Lightline configuration
-
-let g:lightline = {
-      \ 'colorscheme': 'powerline',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
