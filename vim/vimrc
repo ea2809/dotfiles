@@ -22,7 +22,7 @@ set backspace=indent,eol,start
 
 " Display problematic whitespace
 " set listchars=tab:▸▹,trail:•,extends:#,precedes:#,nbsp:⌻
-:set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 set list
 
 " Toggle hlsearch show

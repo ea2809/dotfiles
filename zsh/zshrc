@@ -50,7 +50,7 @@ echo "        \/     \/            \/\/     ";
 echo "";
 # Font Graffiti 
 
-stty -ixon
+# stty -ixon
 
 
 HISTSIZE=10000
