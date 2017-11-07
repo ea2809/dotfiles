@@ -79,7 +79,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'gioele/vim-autoswap'
 Plug 'davidhalter/jedi-vim', {'for': 'python'}
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'ryanoasis/vim-devicons'
 
 if has("nvim")
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -138,3 +139,8 @@ if has("nvim")
 		inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 endif
 
+let g:airline_powerline_fonts = 1
+let g:airline_right_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_left_alt_sep= ''
+let g:airline_left_sep = ''
