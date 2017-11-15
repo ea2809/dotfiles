@@ -72,9 +72,9 @@ fi
 
 
 
-alias dvimrc='vim ~/dotfiles/vim/vimrc'
-alias dzshrc='vim ~/dotfiles/zsh/zshrc'
-alias dtmux='vim ~/dotfiles/tmux/tmux.conf'
+alias dvimrc='nvim ~/dotfiles/vim/vimrc'
+alias dzshrc='nvim ~/dotfiles/zsh/zshrc'
+alias dtmux='nvim ~/dotfiles/tmux/tmux.conf'
 alias ..='cd ..'
 alias ...='cd ../..'
 

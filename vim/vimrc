@@ -84,6 +84,9 @@ Plug 'ryanoasis/vim-devicons'
 
 if has("nvim")
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+		Plug 'SirVer/ultisnips'
+		" Snippets are separated from the engine. Add this if you want them:
+		Plug 'honza/vim-snippets'
 		Plug 'zchee/deoplete-jedi', {'for': 'python'}
 else
 		Plug 'Valloric/YouCompleteMe'
@@ -100,6 +103,9 @@ set termguicolors
 colorscheme PaperColor
 
 set ttimeoutlen=50
+
+" Mother language
+set spelllang=es
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -132,11 +138,15 @@ nmap <leader>p :ProseMode<CR>
 
 " Deople config
 if has("nvim")
+		" Enable deoplete at startup
 		let g:deoplete#enable_at_startup = 1
-
 		" Configure deoplete so that it uses tabs
 		let g:SuperTabDefaultCompletionType = "<C-n>"
 		inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+		let g:UltiSnipsExpandTrigger="<leader><tab>"
+		let g:UltiSnipsJumpForwardTrigger="<tab>"
+		let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
 endif
 
 let g:airline_powerline_fonts = 1
@@ -144,3 +154,4 @@ let g:airline_right_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_left_alt_sep= ''
 let g:airline_left_sep = ''
+let g:airline#extensions#tabline#enabled = 1
