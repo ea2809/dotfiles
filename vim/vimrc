@@ -117,6 +117,19 @@ nnoremap <C-H> <C-W><C-H>
 nmap <C-s> :w<CR>
 imap <C-s> <Esc>:w<CR>
 
+" Buffers mappings
+nnoremap <leader>bn :bn<CR>
+inoremap <leader>bn <Esc>:bn<CR>
+
+nnoremap <leader>bt :b#<CR>
+inoremap <leader>bt <Esc>:b#<CR>
+
+nnoremap <leader>bb :ls<CR>
+inoremap <leader>bb <Esc>:ls<CR>
+
+nnoremap <leader>bp :bp<CR>
+inoremap <leader>bp <Esc>:bp<CR>
+
 " Mapping go to function
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
@@ -144,8 +157,11 @@ if has("nvim")
 		let g:SuperTabDefaultCompletionType = "<C-n>"
 		inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 		let g:UltiSnipsExpandTrigger="<leader><tab>"
-		let g:UltiSnipsJumpForwardTrigger="<tab>"
-		let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+		let g:UltiSnipsJumpForwardTrigger="<leader>ss"
+		let g:UltiSnipsJumpBackwardTrigger="<leader>sk"
+" UtilSnips
+nnoremap <leader>ss :call UltiSnips#JumpForwards()<CR>
+nnoremap <leader>sk :call UltiSnips#JumpBackwards()<CR>
 
 endif
 
