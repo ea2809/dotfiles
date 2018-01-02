@@ -1,123 +1,106 @@
-set nocompatible
+" Install plugins using vim-plug {{{
+  let plugfile = $HOME . '/dotfiles/vim/plug.vim'
+  if filereadable(plugfile)
+    exec 'source' plugfile
+  endif
+" }}}
 
-set clipboard=unnamed
+" Base configuration {{{
+	set nocompatible
 
-let maplocalleader = ","
-let mapleader = ","
+	set clipboard=unnamed " Set clipboard
 
-" enable syntax and plugins (for netrw)
-syntax enable
-filetype plugin on
+	let maplocalleader = ","
+	let mapleader = ","
 
-" Search down into subfolders
-" Provides tab-completion for all file-related tasks
-set path+=**
+	" enable syntax and plugins (for netrw)
+	syntax enable
+	filetype plugin on
 
-" Display all matching files when we tab complete
-set wildmenu
-set wildignore+=*/.git/*
+	" Search down into subfolders
+	" Provides tab-completion for all file-related tasks
+	set path+=**
 
+	" Display all matching files when we tab complete
+	set wildmenu
+	set wildignore+=*/.git/*
 
-set backspace=indent,eol,start
+	set backspace=indent,eol,start
 
-" Display problematic whitespace
-" set listchars=tab:▸▹,trail:•,extends:#,precedes:#,nbsp:⌻
-set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-set list
+	" Display problematic whitespace
+	" set listchars=tab:▸▹,trail:•,extends:#,precedes:#,nbsp:⌻
+	set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+	set list
 
-" Toggle hlsearch show
-" :nnoremap <silent> <Leader>h :nohlsearch<Bar>:echo<CR>
-nnoremap <Leader>t :set hlsearch! hlsearch?<CR>
+	" Toggle hlsearch
+	nnoremap <Leader>t :set hlsearch! hlsearch?<CR>
 
-" Show other match
-set showmatch
+	" Show other match
+	set showmatch
 
-" Display linebreaks and tabs
-set linebreak
-set showbreak=━━
-set breakindent
-set tabstop=2
-set showtabline=2
+	" Display linebreaks and tabs
+	set linebreak
+	set showbreak=━━
+	set breakindent
+	set tabstop=2
+	set showtabline=2
+	set softtabstop=2 " Width of a soft tab stop when using spaces
+	set shiftwidth=2  " Indent width
 
-set cursorline
+	set cursorline
 
+	set visualbell " No sound
 
-" Set up undo configuration
-let vimDir = '$HOME/.vim'
-if has('persistent_undo')
+	" Set up undo configuration
+	let vimDir = '$HOME/.vim'
+	if has('persistent_undo')
 		" Set persistent undo
 		let myUndoDir = expand(vimDir . '/undodir')
 		set undofile
 		set undodir=~/.vim/undo
 		" Create dirs
 		call system('mkdir -p ' . myUndoDir)
-endif
+	endif
 
-" Set levels for history an undo
-set history=1000
-set undolevels=1000
+	" Set levels for history an undo
+	set history=1000
+	set undolevels=1000
 
-" Activar las búsquedas
-set hlsearch
+	" Activar las búsquedas
+	set hlsearch
 
-" Disable mode show
-set noshowmode
+	" Disable mode show
+	set noshowmode
 
-" Show always the status
-set laststatus=2
+	" Show always the status
+	set laststatus=2
 
-call plug#begin('~/.vim/plugged')
+	set background=dark
 
-Plug 'fatih/vim-go'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'junegunn/goyo.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
-Plug 'gioele/vim-autoswap'
-Plug 'davidhalter/jedi-vim', {'for': 'python'}
-Plug 'vim-airline/vim-airline'
-Plug 'ryanoasis/vim-devicons'
+	set number relativenumber
 
-if has("nvim")
-		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-		Plug 'SirVer/ultisnips'
-		" Snippets are separated from the engine. Add this if you want them:
-		Plug 'honza/vim-snippets'
-		Plug 'zchee/deoplete-jedi', {'for': 'python'}
-else
-		Plug 'Valloric/YouCompleteMe'
-endif
+	set termguicolors
 
-call plug#end()
+	colorscheme PaperColor
 
-set background=dark
+	set ttimeoutlen=50
 
-set number relativenumber
+	set spelllang=es
+" }}}
 
-set termguicolors
-
-colorscheme PaperColor
-
-set ttimeoutlen=50
-
-" Mother language
-set spelllang=es
-
-"split navigations
+"Split navigations {{{
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+" }}}
 
-" Save with control+s
+" Save with control+s {{{
 nmap <C-s> :w<CR>
 imap <C-s> <Esc>:w<CR>
+" }}}
 
-" Buffers mappings
+" Buffers mappings {{{
 nnoremap <leader>bn :bn<CR>
 inoremap <leader>bn <Esc>:bn<CR>
 
@@ -130,10 +113,11 @@ inoremap <leader>bb <Esc>:ls<CR>
 nnoremap <leader>bp :bp<CR>
 inoremap <leader>bp <Esc>:bp<CR>
 
-" Mapping go to function
-nnoremap <leader>jd :YcmCompleter GoTo<CR>
+nnoremap <leader>bd :bd<CR>
+inoremap <leader>bd <Esc>:bd<CR>
+" }}}
 
-" Modo prosa
+" Prose mode found on the net {{{
 function! ProseMode()
   call goyo#execute(0, [])
   set spell noci nosi noai nolist noshowmode noshowcmd
@@ -147,12 +131,14 @@ endfunction
 
 command! ProseMode call ProseMode()
 nmap <leader>p :ProseMode<CR>
+" }}}
 
-
-" Deople config
+" Deople and UtilSnips config {{{
 if has("nvim")
 		" Enable deoplete at startup
 		let g:deoplete#enable_at_startup = 1
+		" Close preview window
+		autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 		" Configure deoplete so that it uses tabs
 		let g:SuperTabDefaultCompletionType = "<C-n>"
 		inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -164,10 +150,60 @@ nnoremap <leader>ss :call UltiSnips#JumpForwards()<CR>
 nnoremap <leader>sk :call UltiSnips#JumpBackwards()<CR>
 
 endif
+" }}}
 
+" Vim airline configuration {{{
 let g:airline_powerline_fonts = 1
 let g:airline_right_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_left_alt_sep= ''
 let g:airline_left_sep = ''
 let g:airline#extensions#tabline#enabled = 1
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+let g:airline_symbols.branch = ''
+" }}}
+
+" Quickfix window {{{
+map <leader>ee :cnext<CR>
+map <leader>ek :cprevious<CR>
+nnoremap <leader>ec :cclose<CR>
+nnoremap <leader>cc :cc<CR>
+" }}}
+
+" Go Configuration {{{
+let g:go_fmt_command = "goimports"
+let g:go_list_type = "quickfix" " Everything in quickfix windows
+let g:go_auto_type_info = 1
+let g:go_auto_sameids = 1
+
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <leader>tt  <Plug>(go-test)
+autocmd FileType go nmap <leader>tf  <Plug>(go-test-func)
+autocmd FileType go nmap <leader>gt  <Plug>(go-def)
+autocmd FileType go nmap <leader>gk  <Plug>(go-def-pop)
+autocmd FileType go nmap <leader>gs  <Plug>(go-def-stack)
+autocmd FileType go nmap <leader>gc  <Plug>(go-def-stack-clear)
+autocmd FileType go nmap <leader>ct  <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <leader>cc  <Plug>(go-coverage-clear)
+autocmd FileType go nmap <leader>c  <Plug>(go-coverage)
+autocmd FileType go nmap <leader>cb  <Plug>(go-coverage-browser)
+autocmd FileType go nmap <leader>de  :GoDecls<CR>
+autocmd FileType go nmap <leader>do  :GoDoc<CR>
+autocmd FileType go nmap <Leader>i  <Plug>(go-info)
+" }}}
+
+" Scrolling {{{
+  set scrolljump=5      " Lines to scroll when cursor leaves screen
+  set scrolloff=8       " Minimum lines to keep above and below cursor
+  set sidescrolloff=15  " Minimum columns to keep left and right of cursor
+  set sidescroll=1      " Number of columns to scroll horizontally
+" }}}
+
+" Vim files {{{
+	au FileType vim setlocal foldmethod=marker
+" }}}

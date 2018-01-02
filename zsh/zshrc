@@ -1,4 +1,3 @@
-
 source ~/dotfiles/zsh/antigen.zsh
 PATH+=:~/go/bin
 #antigen use oh-my-zsh
@@ -47,11 +46,11 @@ echo "/   \  ___\__  \\_  __ \_/ ___<   |  |";
 echo "\    \_\  \/ __ \|  | \/\  \___\___  |";
 echo " \______  (____  /__|    \___  > ____|";
 echo "        \/     \/            \/\/     ";
-echo "";
+# echo "";
 # Font Graffiti 
 
-# stty -ixon
-
+# Customize iterm.
+echo -e "\033]6;1;bg;red;brightness;28\a\033]6;1;bg;blue;brightness;28\a\033]6;1;bg;green;brightness;28\a"
 
 HISTSIZE=10000
 SAVEHIST=10000
@@ -78,3 +77,14 @@ alias dtmux='nvim ~/dotfiles/tmux/tmux.conf'
 alias ..='cd ..'
 alias ...='cd ../..'
 
+# From https://superuser.com/questions/419775/with-bash-iterm2-how-to-name-tabs
+#setup terminal tab title
+function title {
+    if [ "$1" ]
+    then
+        unset PROMPT_COMMAND
+        echo -ne "\033]0;${*}\007"
+    else
+        export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
+    fi
+}
