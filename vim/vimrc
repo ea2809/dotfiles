@@ -137,7 +137,11 @@ nmap <leader>p :ProseMode<CR>
 if has("nvim")
 		" Enable deoplete at startup
 		let g:deoplete#enable_at_startup = 1
-		" Close preview window
+		let g:deoplete#omni_patterns = {}
+		let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
+		let g:deoplete#sources = {}
+		let g:deoplete#sources._ = []
+		let g:deoplete#file#enable_buffer_path = 1	" Close preview window
 		autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 		" Configure deoplete so that it uses tabs
 		let g:SuperTabDefaultCompletionType = "<C-n>"
@@ -206,4 +210,28 @@ autocmd FileType go nmap <Leader>i  <Plug>(go-info)
 
 " Vim files {{{
 	au FileType vim setlocal foldmethod=marker
+" }}}
+
+" Java configuration {{{
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+autocmd! BufWritePost,BufEnter *.java Neomake
+autocmd! BufWritePre *.java Neoformat
+let g:EclimCompletionMethod = 'omnifunc'
+
+
+" autocmd FileType java nmap <leader>b  <Plug>(go-build)
+autocmd FileType java nmap <leader>r  <Plug>:Java
+" autocmd FileType java nmap <leader>tt  <Plug>(go-test)
+" autocmd FileType java nmap <leader>tf  <Plug>(go-test-func)
+autocmd FileType java nnoremap <leader>gt :JavaSearch -p <C-R><C-W> -t method -x implementors<CR>
+" autocmd FileType java nmap <leader>gk  <Plug>(go-def-pop)
+" autocmd FileType java nmap <leader>gs  <Plug>(go-def-stack)
+" autocmd FileType java nmap <leader>gc  <Plug>(go-def-stack-clear)
+" autocmd FileType java nmap <leader>ct  <Plug>(go-coverage-toggle)
+" autocmd FileType java nmap <leader>cc  <Plug>(go-coverage-clear)
+" autocmd FileType java nmap <leader>c  <Plug>(go-coverage)
+" autocmd FileType java nmap <leader>cb  <Plug>(go-coverage-browser)
+" autocmd FileType java nmap <leader>de  :GoDecls<CR>
+" autocmd FileType java nmap <leader>do  :GoDoc<CR>
+" autocmd FileType java nmap <Leader>i  <Plug>(go-info)
 " }}}

@@ -26,5 +26,9 @@ if has("nvim")
 else
 		Plug 'Valloric/YouCompleteMe'
 endif
+Plug 'sbdchd/neoformat'
+Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java'}
+Plug 'neomake/neomake'
+Plug 'sbdchd/vim-run'
 
 call plug#end()
