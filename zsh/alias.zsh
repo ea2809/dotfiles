@@ -1,1 +1,1 @@
-alias o=open .
+alias o="open ."
