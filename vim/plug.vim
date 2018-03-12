@@ -30,5 +30,5 @@ Plug 'sbdchd/neoformat'
 Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java'}
 Plug 'neomake/neomake'
 Plug 'sbdchd/vim-run'
-
+Plug 'tpope/vim-eunuch'
 call plug#end()

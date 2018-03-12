@@ -1,4 +1,4 @@
-" Install plugins using vim-plug {{{
+" Install lugins using vim-plug {{{
   let plugfile = $HOME . '/dotfiles/vim/plug.vim'
   if filereadable(plugfile)
     exec 'source' plugfile
@@ -234,4 +234,23 @@ autocmd FileType java nnoremap <leader>gt :JavaSearch -p <C-R><C-W> -t method -x
 " autocmd FileType java nmap <leader>de  :GoDecls<CR>
 " autocmd FileType java nmap <leader>do  :GoDoc<CR>
 " autocmd FileType java nmap <Leader>i  <Plug>(go-info)
+" }}}
+
+" Gui Setting {{{
+if has('gui_macvim')
+  set guifont=FuraCode\ Nerd\ Font:h13
+  set linespace=2
+  set macligatures
+endif
+
+" }}}
+
+
+" Latex settings{{{
+autocmd FileType tex nnoremap <leader>r :! pdflatex %<CR>
+" }}}
+
+
+" Basic mappings {{{
+nnoremap <leader>o :! open . <CR>
 " }}}

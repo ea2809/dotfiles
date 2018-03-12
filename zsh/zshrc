@@ -31,7 +31,7 @@ antigen bundle golang
 antigen bundle colorize
 antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle tarruda/zsh-autosuggestions
-
+antigen bundle zsh-users/zsh-completions
 
 antigen theme bhilburn/powerlevel9k powerlevel9k
 antigen apply
@@ -76,7 +76,7 @@ alias dzshrc='nvim ~/dotfiles/zsh/zshrc'
 alias dtmux='nvim ~/dotfiles/tmux/tmux.conf'
 alias ..='cd ..'
 alias ...='cd ../..'
-
+source ~/dotfiles/zsh/alias.zsh
 # From https://superuser.com/questions/419775/with-bash-iterm2-how-to-name-tabs
 #setup terminal tab title
 function title {
