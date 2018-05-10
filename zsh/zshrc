@@ -39,6 +39,12 @@ antigen apply
 # source ~/dotfiles/zsh/zsh-autosuggestions.zsh/zsh-autosuggestions.zsh
    
 setopt prompt_subst
+#Custom titlebar
+echo -e "\033];Garcy\007"
+# Customize iterm.
+echo -e "\033]6;1;bg;red;brightness;28\a\033]6;1;bg;blue;brightness;28\a\033]6;1;bg;green;brightness;28\a"
+
+clear
 
 echo "  ________                            ";
 echo " /  _____/_____ _______   ____ ___.__.";
@@ -49,8 +55,6 @@ echo "        \/     \/            \/\/     ";
 # echo "";
 # Font Graffiti 
 
-# Customize iterm.
-echo -e "\033]6;1;bg;red;brightness;28\a\033]6;1;bg;blue;brightness;28\a\033]6;1;bg;green;brightness;28\a"
 
 HISTSIZE=10000
 SAVEHIST=10000

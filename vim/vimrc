@@ -29,7 +29,8 @@
 
 	" Display problematic whitespace
 	" set listchars=tab:▸▹,trail:•,extends:#,precedes:#,nbsp:⌻
-	set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+	" set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+	set listchars=eol:¬,tab:»·,trail:~,extends:>,precedes:<,space:␣
 	set list
 
 	" Toggle hlsearch
@@ -40,7 +41,7 @@
 
 	" Display linebreaks and tabs
 	set linebreak
-	set showbreak=━━
+	set showbreak=↪\ 
 	set breakindent
 	set tabstop=2
 	set showtabline=2
@@ -245,11 +246,9 @@ endif
 
 " }}}
 
-
 " Latex settings{{{
 autocmd FileType tex nnoremap <leader>r :! pdflatex %<CR>
 " }}}
-
 
 " Basic mappings {{{
 nnoremap <leader>o :! open . <CR>
