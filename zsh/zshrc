@@ -16,7 +16,8 @@ esac
 
 # POWERLEVEL9K_MODE='nerdfont-complete'
 # POWERLEVEL9K_MODE='awesome-fontconfig'
-source ~/dotfiles/zsh/powerlevel9k.zsh
+#source ~/dotfiles/zsh/powerlevel9k.zsh
+source ~/dotfiles/zsh/spaceship.zsh
 
 antigen bundle git
 antigen bundle docker
@@ -33,7 +34,8 @@ antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle tarruda/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 
-antigen theme bhilburn/powerlevel9k powerlevel9k
+#antigen theme bhilburn/powerlevel9k powerlevel9k
+antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
 antigen apply
 
 # source ~/dotfiles/zsh/zsh-autosuggestions.zsh/zsh-autosuggestions.zsh
@@ -68,6 +70,10 @@ setopt hist_verify
 setopt inc_append_history
 setopt share_history # share command history data
 
+# Timeout for vim
+bindkey -v
+spaceship_vi_mode_enable
+export KEYTIMEOUT=1
 ## Command history configuration
 if [ -z "$HISTFILE" ]; then
     HISTFILE=$HOME/.zsh_history
@@ -93,3 +99,5 @@ function title {
         export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
     fi
 }
+
+export EDITOR=nvim

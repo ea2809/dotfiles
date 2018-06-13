@@ -253,3 +253,8 @@ autocmd FileType tex nnoremap <leader>r :! pdflatex %<CR>
 " Basic mappings {{{
 nnoremap <leader>o :! open . <CR>
 " }}}
+
+" {{{ Virtualenv
+let g:python_host_prog = '/Users/cx02166/venvs/nvim/bin/python'
+let g:python3_host_prog = '/Users/cx02166/venvs/nvim3/bin/python'
+" }}}

@@ -43,8 +43,8 @@ copyifnot ~/dotfiles/vim/init.vim ~/.config/nvim/init.vim
 
 checkfile ~/.zshrc "source ~/dotfiles/zsh/zshrc"
 
-createdir ~/.firstinstall
-pushd ~/.firstinstall
-git clone git@github.com:ryanoasis/nerd-fonts.git
-cd nerd-fonts && ./install.sh
-popd 
+#createdir ~/.firstinstall
+#pushd ~/.firstinstall
+#git clone git@github.com:ryanoasis/nerd-fonts.git
+#cd nerd-fonts && ./install.sh
+#popd 
