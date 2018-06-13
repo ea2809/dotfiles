@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries'}
+Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries'}
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'junegunn/goyo.vim'
 Plug 'airblade/vim-gitgutter'
