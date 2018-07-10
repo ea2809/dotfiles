@@ -79,18 +79,8 @@ if [ -z "$HISTFILE" ]; then
     HISTFILE=$HOME/.zsh_history
 fi
 
-
-
-alias dvimrc='nvim ~/dotfiles/vim/vimrc'
-alias dzshrc='nvim ~/dotfiles/zsh/zshrc'
-alias dtmux='nvim ~/dotfiles/tmux/tmux.conf'
-alias daliases='nvim ~/dotfiles/zsh/alias.zsh'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
 source ~/dotfiles/zsh/alias.zsh
 source ~/dotfiles/zsh/functions.zsh
-#fpath=(~/dotfiles/zsh/functions.zsh ~/.zomg/fns $fpath)
 
 # From https://superuser.com/questions/419775/with-bash-iterm2-how-to-name-tabs
 #setup terminal tab title
