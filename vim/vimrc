@@ -35,7 +35,7 @@ let g:python3_host_prog=$HOME.'/venvs/nvim3/bin/python'
 	" Display problematic whitespace
 	" set listchars=tab:▸▹,trail:•,extends:#,precedes:#,nbsp:⌻
 	" set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-	set listchars=eol:¬,tab:»·,trail:~,extends:>,precedes:<,space:␣
+	set listchars=eol:¬,tab:»\ ,trail:~,extends:>,precedes:<,space:·
 	set list
 
 	" Toggle hlsearch
