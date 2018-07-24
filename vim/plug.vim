@@ -18,6 +18,7 @@ Plug 'vim-scripts/restore_view.vim'
 
 if has("nvim")
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+		Plug 'zchee/deoplete-go', { 'do': 'make'}
 		Plug 'SirVer/ultisnips'
 		" Snippets are separated from the engine.
 		Plug 'honza/vim-snippets'
