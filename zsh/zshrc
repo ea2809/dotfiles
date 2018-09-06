@@ -71,6 +71,10 @@ setopt share_history # share command history data
 
 # Timeout for vim
 bindkey -v
+bindkey '^R' history-incremental-pattern-search-backward
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
+
 spaceship_vi_mode_enable
 export KEYTIMEOUT=1
 ## Command history configuration
