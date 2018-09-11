@@ -15,6 +15,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'ryanoasis/vim-devicons'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-scripts/restore_view.vim'
+Plug 'avanzzzi/behave.vim'
 
 if has("nvim")
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
