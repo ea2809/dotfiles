@@ -7,3 +7,6 @@ alias daliases='nvim ~/dotfiles/zsh/alias.zsh'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
+alias prettyjson='python -m json.tool'
