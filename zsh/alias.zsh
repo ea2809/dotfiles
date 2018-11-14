@@ -10,3 +10,6 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
 alias prettyjson='python -m json.tool'
+
+# Get the real path
+realpath() { for f in "$@"; do echo ${f}(:A); done }
