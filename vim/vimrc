@@ -10,13 +10,27 @@ let g:python3_host_prog=$HOME.'/venvs/nvim3/bin/python'
   endif
 " }}}
 
+"  Better move in text{{{
+" Most of the ideas from https://github.com/caarlos0/dotfiles/blob/master/vim/vimrc.symlink
+
+map <Up> gk
+map <Down> gj
+map k gk
+map j gj
+
+" Search mappings: These will make it so that going to the next one in a
+" search will center on the line it's found in.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+" }}}
+
 " Base configuration {{{
 	set nocompatible
 
 	set clipboard=unnamed " Set clipboard
 
-	let maplocalleader = ","
-	let mapleader = ","
+	let maplocalleader = " "
+	let mapleader = " "
 
 	" enable syntax and plugins (for netrw)
 	syntax enable
@@ -74,6 +88,16 @@ let g:python3_host_prog=$HOME.'/venvs/nvim3/bin/python'
 
 	" Activar las búsquedas
 	set hlsearch
+	set ignorecase
+	set smartcase
+
+	" Print when needed
+	set lazyredraw 
+
+	set complete=.,w,b,u,t
+	set completeopt=longest,menuone
+
+	set smarttab
 
 	" Disable mode show
 	set noshowmode
@@ -92,6 +116,9 @@ let g:python3_host_prog=$HOME.'/venvs/nvim3/bin/python'
 	set ttimeoutlen=50
 
 	set spelllang=es
+
+	" Auto reload files
+	set autoread
 " }}}
 
 "Split navigations {{{
@@ -101,9 +128,11 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 " }}}
 
-" Save with control+s {{{
+" Save with control+s and <leader>fs {{{
 nmap <C-s> :w<CR>
 imap <C-s> <Esc>:w<CR>
+nmap <leader>fs :w<CR>
+imap <leader>fs <Esc>:w<CR>
 " }}}
 
 " Buffers mappings {{{
@@ -112,6 +141,8 @@ inoremap <leader>bn <Esc>:bn<CR>
 
 nnoremap <leader>bt :b#<CR>
 inoremap <leader>bt <Esc>:b#<CR>
+nnoremap <leader><tab> :b#<CR>
+inoremap <leader><tab> <Esc>:b#<CR>
 
 nnoremap <leader>bb :ls<CR>
 inoremap <leader>bb <Esc>:ls<CR>
@@ -121,6 +152,15 @@ inoremap <leader>bp <Esc>:bp<CR>
 
 nnoremap <leader>bd :bd<CR>
 inoremap <leader>bd <Esc>:bd<CR>
+
+nnoremap <leader>q :q<CR>
+inoremap <leader>q <Esc>:q<CR>
+
+nnoremap <leader>wq :wq<CR>
+inoremap <leader>wq <Esc>:wq<CR>
+
+nnoremap <leader>Q :q!<CR>
+inoremap <leader>Q <Esc>:q!<CR>
 " }}}
 
 " Prose mode found on the net {{{
@@ -256,7 +296,7 @@ autocmd FileType tex nnoremap <leader>r :! pdflatex %<CR>
 " }}}
 
 " Basic mappings {{{
-nnoremap <leader>o :! open . <CR>
+nnoremap <leader>o :! open . <CR><CR>
 " }}}
 "
 " CTRLP{{{
@@ -267,4 +307,16 @@ nnoremap <leader>o :! open . <CR>
       \ --ignore .DS_Store
       \ --ignore "**/*.pyc"
       \ -g ""'
+" }}}
+
+" YAML{{{
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
+autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 expandtab
+" }}}
+
+" Python{{{
+"Copy from github: https://gist.github.com/eduardocereto/3088543
+au FileType python setlocal expandtab shiftwidth=4 tabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+" au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+au FileType python set foldmethod=indent foldlevel=99
 " }}}

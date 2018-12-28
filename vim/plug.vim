@@ -11,11 +11,14 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'gioele/vim-autoswap'
 Plug 'davidhalter/jedi-vim', { 'for': 'python'}
+Plug 'stephpy/vim-yaml', { 'for': 'yaml'}
 Plug 'vim-airline/vim-airline'
 Plug 'ryanoasis/vim-devicons'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-scripts/restore_view.vim'
-Plug 'avanzzzi/behave.vim'
+Plug 'christoomey/vim-tmux-navigator'
+" Plug 'avanzzzi/behave.vim'
+" Plug 'rooprob/vim-behave'
 
 if has("nvim")
 		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
