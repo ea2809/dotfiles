@@ -1,5 +1,9 @@
 call plug#begin('~/.vim/plugged')
 
+" Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'sbdchd/neoformat'
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries'}
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'junegunn/goyo.vim'
@@ -17,17 +21,21 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-scripts/restore_view.vim'
 Plug 'christoomey/vim-tmux-navigator'
+
+" Plug 'rust-lang/rust.vim'
 " Plug 'avanzzzi/behave.vim'
 " Plug 'rooprob/vim-behave'
 
 if has("nvim")
-		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-		Plug 'zchee/deoplete-go', { 'do': 'make'}
-		Plug 'SirVer/ultisnips'
-		" Snippets are separated from the engine.
-		Plug 'honza/vim-snippets'
 		Plug 'zchee/deoplete-jedi', { 'for': 'python'}
 		Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go'}
+		Plug 'autozimu/LanguageClient-neovim', {
+					\ 'branch': 'next',
+					\ 'do': 'bash install.sh',
+					\ }
+		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+		Plug 'SirVer/ultisnips'
+		Plug 'honza/vim-snippets'
 else
 		Plug 'Valloric/YouCompleteMe'
 endif

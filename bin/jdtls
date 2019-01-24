@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+server=~/dotfiles/vim/java
+fullPath=$server/jdt
+
+if [ ! -d "$server" ]; then
+  # Install
+  echo "Installing"
+  mkdir $server
+  curl -L https://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz --output $server/jdt.tar.gz
+  mkdir fullPath
+  tar xf $server/jdt.tar.gz -C $fullPath
+fi
+
+#echo "Called $@" >> $server/echos.log
+
+#-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=1044 \
+java \
+    -Declipse.application=org.eclipse.jdt.ls.core.id1  \
+    -Dosgi.bundles.defaultStartLevel=4 \
+    -Declipse.product=org.eclipse.jdt.ls.core.product \
+    -Dlog.level=ALL \
+    -noverify \
+    -Xmx1G \
+    -Xms1G \
+    -jar $fullPath/plugins/org.eclipse.equinox.launcher_1.*.jar \
+    -configuration ./config_linux \
+    -configuration $fullPath/config_mac/ \
+    --add-modules=ALL-SYSTEM \
+    --add-opens java.base/java.util=ALL-UNNAMED \
+    --add-opens java.base/java.lang=ALL-UNNAMED \
+    -data $1

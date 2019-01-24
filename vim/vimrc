@@ -10,7 +10,7 @@ let g:python3_host_prog=$HOME.'/venvs/nvim3/bin/python'
   endif
 " }}}
 
-"  Better move in text{{{
+" Better move in text{{{
 " Most of the ideas from https://github.com/caarlos0/dotfiles/blob/master/vim/vimrc.symlink
 
 map <Up> gk
@@ -34,6 +34,7 @@ nnoremap N Nzzzv
 
 	" enable syntax and plugins (for netrw)
 	syntax enable
+	filetype off
 	filetype plugin on
 
 	" Search down into subfolders
@@ -105,13 +106,9 @@ nnoremap N Nzzzv
 	" Show always the status
 	set laststatus=2
 
-	set background=dark
-
 	set number relativenumber
 
 	set termguicolors
-
-	colorscheme PaperColor
 
 	set ttimeoutlen=50
 
@@ -119,6 +116,20 @@ nnoremap N Nzzzv
 
 	" Auto reload files
 	set autoread
+
+	" Setup style
+	set background=dark
+	set t_Co=256  
+	let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default': {
+  \       'transparent_background': 1
+  \     }
+  \   }
+  \ }
+	colorscheme PaperColor
+
+	
 " }}}
 
 "Split navigations {{{
@@ -154,13 +165,10 @@ nnoremap <leader>bd :bd<CR>
 inoremap <leader>bd <Esc>:bd<CR>
 
 nnoremap <leader>q :q<CR>
-inoremap <leader>q <Esc>:q<CR>
 
 nnoremap <leader>wq :wq<CR>
-inoremap <leader>wq <Esc>:wq<CR>
 
 nnoremap <leader>Q :q!<CR>
-inoremap <leader>Q <Esc>:q!<CR>
 " }}}
 
 " Prose mode found on the net {{{
@@ -209,7 +217,7 @@ let g:airline_right_sep = ''
 let g:airline_left_alt_sep= ''
 let g:airline_left_sep = ''
 let g:airline#extensions#tabline#enabled = 1
-
+ 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
@@ -258,18 +266,35 @@ autocmd FileType go nmap <Leader>i  <Plug>(go-info)
 	au FileType vim setlocal foldmethod=marker
 " }}}
 
-" Java configuration {{{
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-autocmd! BufWritePost,BufEnter *.java Neomake
-autocmd! BufWritePre *.java Neoformat
-let g:EclimCompletionMethod = 'omnifunc'
+" Java {{{
+let g:gitdir=system("git rev-parse --show-toplevel")
+let isnotgitdir=matchstr(gitdir, '^fatal:.*')
+if empty(isnotgitdir)
+				" \ 'java': [$HOME.'/dotfiles/bin/jdtls', g:gitdir.'src/main/java/'],
+				 " \ 'java': ['tcp://127.0.0.1: 1044'],
+		let g:LanguageClient_serverCommands = {
+				\ 'java': [$HOME.'/dotfiles/bin/jdtls', g:gitdir.'src/main/java/'],
+				\ }
+else
+		let g:LanguageClient_serverCommands = {
+				\ 'java': [$HOME.'/dotfiles/bin/jdtls'],
+				\ }
+endif
 
+let g:JavaComplete_AutoStartServer = 0
+let g:JavaComplete_CheckServerVersionAtStartup = 0
+let g:JavaComplete_IgnoreErrorMsg = 1
+
+" autocmd FileType java setlocal omnifunc=javacomplete#Complete
+autocmd! BufWritePost,BufEnter *.java Neomake
+" autocmd! BufWritePre *.java Neoformat
+" let g:EclimCompletionMethod = 'omnifunc'
 
 " autocmd FileType java nmap <leader>b  <Plug>(go-build)
-autocmd FileType java nmap <leader>r  <Plug>:Java
+" autocmd FileType java nmap <leader>r  <Plug>:Java
 " autocmd FileType java nmap <leader>tt  <Plug>(go-test)
 " autocmd FileType java nmap <leader>tf  <Plug>(go-test-func)
-autocmd FileType java nnoremap <leader>gt :JavaSearch -p <C-R><C-W> -t method -x implementors<CR>
+autocmd FileType java nnoremap <leader>gt :call LanguageClient#textDocument_definition()<CR>
 " autocmd FileType java nmap <leader>gk  <Plug>(go-def-pop)
 " autocmd FileType java nmap <leader>gs  <Plug>(go-def-stack)
 " autocmd FileType java nmap <leader>gc  <Plug>(go-def-stack-clear)
@@ -306,6 +331,7 @@ nnoremap <leader>o :! open . <CR><CR>
       \ --ignore .hg
       \ --ignore .DS_Store
       \ --ignore "**/*.pyc"
+      \ --ignore "*.class"
       \ -g ""'
 " }}}
 
@@ -314,9 +340,35 @@ au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
 autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 expandtab
 " }}}
 
+" JSON{{{
+au! BufNewFile,BufReadPost *.json set filetype=json foldmethod=syntax
+autocmd FileType json setlocal tabstop=2 shiftwidth=2 expandtab
+" }}}
+
 " Python{{{
 "Copy from github: https://gist.github.com/eduardocereto/3088543
 au FileType python setlocal expandtab shiftwidth=4 tabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-" au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-au FileType python set foldmethod=indent foldlevel=99
+au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+autocmd FileType python setlocal foldmethod=indent foldlevel=99
 " }}}
+
+" Cucumber {{{
+" Thankts tpope for you awesome plugin: https://github.com/tpope/vim-cucumber
+autocmd BufNewFile,BufReadPost *.feature set filetype=gherkin
+au! Syntax gherkin source ~/dotfiles/vim/cucumber.vim
+" }}}
+
+" Rust {{{
+
+" }}}
+
+" Neoformat {{{let g:LanguageClient_serverCommands = {
+    \ 'java': ['/usr/local/bin/jdtls'],
+    \ }
+let g:neoformat_only_msg_on_error = 1
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
+" }}}
+

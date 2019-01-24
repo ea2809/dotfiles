@@ -1,5 +1,6 @@
 source ~/dotfiles/zsh/antigen.zsh
 PATH+=:~/go/bin
+PATH+=:~/dotfiles/bin
 #antigen use oh-my-zsh
 
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
@@ -99,3 +100,4 @@ function title {
 }
 
 export EDITOR=nvim
+alias ctags="`brew --prefix`/bin/ctags"
