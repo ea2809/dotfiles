@@ -308,6 +308,7 @@ let g:JavaComplete_IgnoreErrorMsg = 1
 
 " autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd! BufWritePost,BufEnter *.java Neomake
+autocmd FileType java setlocal tabstop=4 shiftwidth=4 expandtab
 " autocmd! BufWritePre *.java Neoformat
 " let g:EclimCompletionMethod = 'omnifunc'
 

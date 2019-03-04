@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+server=~/dotfiles/vim/java
+fullPath=$server/google-java-format.jar
+
+if [ ! -f "$fullPath" ]; then
+  # Install
+  echo "Installing"
+  mkdir -p $server
+  curl -s https://api.github.com/repos/google/google-java-format/releases/latest |
+    grep "browser_download_url.*all-deps.jar" |
+    cut -d : -f 2,3 |
+    tr -d \" |
+    wget -q -i- -O $fullPath
+fi
+
+java \
+  -jar $fullPath \
+  "$@"
