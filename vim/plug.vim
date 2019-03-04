@@ -2,7 +2,7 @@ call plug#begin('~/.vim/plugged')
 
 " Plug 'scrooloose/syntastic'
 Plug 'w0rp/ale'
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 Plug 'sbdchd/neoformat'
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries'}
 Plug 'NLKNguyen/papercolor-theme'
@@ -44,4 +44,8 @@ Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java'}
 Plug 'neomake/neomake'
 Plug 'sbdchd/vim-run'
 Plug 'tpope/vim-eunuch'
+Plug 'junegunn/vim-easy-align'
+" Plug 'scrooloose/nerdtree'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'tpope/vim-vinegar'
 call plug#end()

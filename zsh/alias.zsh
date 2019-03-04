@@ -15,6 +15,8 @@ alias ll='ls -la'
 alias G='| grep '
 alias F=' find . -name '
 
+alias ys='yarn start'
+alias yi='yarn install'
 
 alias rerun='behave @rerun.txt'
 
