@@ -135,6 +135,8 @@ let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 20
+let g:netrw_list_hide= '.*\.swp$,.*\.pyc'
+let g:netrw_hide = 1
 " augroup ProjectDrawer
 "   autocmd!
 "   autocmd VimEnter * :Vexplore
@@ -151,6 +153,11 @@ let g:netrw_winsize = 20
 " https://stackoverflow.com/questions/44065404/vim-does-not-reload-set-option-config-in-vimrc/44066065#44066065
 set viewoptions-=options
 
+" Reload when something happens
+autocmd FocusGained * silent! checktime
+
+" Search for the selected text
+vnoremap // y/\V<C-r>=escape(@",'/\')<CR><CR>
 " }}}
 
 "Split navigations {{{
@@ -162,9 +169,12 @@ nnoremap <C-H> <C-W><C-H>
 
 " Save with control+s and <leader>fs {{{
 nmap <C-s> :w<CR>
-imap <C-s> <Esc>:w<CR>
+nmap <leader>w :w<CR>
+nmap <leader>ww :w<CR>
+imap jk <ESC>
+" imap <C-s> <Esc>:w<CR>
 nmap <leader>fs :w<CR>
-imap <leader>fs <Esc>:w<CR>
+" imap <leader>fs <Esc>:w<CR>
 " }}}
 
 " Buffers mappings {{{
@@ -175,6 +185,9 @@ nnoremap <leader>bt :b#<CR>
 inoremap <leader>bt <Esc>:b#<CR>
 nnoremap <leader><tab> :b#<CR>
 inoremap <leader><tab> <Esc>:b#<CR>
+
+noremap <Right> :bn<CR>
+noremap <Left> :bp<CR>
 
 nnoremap <leader>bb :ls<CR>
 inoremap <leader>bb <Esc>:ls<CR>
@@ -306,9 +319,17 @@ let g:JavaComplete_AutoStartServer = 0
 let g:JavaComplete_CheckServerVersionAtStartup = 0
 let g:JavaComplete_IgnoreErrorMsg = 1
 
+let g:neoformat_java_google = {
+			\ 'exe': '/usr/local/bin/java-formatter',
+			\ 'args': ["-"],
+			\ 'stdin': 1, 
+			\ }
+
+let g:neoformat_enabled_java = ['google']
+
 " autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd! BufWritePost,BufEnter *.java Neomake
-autocmd FileType java setlocal tabstop=4 shiftwidth=4 expandtab
+autocmd FileType java setlocal tabstop=2 shiftwidth=2 expandtab
 " autocmd! BufWritePre *.java Neoformat
 " let g:EclimCompletionMethod = 'omnifunc'
 
@@ -347,19 +368,27 @@ nnoremap <leader>o :! open . <CR><CR>
 " }}}
 "
 " CTRLP{{{
- let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-      \ --ignore .git
-      \ --ignore .svn
-      \ --ignore .hg
-      \ --ignore .DS_Store
-      \ --ignore "**/*.pyc"
-      \ --ignore "*.class"
-      \ -g ""'
+"let g:ctrlp_mruf_relative = 1
+if executable('ag')
+	 let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+				\ --ignore .git
+				\ --ignore .svn
+				\ --ignore .hg
+				\ --ignore .DS_Store
+				\ --ignore "**/*.pyc"
+				\ --ignore "*.class"
+				\ -g ""'
+	let g:ctrlp_use_caching = 0
+else
+	let g:ctrlp_clear_cache_on_exit = 0
+endif
 " }}}
 
 " YAML{{{
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
 autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 expandtab
+
+let g:neoformat_enabled_yaml = ['prettier']
 " }}}
 
 " JSX{{{
@@ -378,6 +407,9 @@ au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\
 autocmd FileType python setlocal foldmethod=indent foldlevel=99
 autocmd FileType python setlocal commentstring=#\ %s
 let g:jedi#show_call_signatures = 2
+" let g:neoformat_enabled_python = ['autopep8', 'yapf', 'isort']
+let g:neoformat_enabled_python = ['autopep8', 'yapf']
+autocmd FileType python let g:neoformat_run_all_formatters = 1
 " }}}
 
 " Cucumber {{{
@@ -389,6 +421,11 @@ autocmd FileType cucumber setlocal commentstring=#\ %s
 autocmd FileType feature setlocal commentstring=#\ %s
 autocmd FileType gherkin vnoremap <leader>= :EasyAlign*<Bar><Enter>
 autocmd FileType gherkin nnoremap <leader>= V}k<leader>=
+autocmd FileType gherkin setlocal tabstop=2 shiftwidth=2 expandtab
+" }}}
+
+" CFG (.cfg) {{{
+autocmd FileType cfg setlocal commentstring=#\ %s
 " }}}
 
 " Rust {{{
@@ -417,3 +454,20 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 " }}}
+
+" vim-workspace{{{
+let g:workspace_session_directory = $HOME . '/.vim/sessions/'
+nnoremap <leader>wt :ToggleWorkspace<CR>
+let g:workspace_autosave = 0
+let g:workspace_persist_undo_history = 0
+let g:workspace_session_disable_on_args = 1
+"}}}
+
+" Ag (Silver Searcher) {{{
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+
+endif
+" }}}}

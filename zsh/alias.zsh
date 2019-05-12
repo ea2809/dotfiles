@@ -17,8 +17,13 @@ alias F=' find . -name '
 
 alias ys='yarn start'
 alias yi='yarn install'
+alias gdu='git diff -u'
+alias gpd='git pull origin develop'
 
 alias rerun='behave @rerun.txt'
 
 # Get the real path
 realpath() { for f in "$@"; do echo ${f}(:A); done }
+
+alias dsm="docker start $(docker ps -a |grep mobility|awk '{print $1;}')"
+alias dkm="docker stop $(docker ps -a |grep mobility|awk '{print $1;}')"

@@ -48,4 +48,6 @@ Plug 'junegunn/vim-easy-align'
 " Plug 'scrooloose/nerdtree'
 " Plug 'Xuyuanp/nerdtree-git-plugin'
 " Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-vinegar'
+Plug 'thaerkh/vim-workspace'
 call plug#end()
