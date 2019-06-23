@@ -25,22 +25,24 @@ Plug 'christoomey/vim-tmux-navigator'
 " Plug 'rust-lang/rust.vim'
 " Plug 'avanzzzi/behave.vim'
 " Plug 'rooprob/vim-behave'
+"
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 
 if has("nvim")
-		Plug 'zchee/deoplete-jedi', { 'for': 'python'}
-		Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go'}
-		Plug 'autozimu/LanguageClient-neovim', {
-					\ 'branch': 'next',
-					\ 'do': 'bash install.sh',
-					\ }
-		Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+		" Plug 'zchee/deoplete-jedi', { 'for': 'python'}
+		" Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go'}
+		" Plug 'autozimu/LanguageClient-neovim', {
+		" 			\ 'branch': 'next',
+		" 			\ 'do': 'bash install.sh',
+		" 			\ }
+		" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 		Plug 'SirVer/ultisnips'
 		Plug 'honza/vim-snippets'
 else
 		Plug 'Valloric/YouCompleteMe'
 endif
 Plug 'sbdchd/neoformat'
-Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java'}
+" Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java'}
 Plug 'neomake/neomake'
 Plug 'sbdchd/vim-run'
 Plug 'tpope/vim-eunuch'
@@ -50,4 +52,5 @@ Plug 'junegunn/vim-easy-align'
 " Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-vinegar'
 Plug 'thaerkh/vim-workspace'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 call plug#end()

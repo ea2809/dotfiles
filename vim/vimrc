@@ -337,7 +337,9 @@ autocmd FileType java setlocal tabstop=2 shiftwidth=2 expandtab
 " autocmd FileType java nmap <leader>r  <Plug>:Java
 " autocmd FileType java nmap <leader>tt  <Plug>(go-test)
 " autocmd FileType java nmap <leader>tf  <Plug>(go-test-func)
-autocmd FileType java nnoremap <leader>gt :call LanguageClient#textDocument_definition()<CR>
+" autocmd FileType java nnoremap <leader>gt :call LanguageClient#textDocument_definition()<CR>
+autocmd FileType java nmap <leader>gt <Plug>(coc-definition)
+autocmd FileType java nmap <leader>rn <Plug>(coc-rename)
 " autocmd FileType java nmap <leader>gk  <Plug>(go-def-pop)
 " autocmd FileType java nmap <leader>gs  <Plug>(go-def-stack)
 " autocmd FileType java nmap <leader>gc  <Plug>(go-def-stack-clear)
@@ -410,6 +412,10 @@ let g:jedi#show_call_signatures = 2
 " let g:neoformat_enabled_python = ['autopep8', 'yapf', 'isort']
 let g:neoformat_enabled_python = ['autopep8', 'yapf']
 autocmd FileType python let g:neoformat_run_all_formatters = 1
+
+autocmd FileType python nmap <leader>gt <Plug>(coc-definition)
+autocmd FileType python nmap <leader>rn <Plug>(coc-rename)
+
 " }}}
 
 " Cucumber {{{

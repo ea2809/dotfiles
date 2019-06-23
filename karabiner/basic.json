@@ -1,0 +1,90 @@
+{
+  "title": "Change enter key (enrique)",
+  "rules": [
+    {
+      "description": "Change enter to right control if pressed with other keys, to enter if pressed alone.",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "return_or_enter",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_control",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "return_or_enter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Change caps lock to left control if pressed with other keys, to enter if pressed alone.",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "caps_lock",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_control",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "escape"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Change right_shift  -> comando alt shift",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_shift",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_command",
+              "modifiers": [
+                "left_shift",
+                "left_alt"
+              ],
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "enter"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
