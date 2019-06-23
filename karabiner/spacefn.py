@@ -13,7 +13,7 @@ def basic_rule(description="Rule", type="basic", functions=[]):
     }
 
     def add_functions(inner_functions, basic_json):
-        basic_json["manipulators"].append(basic_manipulators)
+        basic_json["manipulators"].append(copy.deepcopy(basic_manipulators))
         for function in inner_functions:
             if callable(function):
                 function(basic_json["manipulators"][-1])
@@ -22,7 +22,7 @@ def basic_rule(description="Rule", type="basic", functions=[]):
         globals = []
         funcs = []
         for function in functions:
-            if isfunction(function):
+            if isfunction(function) or isinstance(function, Karabiner):
                 globals.append(function)
             else:
                 funcs.append(function)
@@ -35,76 +35,100 @@ def basic_rule(description="Rule", type="basic", functions=[]):
     # Multiple manipulators
     else:
         for function in ana_funcs:
-            print(globals)
-            print(function)
             add_functions(function+globals, basic)
 
     return basic
 
 
-def basic_from(keycode=""):
-    def basic_from_inner(base_json):
-        fron = {
-            "key_code": keycode,
-            "modifiers": {
-                "optional": [
-                    "any"
-                ]
-            }
-        }
+class Karabiner(object):
+    def __init__(self, options):
+        self.options = copy.deepcopy(options)
 
-        base_json["from"] = fron
-    return basic_from_inner
+    def run(self, base_json):
+        return base_json
+
+    def __call__(self, base_json):
+        return self.run(base_json)
+
+    def __repr__(self):
+        return self.__unicode__()
+
+    def __str__(self):
+        return self.__unicode__()
+
+    def __unicode__(self):
+        return "Karabiner {}".format(self.options)
+
+
+def basic_from(keycode=""):
+    class KarabinerFrom(Karabiner):
+        def run(self,base_json):
+            fron = {
+                "key_code": self.options.get("keycode"),
+                "modifiers": {
+                    "optional": [
+                        "any"
+                    ]
+                }
+            }
+
+            base_json["from"] = fron
+            return fron
+    return KarabinerFrom({"keycode": keycode})
 
 
 def basic_to(keycode="", modifiers=None, event="to"):
-    def basic_to_inner(base_json):
-        to = {
-            "key_code": keycode,
-        }
+    class KarabinerTo(Karabiner):
+        def run(self,base_json):
+            to = {
+                "key_code": self.options.get("keycode"),
+            }
 
-        if modifiers:
-            to["modifiers"] = modifiers
+            if self.options.get("modifiers"):
+                to["modifiers"] = self.options.get("modifiers")
 
-        base_json[event] = to
-    return basic_to_inner
+            base_json[self.options.get("event")] = to
+    return KarabinerTo({"keycode": keycode, "modifiers":modifiers, "event":event})
 
 
 def set_variable(name, value, event="to"):
-    def set_variable_inner(base_json):
-        to = {
-            "set_variable": {
-                "name": name,
-                "value": value
+    class KarabinerVar(Karabiner):
+        def run(self,base_json):
+            to = {
+                "set_variable": {
+                    "name":  self.options.get("name"),
+                    "value": self.options.get("value")
+                }
             }
-        }
 
-        base_json[event] = to
-    return set_variable_inner
+            base_json[self.options.get("event")] = to
+    return KarabinerVar({"name": name, "value":value, "event":event})
 
 
 def conditions(name, value):
-    def basic_condition(base_json):
-        conditions = [
-            {
-                "type": "variable_if",
-                "name": name,
-                "value": value
-            }
-        ]
+    class KarabinerCon(Karabiner):
+        def run(self,base_json):
+            conditions = [
+                {
+                    "type": "variable_if",
+                    "name":  self.options.get("name"),
+                    "value": self.options.get("value")
+                }
+            ]
 
-        base_json["conditions"] = conditions
-    return basic_condition
+            base_json["conditions"] = conditions
+    return KarabinerCon({"name": name, "value": value})
 
 
 def shell_to(script="", event="to"):
-    def basic_shell(base_json):
-        to = {
-            "shell_command": script,
-        }
+    class KarabinerShell(Karabiner):
+        def run(self,base_json):
+            to = {
+                "shell_command": self.options.get("script"),
+            }
 
-        base_json[event] = to
-    return basic_shell
+            base_json[self.options.get("event")] = to
+    return KarabinerShell({"script": script, "event": event})
 
 
 def program_to(program, event="to"):
@@ -159,9 +183,7 @@ def spacefn_functions():
         def add_funcs_to(name, options, funcs):
             function = functions.get(name)
             if callable(function):
-                print(name,options)
                 funcs.append(function(**options))
-                print(funcs)
 
         for name, options in definition.iteritems():
             if name == "name":
@@ -170,9 +192,7 @@ def spacefn_functions():
                 for option in options:
                     sub_funcs = []
                     for sub_name, sub_options in option.iteritems():
-                        print(sub_name, sub_options)
                         add_funcs_to(sub_name, sub_options, sub_funcs)
-                    print(sub_funcs)
                     funcs.append(sub_funcs)
             else:
                 add_funcs_to(name, options, funcs)
@@ -199,7 +219,7 @@ definitions = [
     {"name": "c to Chrome", "from": {"keycode":"c"}, "shell": { "program": "Google Chrome"}},
     {"name": "hyper g to Alfred github", "from": {"keycode":"g"}, "hyper": { "keycode": "g"}},
     {"name": "hyper w to Alfred github", "from": {"keycode":"w"}, "hyper": { "keycode": "w"}},
-    {"name": "hyper jkil to arrows", "complex":[
+    {"name": "hyper hjkl to arrows", "complex":[
         {"from": {"keycode":"h"}, "to": { "keycode": "left_arrow"}},
         {"from": {"keycode":"j"}, "to": { "keycode": "down_arrow"}},
         {"from": {"keycode":"k"}, "to": { "keycode": "up_arrow"}},
