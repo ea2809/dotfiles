@@ -21,6 +21,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-scripts/restore_view.vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'Yggdroot/indentLine'
 
 " Plug 'rust-lang/rust.vim'
 " Plug 'avanzzzi/behave.vim'

@@ -60,17 +60,20 @@ class Karabiner(object):
         return "Karabiner {}".format(self.options)
 
 
-def basic_from(keycode=""):
+def basic_from(keycode="", mandatory=None, optional=["any"]):
     class KarabinerFrom(Karabiner):
         def run(self,base_json):
             fron = {
                 "key_code": self.options.get("keycode"),
-                "modifiers": {
-                    "optional": [
-                        "any"
-                    ]
-                }
             }
+
+            if mandatory:
+                modifiers = fron.setdefault("modifiers", {}) 
+                modifiers.update({"mandatory" : mandatory})
+
+            if optional:
+                modifiers = fron.setdefault("modifiers", {}) 
+                modifiers.update({"optional" : optional})
 
             base_json["from"] = fron
             return fron
@@ -217,6 +220,9 @@ definitions = [
     {"name": "i to Iterm", "from": {"keycode":"i"}, "shell": { "program": "iTerm"}},
     {"name": "s to Safari", "from": {"keycode":"s"}, "shell": { "program": "Safari"}},
     {"name": "c to Chrome", "from": {"keycode":"c"}, "shell": { "program": "Google Chrome"}},
+    {"name": "t to Slack", "from": {"keycode":"t", "optional": False}, "shell": { "program": "Slack"}},
+    {"name": "T to Station", "from": {"keycode":"t", "mandatory": ["shift"]}, "shell": { "program": "Station"}},
+    {"name": "p to PyCharm", "from": {"keycode":"p"}, "shell": { "program": "PyCharm"}},
     {"name": "hyper g to Alfred github", "from": {"keycode":"g"}, "hyper": { "keycode": "g"}},
     {"name": "hyper w to Alfred github", "from": {"keycode":"w"}, "hyper": { "keycode": "w"}},
     {"name": "hyper hjkl to arrows", "complex":[
@@ -224,6 +230,14 @@ definitions = [
         {"from": {"keycode":"j"}, "to": { "keycode": "down_arrow"}},
         {"from": {"keycode":"k"}, "to": { "keycode": "up_arrow"}},
         {"from": {"keycode":"l"}, "to": { "keycode": "right_arrow"}},
+        {"from": {"keycode":"semicolon", "optional": False}, "to": { "keycode": "delete_or_backspace"}},
+        {"from": {"keycode":"semicolon", "mandatory": ["shift"]}, "to": { "keycode": "delete_or_backspace", "modifiers": ["fn"]}},
+    ]},
+    {"name": "Navigation", "complex":[
+        {"from": {"keycode":"n"}, "to": { "keycode": "left_arrow", "modifiers": ["control"]}},
+        {"from": {"keycode":"m"}, "to": { "keycode": "right_arrow", "modifiers": ["control"]}},
+        {"from": {"keycode":"d"}, "to": { "keycode": "tab", "modifiers": ["control", "shift"]}},
+        {"from": {"keycode":"f"}, "to": { "keycode": "tab", "modifiers": ["control"]}},
     ]},
 ]
 

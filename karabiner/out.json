@@ -1,0 +1,540 @@
+{
+  "rules": [
+    {
+      "description": "SpaceFn basic config", 
+      "manipulators": [
+        {
+          "to_if_alone": {
+            "key_code": "spacebar"
+          }, 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "spacebar"
+          }, 
+          "to_after_key_up": {
+            "set_variable": {
+              "name": "spacefn_mode", 
+              "value": 0
+            }
+          }, 
+          "type": "basic", 
+          "to_if_held_down": {
+            "set_variable": {
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          }
+        }
+      ]
+    }, 
+    {
+      "description": "SpaceFN: a to Alfred", 
+      "manipulators": [
+        {
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "a"
+          }, 
+          "type": "basic", 
+          "to": {
+            "shell_command": "open -a 'Alfred 4'"
+          }
+        }
+      ]
+    }, 
+    {
+      "description": "SpaceFN: b to spacebar", 
+      "manipulators": [
+        {
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "b"
+          }, 
+          "type": "basic", 
+          "to": {
+            "key_code": "spacebar"
+          }
+        }
+      ]
+    }, 
+    {
+      "description": "SpaceFN: i to Iterm", 
+      "manipulators": [
+        {
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "i"
+          }, 
+          "type": "basic", 
+          "to": {
+            "shell_command": "open -a 'iTerm'"
+          }
+        }
+      ]
+    }, 
+    {
+      "description": "SpaceFN: s to Safari", 
+      "manipulators": [
+        {
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "s"
+          }, 
+          "type": "basic", 
+          "to": {
+            "shell_command": "open -a 'Safari'"
+          }
+        }
+      ]
+    }, 
+    {
+      "description": "SpaceFN: c to Chrome", 
+      "manipulators": [
+        {
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "c"
+          }, 
+          "type": "basic", 
+          "to": {
+            "shell_command": "open -a 'Google Chrome'"
+          }
+        }
+      ]
+    }, 
+    {
+      "description": "SpaceFN: t to Slack", 
+      "manipulators": [
+        {
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "from": {
+            "key_code": "t"
+          }, 
+          "type": "basic", 
+          "to": {
+            "shell_command": "open -a 'Slack'"
+          }
+        }
+      ]
+    }, 
+    {
+      "description": "SpaceFN: T to Station", 
+      "manipulators": [
+        {
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ], 
+              "mandatory": [
+                "shift"
+              ]
+            }, 
+            "key_code": "t"
+          }, 
+          "type": "basic", 
+          "to": {
+            "shell_command": "open -a 'Station'"
+          }
+        }
+      ]
+    }, 
+    {
+      "description": "SpaceFN: p to PyCharm", 
+      "manipulators": [
+        {
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "p"
+          }, 
+          "type": "basic", 
+          "to": {
+            "shell_command": "open -a 'PyCharm'"
+          }
+        }
+      ]
+    }, 
+    {
+      "description": "SpaceFN: hyper g to Alfred github", 
+      "manipulators": [
+        {
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "g"
+          }, 
+          "type": "basic", 
+          "to": {
+            "modifiers": [
+              "right_command", 
+              "right_control", 
+              "right_option", 
+              "right_shift"
+            ], 
+            "key_code": "g"
+          }
+        }
+      ]
+    }, 
+    {
+      "description": "SpaceFN: hyper w to Alfred github", 
+      "manipulators": [
+        {
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "w"
+          }, 
+          "type": "basic", 
+          "to": {
+            "modifiers": [
+              "right_command", 
+              "right_control", 
+              "right_option", 
+              "right_shift"
+            ], 
+            "key_code": "w"
+          }
+        }
+      ]
+    }, 
+    {
+      "description": "SpaceFN: hyper hjkl to arrows", 
+      "manipulators": [
+        {
+          "to": {
+            "key_code": "left_arrow"
+          }, 
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "type": "basic", 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "h"
+          }
+        }, 
+        {
+          "to": {
+            "key_code": "down_arrow"
+          }, 
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "type": "basic", 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "j"
+          }
+        }, 
+        {
+          "to": {
+            "key_code": "up_arrow"
+          }, 
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "type": "basic", 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "k"
+          }
+        }, 
+        {
+          "to": {
+            "key_code": "right_arrow"
+          }, 
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "type": "basic", 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "l"
+          }
+        }, 
+        {
+          "to": {
+            "key_code": "delete_or_backspace"
+          }, 
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "type": "basic", 
+          "from": {
+            "key_code": "semicolon"
+          }
+        }, 
+        {
+          "to": {
+            "modifiers": [
+              "fn"
+            ], 
+            "key_code": "delete_or_backspace"
+          }, 
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "type": "basic", 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ], 
+              "mandatory": [
+                "shift"
+              ]
+            }, 
+            "key_code": "semicolon"
+          }
+        }
+      ]
+    }, 
+    {
+      "description": "SpaceFN: Navigation", 
+      "manipulators": [
+        {
+          "to": {
+            "modifiers": [
+              "control"
+            ], 
+            "key_code": "left_arrow"
+          }, 
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "type": "basic", 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "n"
+          }
+        }, 
+        {
+          "to": {
+            "modifiers": [
+              "control"
+            ], 
+            "key_code": "right_arrow"
+          }, 
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "type": "basic", 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "m"
+          }
+        }, 
+        {
+          "to": {
+            "modifiers": [
+              "control", 
+              "shift"
+            ], 
+            "key_code": "tab"
+          }, 
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "type": "basic", 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "d"
+          }
+        }, 
+        {
+          "to": {
+            "modifiers": [
+              "control"
+            ], 
+            "key_code": "tab"
+          }, 
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "type": "basic", 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }, 
+            "key_code": "f"
+          }
+        }
+      ]
+    }
+  ], 
+  "title": "Enrique's rules"
+}
