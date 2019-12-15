@@ -1,4 +1,5 @@
 alias o="open ."
+alias n="nvim"
 alias e="exit"
 alias dvimrc='nvim ~/dotfiles/vim/vimrc'
 alias dzshrc='nvim ~/dotfiles/zsh/zshrc'
@@ -11,9 +12,14 @@ alias .....='cd ../../../..'
 
 alias prettyjson='python -m json.tool'
 alias dps='docker ps'
+alias ls='ls -G'
 alias ll='ls -la'
-alias G='| grep '
-alias F=' find . -name '
+alias f='find . -name '
+
+alias -g G='| grep '
+alias -g L='| less '
+alias -g N='| nvim'
+alias -g F='| fzf'
 
 alias ys='yarn start'
 alias yi='yarn install'
@@ -22,8 +28,5 @@ alias gpd='git pull origin develop'
 
 alias rerun='behave @rerun.txt'
 
-# Get the real path
-realpath() { for f in "$@"; do echo ${f}(:A); done }
-
-alias dsm="docker start $(docker ps -a |grep mobility|awk '{print $1;}')"
-alias dkm="docker stop $(docker ps -a |grep mobility|awk '{print $1;}')"
+alias fzfp="fzf --preview 'bat --color=always {}'"
+alias bwip="behave -t @wip"

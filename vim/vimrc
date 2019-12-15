@@ -2,7 +2,11 @@
 let g:python_host_prog=$HOME.'/venvs/nvim/bin/python'
 let g:python3_host_prog=$HOME.'/venvs/nvim3/bin/python'
 " }}}
-"
+
+" Pre plug preferences {{{
+autocmd FileType python let b:coc_root_patterns = ['requirements.txt', 'behave.ini', 'features', '.git', '.env']
+" }}}
+
 " Install plugins using vim-plug {{{
   let plugfile = $HOME . '/dotfiles/vim/plug.vim'
   if filereadable(plugfile)
@@ -131,12 +135,13 @@ nnoremap N Nzzzv
 
 " Netrw look like nerdtree
 let g:netrw_banner = 0
-let g:netrw_liststyle = 3
+" let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 20
 let g:netrw_list_hide= '.*\.swp$,.*\.pyc'
 let g:netrw_hide = 1
+let g:netrw_fastbrowse = 0
 " augroup ProjectDrawer
 "   autocmd!
 "   autocmd VimEnter * :Vexplore
@@ -390,7 +395,19 @@ nnoremap <leader>o :! open . <CR><CR>
 
 " CTRLP{{{
 "let g:ctrlp_mruf_relative = 1
-if executable('ag')
+
+if executable('fzf')
+	let g:ctrlp_map = '<m-p>'
+	noremap <silent> <C-p> :Files<CR>
+endif
+
+if executable('fd')
+	let g:ctrlp_user_command = 'fd --type f --color never "" %s'
+	let g:ctrlp_use_caching = 0
+elseif executable('rg')
+	let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+	let g:ctrlp_use_caching = 0
+elseif executable('ag')
 	 let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
 				\ --ignore .git
 				\ --ignore .svn
@@ -490,12 +507,19 @@ let g:workspace_persist_undo_history = 0
 let g:workspace_session_disable_on_args = 1
 "}}}
 
-" Ag (Silver Searcher) {{{
+" Rg (ripgrep) and Ag (Silver Searcher) {{{
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading
+  command -nargs=+ -complete=file -bar Rgg silent! grep! <args>|cwindow|redraw!
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+  nnoremap <Leader>ag :Rg<Space> 
+endif
+
 if executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
-  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-	nnoremap <Leader>ag :Ag<Space> 
+  command -nargs=+ -complete=file -bar Agg silent! grep! <args>|cwindow|redraw!
+  nnoremap <Leader>ag :Ag<Space> 
 endif
 " }}}}
 
@@ -509,4 +533,21 @@ endif
 	let g:vim_markdown_conceal_code_blocks = 0
 " }}}}
 
+" Netrw {{{
+" Quit netrw when selecting a file
+" function! QuitNetrw()
+"   for i in range(1, bufnr("$"))
+"     if buflisted(i)
+"       if getbufvar(i, '&filetype') == "netrw"
+"         exe 'bwipeout ' . i
+"       endif
+"     endif
+"   endfor
+" endfunction
+
+" autocmd VimLeavePre *  call QuitNetrw()
+" }}}}
+
 " cwjk"rpb"ryiwn@a
+
+iabbrev pdbd import sys, pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()

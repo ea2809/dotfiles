@@ -26,7 +26,8 @@ antigen bundle pip
 antigen bundle command-not-found
 antigen bundle golang
 antigen bundle colorize
-antigen bundle globalias
+# antigen bundle globalias
+antigen bundle fzf
 #antigen bundle autojump
 #antigen bundle common-aliases
 antigen bundle compleat
@@ -35,6 +36,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle zsh-users/zsh-completions
 antigen bundle tarruda/zsh-autosuggestions
+antigen bundle wfxr/forgit
 
 #antigen theme bhilburn/powerlevel9k powerlevel9k
 antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
@@ -83,6 +85,14 @@ bindkey 'jk' vi-cmd-mode
 
 spaceship_vi_mode_enable
 export KEYTIMEOUT=1
+
+#FZF
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color=fg:-1,bg:-1,hl:#ff6d19 --color=fg+:#d0d0d0,bg+:#262626,hl+:#ff0000 --color=info:#87ff00,prompt:#87ff00,pointer:#87ff00 --color=marker:#82c737,spinner:#87ff00,header:#87afaf'
+export FZF_DEFAULT_COMMAND="fd --type file --color=always --follow --hidden --no-ignore-vcs --exclude .git"
+export FZF_CTRL_T_OPTS=' --preview "bat --color=always {}"'
+export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+export FZF_DEFAULT_OPTS="--ansi"
+
 ## Command history configuration
 if [ -z "$HISTFILE" ]; then
     HISTFILE=$HOME/.zsh_history

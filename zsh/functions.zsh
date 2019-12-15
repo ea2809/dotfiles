@@ -58,3 +58,37 @@ function git_current_branch() {
   fi
   echo ${ref#refs/heads/}
 }
+
+ds() {
+	docker start $(docker ps -a |grep $1|awk '{print $1;}')
+}
+
+dk() {
+	docker stop $(docker ps -a |grep $1|awk '{print $1;}')
+}
+
+drmf() {
+	docker rm $2 $(docker ps -a |grep $1|awk '{print $1;}')
+}
+
+dsm() { ds mobility }
+dkm() { dk mobility }
+drmm() { drmf mobility ""}
+drmmf() { drmf mobility "-f" }
+
+dsc() { ds comms } 
+dkc() { dk comms }
+drmc() { drmf comms ""}
+drmmc() { drmf comms "-f" }
+
+# Get the real path
+realpath() { for f in "$@"; do echo ${f}(:A); done }
+
+fbehave() {
+    behave "$@" -d -f steps 2> /dev/null | \
+    awk -F " *# " '/\s*(Given|When|Then|\*)/ {print $1"\t"$2}' | \
+    fzf -d "\t" --with-nth=1 \
+        --bind 'enter:execute(echo {} | cut -f2 | pbcopy )' \
+        --bind 'tab:execute(echo {} | cut -f1 | awk "{\$1=\$1};1" | pbcopy )' \
+        --prompt='Step> '
+}

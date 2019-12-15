@@ -22,12 +22,15 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-scripts/restore_view.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Yggdroot/indentLine'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
 
 " Plug 'rust-lang/rust.vim'
 " Plug 'avanzzzi/behave.vim'
 " Plug 'rooprob/vim-behave'
 "
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
 if has("nvim")
 		" Plug 'zchee/deoplete-jedi', { 'for': 'python'}
