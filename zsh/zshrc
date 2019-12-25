@@ -39,6 +39,7 @@ antigen bundle tarruda/zsh-autosuggestions
 antigen bundle wfxr/forgit
 
 #antigen theme bhilburn/powerlevel9k powerlevel9k
+source ~/dotfiles/zsh/spaceship.zsh
 antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
 antigen apply
 
@@ -50,15 +51,6 @@ echo -e "\033];Garcy\007"
 # Customize iterm.
 echo -e "\033]6;1;bg;red;brightness;28\a\033]6;1;bg;blue;brightness;28\a\033]6;1;bg;green;brightness;28\a"
 
-clear
-
-echo "  ________                                     ";
-echo " /  _____/  _____    _______    ____    ___.__.";
-echo "/   \  ___  \__  \   \_  __ \ _/ ___\  <   |  |";
-echo "\    \_\  \  / __ \_  |  | \/ \  \___   \___  |";
-echo " \______  / (____  /  |__|     \___  >  / ____|";
-echo "        \/       \/                \/   \/     ";
-# Font Graffiti 
 
 
 HISTSIZE=10000
@@ -102,11 +94,13 @@ fi
 source ~/dotfiles/zsh/alias.zsh
 source ~/dotfiles/zsh/functions.zsh
 
+banner
+
+
 export EDITOR=nvim
 alias ctags="`brew --prefix`/bin/ctags"
 setopt HIST_IGNORE_SPACE
 
-source ~/dotfiles/zsh/spaceship.zsh
 
 # Replace zle-keymap-select
 # Thank to LukeSmithxyz

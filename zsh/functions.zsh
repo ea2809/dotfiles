@@ -106,3 +106,35 @@ fbehave() {
         --bind 'tab:execute(echo {} | cut -f1 | awk "{\$1=\$1};1" | pbcopy )' \
         --prompt='Step> '
 }
+
+_name(){
+	print -P "%F{green}  ________ %f                                    ";
+	print -P "%F{green} /  _____/ %f _____    _______    ____    ___.__.";
+	print -P "%F{green}/   \\\  ___ %f \\\__  \\\   \\\_  __ \\\ _/ ___\\\  <   |  |";
+	print -P "%F{green}\\\    \\\_\\\  \\\ %f / __ \\\_  |  | \\\/ \\\  \\\___   \\\___  |";
+	print -P "%F{green} \\\______  / %f(____  /  |__|     \\\___  >  / ____|";
+	print -P "%F{green}        \\\/  %f     \\\/                \\\/   \\\/     ";
+	# Font Graffiti 
+}
+
+_golf(){
+	print -P "     '\\\                   .  .               %F{white}%K{red} 18 %k%F{red}%f"
+	print -P "   %F{green}'%f   \\\              .         ' .          ┊"
+	print -P "      %F{172}O>>%f         .                 '        ┊"
+	print -P "       %F{197}\\\%f       .                      卵     ┊"
+	print -P "       %F{blue}/\\\%f    .                               ┊"
+	print -P "      %F{blue}/ /%f  .'                                ┊"
+	print -P -- "jgs%F{green}^^^^^^^%f%F{94}▀▀%f%F{green}^^^^^^^ GARCY ^^^^^^^^^^^^^^^^^^%F{white}╚═╝%f%F{green}^^^%f"
+
+#  __      __  __    
+# / _  /\ |__)/  \_/ 
+# \__)/--\| \ \__ |  
+
+}
+
+banner() {
+	clear
+	echo ""
+	# _name
+	_golf
+}

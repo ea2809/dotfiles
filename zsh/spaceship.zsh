@@ -1,20 +1,27 @@
 SPACESHIP_PROMPT_ADD_NEWLINE=false
 SPACESHIP_EXIT_CODE_SHOW=true
 SPACESHIP_TIME_SHOW=true
-# Vim
-# SPACESHIP_VI_MODE_INSERT="\033[32;1;1m[I]\033[0m"
-# SPACESHIP_VI_MODE_NORMAL="\033[31;1m[N]\033[0m"
 
 # Char
-SPACESHIP_CHAR_SYMBOL=%3{"  "%}
+# SPACESHIP_CHAR_SYMBOL=%3{"  "%}
+SPACESHIP_CHAR_SYMBOL=%3{"  "%}
+SPACESHIP_CHAR_SYMBOL=%3{"  "%}
 
-SPACESHIP_VI_MODE_INSERT="%K{blue}%F{black}  %k%f" # \uf8ea
-SPACESHIP_VI_MODE_NORMAL="%K{yellow}%F{black}  %k%f" # \uf023
+
+# SPACESHIP_VI_MODE_INSERT="%K{blue}%F{black}  %k%f" # \uf8ea
+# SPACESHIP_VI_MODE_NORMAL="%K{yellow}%F{black}  %k%f" # \uf023
+SPACESHIP_GOLF="%F{green}ﴡ %f"
+SPACESHIP_VI_MODE_INSERT="$SPACESHIP_GOLF%F{cyan} %k%f" # \uf8ea
+SPACESHIP_VI_MODE_NORMAL="$SPACESHIP_GOLF%F{yellow} %k%f" # \uf023
 SPACESHIP_VI_MODE_PREFIX=""
 SPACESHIP_VI_MODE_SUFFIX=""
 
 # Battery
 SPACESHIP_BATTERY_THRESHOLD=25
+SPACESHIP_BATTERY_SYMBOL_CHARGING=" "
+SPACESHIP_BATTERY_SYMBOL_DISCHARGING=" "
+
+
 
 # Dir
 SPACESHIP_DIR_COLOR=cyan
@@ -22,6 +29,7 @@ SPACESHIP_DIR_PREFIX='%F{$SPACESHIP_DIR_COLOR} ' #\ue5fe
 
 # Time
 SPACESHIP_TIME_COLOR="yellow"
+# SPACESHIP_TIME_PREFIX='ﴡ '
 SPACESHIP_EXEC_TIME_PREFIX='%F{$SPACESHIP_TIME_COLOR}祥' # \ufa1a
 SPACESHIP_EXEC_TIME_SUFFIX=" "
 
@@ -103,7 +111,7 @@ SPACESHIP_PROMPT_ORDER=(
 	# === === === === 
 	line_sep      # Line break
 	# === === === === 
-	vi_mode       # Vi-mode indicator
 	battery       # Battery level and status
+	vi_mode       # Vi-mode indicator
 	char          # Prompt character
 )
