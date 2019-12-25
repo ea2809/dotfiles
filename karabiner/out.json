@@ -183,35 +183,6 @@
       ]
     }, 
     {
-      "description": "SpaceFN: T to Station", 
-      "manipulators": [
-        {
-          "conditions": [
-            {
-              "type": "variable_if", 
-              "name": "spacefn_mode", 
-              "value": 1
-            }
-          ], 
-          "from": {
-            "modifiers": {
-              "optional": [
-                "any"
-              ], 
-              "mandatory": [
-                "shift"
-              ]
-            }, 
-            "key_code": "t"
-          }, 
-          "type": "basic", 
-          "to": {
-            "shell_command": "open -a 'Station'"
-          }
-        }
-      ]
-    }, 
-    {
       "description": "SpaceFN: p to PyCharm", 
       "manipulators": [
         {
@@ -265,6 +236,41 @@
               "right_shift"
             ], 
             "key_code": "g"
+          }
+        }
+      ]
+    }, 
+    {
+      "description": "SpaceFN: hyper T to Trello", 
+      "manipulators": [
+        {
+          "conditions": [
+            {
+              "type": "variable_if", 
+              "name": "spacefn_mode", 
+              "value": 1
+            }
+          ], 
+          "from": {
+            "modifiers": {
+              "optional": [
+                "any"
+              ], 
+              "mandatory": [
+                "shift"
+              ]
+            }, 
+            "key_code": "t"
+          }, 
+          "type": "basic", 
+          "to": {
+            "modifiers": [
+              "right_command", 
+              "right_control", 
+              "right_option", 
+              "right_shift"
+            ], 
+            "key_code": "t"
           }
         }
       ]

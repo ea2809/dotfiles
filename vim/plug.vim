@@ -17,7 +17,7 @@ Plug 'gioele/vim-autoswap'
 Plug 'davidhalter/jedi-vim', { 'for': 'python'}
 Plug 'stephpy/vim-yaml', { 'for': 'yaml'}
 Plug 'vim-airline/vim-airline'
-Plug 'ryanoasis/vim-devicons'
+Plug 'ea2809/vim-devicons'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-scripts/restore_view.vim'
 Plug 'christoomey/vim-tmux-navigator'
@@ -27,7 +27,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
 
 " Plug 'rust-lang/rust.vim'
-" Plug 'avanzzzi/behave.vim'
+Plug 'ea2809/behave.vim'
 " Plug 'rooprob/vim-behave'
 "
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}

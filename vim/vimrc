@@ -548,6 +548,17 @@ endif
 " autocmd VimLeavePre *  call QuitNetrw()
 " }}}}
 
+" Devicons config {{{
+  let g:WebDevIconsTabAirLineAfterGlyphPadding = ' '
+  let g:WebDevIconsTabAirLineBeforeGlyphPadding = ''
+" }}}}
+
+" Behave Gherkin config {{{
+	let g:behave_path = "test"
+
+	autocmd FileType gherkin nmap <leader>gt  :call behave#goto_step_definition()call behave#goto_step_definition()<CR>
+" }}}}
+"
 " cwjk"rpb"ryiwn@a
 
 iabbrev pdbd import sys, pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()

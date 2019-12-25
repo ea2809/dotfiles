@@ -43,6 +43,20 @@ workon(){
 	fi
 }
 
+
+# From https://superuser.com/questions/419775/with-bash-iterm2-how-to-name-tabs
+#setup terminal tab title
+function title {
+    if [ "$1" ]
+    then
+        unset PROMPT_COMMAND
+        echo -ne "\033]0;${*}\007"
+    else
+        export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
+    fi
+}
+
+
 # From: https://github.com/robbyrussell/oh-my-zsh/blob/master/lib/git.zsh
 # Outputs the name of the current branch
 # Usage example: git pull origin $(git_current_branch)
@@ -60,15 +74,15 @@ function git_current_branch() {
 }
 
 ds() {
-	docker start $(docker ps -a |grep $1|awk '{print $1;}')
+	docker start $(docker ps -a | grep $1 | awk '{print $1;}')
 }
 
 dk() {
-	docker stop $(docker ps -a |grep $1|awk '{print $1;}')
+	docker stop $(docker ps -a | grep $1 | awk '{print $1;}')
 }
 
 drmf() {
-	docker rm $2 $(docker ps -a |grep $1|awk '{print $1;}')
+	docker rm $2 $(docker ps -a | grep $1 | awk '{print $1;}')
 }
 
 dsm() { ds mobility }
