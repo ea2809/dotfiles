@@ -100,10 +100,11 @@ realpath() { for f in "$@"; do echo ${f}(:A); done }
 
 fbehave() {
     behave "$@" -d -f steps 2> /dev/null | \
-    awk -F " *# " '/\s*(Given|When|Then|\*)/ {print $1"\t"$2}' | \
+    awk -v pwd=$(pwd) -F " *# " '/\s*(Given|When|Then|\*)/ {print $1"\t"pwd"/"$2}' | \
     fzf -d "\t" --with-nth=1 \
-        --bind 'enter:execute(echo {} | cut -f2 | pbcopy )' \
-        --bind 'tab:execute(echo {} | cut -f1 | awk "{\$1=\$1};1" | pbcopy )' \
+        --bind 'enter:execute(echo {} | cut -f1 | awk "{\$1=\$1};1" | pbcopy )' \
+        --bind 'tab:execute(echo {} | cut -f2 | cut -d ":" -f1 | pbcopy )' \
+        --bind 'shift-tab:execute(echo {} | cut -f2 | awk -F: "{printf \"e +%s %s\",\$2,\$1}" | pbcopy )' \
         --prompt='Step> '
 }
 

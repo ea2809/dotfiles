@@ -30,3 +30,4 @@ alias rerun='behave @rerun.txt'
 
 alias fzfp="fzf --preview 'bat --color=always {}'"
 alias bwip="behave -t @wip"
+alias in="source .in"

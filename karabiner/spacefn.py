@@ -217,14 +217,14 @@ def main():
 definitions = [
     {"name": "a to Alfred", "from": {"keycode":"a"}, "shell": { "program": "Alfred 4"}},
     {"name": "b to spacebar", "from": {"keycode":"b"}, "to": { "keycode": "spacebar"}},
-    {"name": "i to Iterm", "from": {"keycode":"i"}, "shell": { "program": "iTerm"}},
+    {"name": "i to Kitty", "from": {"keycode":"i"}, "shell": { "program": "kitty"}},
     {"name": "s to Safari", "from": {"keycode":"s"}, "shell": { "program": "Safari"}},
     {"name": "c to Chrome", "from": {"keycode":"c"}, "shell": { "program": "Google Chrome"}},
     {"name": "t to Slack", "from": {"keycode":"t", "optional": False}, "shell": { "program": "Slack"}},
     {"name": "p to PyCharm", "from": {"keycode":"p"}, "shell": { "program": "PyCharm"}},
     {"name": "hyper g to Alfred github", "from": {"keycode":"g"}, "hyper": { "keycode": "g"}},
     {"name": "hyper T to Trello", "from": {"keycode":"t", "mandatory": ["shift"]}, "hyper": { "keycode": "t"}},
-    {"name": "hyper w to Alfred github", "from": {"keycode":"w"}, "hyper": { "keycode": "w"}},
+    {"name": "hyper w to Trello", "from": {"keycode":"w"}, "hyper": { "keycode": "w"}},
     {"name": "hyper hjkl to arrows", "complex":[
         {"from": {"keycode":"h"}, "to": { "keycode": "left_arrow"}},
         {"from": {"keycode":"j"}, "to": { "keycode": "down_arrow"}},

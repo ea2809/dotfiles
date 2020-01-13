@@ -79,7 +79,7 @@ bindkey "^?" backward-delete-char
 spaceship_vi_mode_enable
 export KEYTIMEOUT=1
 
-#FZF
+# FZF
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color=fg:-1,bg:-1,hl:#ff6d19 --color=fg+:#d0d0d0,bg+:#262626,hl+:#ff0000 --color=info:#87ff00,prompt:#87ff00,pointer:#87ff00 --color=marker:#82c737,spinner:#87ff00,header:#87afaf'
 export FZF_DEFAULT_COMMAND="fd --type file --color=always --follow --hidden --no-ignore-vcs --exclude .git"
 export FZF_CTRL_T_OPTS=' --preview "bat --color=always {}"'

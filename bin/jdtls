@@ -3,7 +3,7 @@
 server=~/dotfiles/vim/java
 fullPath=$server/jdt
 
-if [ ! -d "$server" ]; then
+if [ ! -d "$fullPath" ]; then
   # Install
   echo "Installing"
   mkdir -p $server

@@ -28,6 +28,10 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 " }}}
 
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+vnoremap <Down> :m '>+1<CR>gv=gv
+vnoremap <Up> :m '<-2<CR>gv=gv
+
 " Base configuration {{{
 	set nocompatible
 
@@ -364,6 +368,8 @@ autocmd FileType java setlocal tabstop=2 shiftwidth=2 expandtab
 " autocmd FileType java nnoremap <leader>gt :call LanguageClient#textDocument_definition()<CR>
 autocmd FileType java nmap <leader>gt <Plug>(coc-definition)
 autocmd FileType java nmap <leader>rn <Plug>(coc-rename)
+autocmd FileType java nmap K :call CocAction('doHover')<CR>
+autocmd CursorHold *.java silent call CocActionAsync('highlight')
 " autocmd FileType java nmap <leader>gk  <Plug>(go-def-pop)
 " autocmd FileType java nmap <leader>gs  <Plug>(go-def-stack)
 " autocmd FileType java nmap <leader>gc  <Plug>(go-def-stack-clear)
