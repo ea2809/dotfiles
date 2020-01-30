@@ -12,8 +12,13 @@ alias .....='cd ../../../..'
 
 alias prettyjson='python -m json.tool'
 alias dps='docker ps'
-alias ls='ls -G'
+alias ls='lsd'
+alias l='ls -l'
 alias ll='ls -la'
+alias la='ls -a'
+alias lla='ls -la'
+alias lt='ls --tree'
+
 alias f='find . -name '
 
 alias -g G='| grep '
@@ -26,8 +31,10 @@ alias yi='yarn install'
 alias gdu='git diff -u'
 alias gpd='git pull origin develop'
 
-alias rerun='behave @rerun.txt'
 
 alias fzfp="fzf --preview 'bat --color=always {}'"
+alias rerun='behave @rerun.txt'
 alias bwip="behave -t @wip"
+
 alias in="source .in"
+alias tx="tmux attach || tmux"
