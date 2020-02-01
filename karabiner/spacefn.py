@@ -1,6 +1,9 @@
 from inspect import isfunction
+from collections import OrderedDict
+from functools import partial, wraps
 import json
 import copy
+import os
 
 
 def basic_rule(description="Rule", type="basic", functions=[]):
@@ -62,41 +65,50 @@ class Karabiner(object):
 
 def basic_from(keycode="", mandatory=None, optional=["any"]):
     class KarabinerFrom(Karabiner):
-        def run(self,base_json):
+        def run(self, base_json):
             fron = {
                 "key_code": self.options.get("keycode"),
             }
 
             if mandatory:
                 modifiers = fron.setdefault("modifiers", {}) 
-                modifiers.update({"mandatory" : mandatory})
+                modifiers.update({"mandatory": mandatory})
 
             if optional:
                 modifiers = fron.setdefault("modifiers", {}) 
-                modifiers.update({"optional" : optional})
+                modifiers.update({"optional": optional})
 
             base_json["from"] = fron
             return fron
     return KarabinerFrom({"keycode": keycode})
 
 
-def basic_to(keycode="", modifiers=None, event="to"):
+def basic_to(keycode="", modifiers=None, event="to", lazy=None, other_params={}):
     class KarabinerTo(Karabiner):
-        def run(self,base_json):
+        def run(self, base_json):
             to = {
                 "key_code": self.options.get("keycode"),
+                **self.options.get("other_params")
             }
+
+            if lazy is not None:
+                to["lazy"] = self.options.get("lazy")
 
             if self.options.get("modifiers"):
                 to["modifiers"] = self.options.get("modifiers")
 
             base_json[self.options.get("event")] = to
-    return KarabinerTo({"keycode": keycode, "modifiers":modifiers, "event":event})
+    return KarabinerTo(
+        {"keycode": keycode, "modifiers": modifiers, "event": event, "lazy": lazy, "other_params": other_params})
+
+
+basic_if_alone = wraps(basic_to)(partial(basic_to, event="to_if_alone"))
+basic_if_held_down = wraps(basic_to)(partial(basic_to, event="to_if_held_down"))
 
 
 def set_variable(name, value, event="to"):
     class KarabinerVar(Karabiner):
-        def run(self,base_json):
+        def run(self, base_json):
             to = {
                 "set_variable": {
                     "name":  self.options.get("name"),
@@ -105,12 +117,12 @@ def set_variable(name, value, event="to"):
             }
 
             base_json[self.options.get("event")] = to
-    return KarabinerVar({"name": name, "value":value, "event":event})
+    return KarabinerVar({"name": name, "value": value, "event": event})
 
 
 def conditions(name, value):
     class KarabinerCon(Karabiner):
-        def run(self,base_json):
+        def run(self, base_json):
             conditions = [
                 {
                     "type": "variable_if",
@@ -119,13 +131,37 @@ def conditions(name, value):
                 }
             ]
 
-            base_json["conditions"] = conditions
+            conditions_arr = base_json.setdefault("conditions", [])
+            conditions_arr += conditions
     return KarabinerCon({"name": name, "value": value})
+
+
+def parameters(**kwargs):
+    class KarabinerParam(Karabiner):
+        def run(self, base_json):
+            conditions_arr = base_json.setdefault("parameters", {})
+            conditions_arr.update(self.options.get("parameters"))
+    return KarabinerParam({"parameters": kwargs})
+
+
+def device_unless(identifiers):
+    class KarabinerDU(Karabiner):
+        def run(self, base_json):
+            conditions = [
+                {
+                    "type": "device_unless",
+                    "identifiers": self.options.get("identifiers")
+                }
+            ]
+
+            conditions_arr = base_json.setdefault("conditions", [])
+            conditions_arr += conditions
+    return KarabinerDU({"identifiers": identifiers})
 
 
 def shell_to(script="", event="to"):
     class KarabinerShell(Karabiner):
-        def run(self,base_json):
+        def run(self, base_json):
             to = {
                 "shell_command": self.options.get("script"),
             }
@@ -134,10 +170,9 @@ def shell_to(script="", event="to"):
     return KarabinerShell({"script": script, "event": event})
 
 
-def program_to(program, event="to"):
+def program_to(program):
     script = "open -a '{}'".format(program)
     return shell_to(script=script)
-pass
 
 
 SFN_VAR = "spacefn_mode"
@@ -156,30 +191,33 @@ def base_spaceFN():
     return basic_rule(description="SpaceFn basic config", functions=methods)
 
 
-def basic_spaceFN(name, functions=[]):
-    methods = [
-        conditions(name=SFN_VAR, value=SFN_ON),
-    ]
-    methods += functions
-    name = "SpaceFN: "+ name
-    return basic_rule(description=name, functions=methods)
+def basic_spaceFN(description, functions=[]):
+    methods = [conditions(name=SFN_VAR, value=SFN_ON)] + functions
+    description = "SpaceFN: " + description
+    return basic_rule(description=description, functions=methods)
 
 
 def hyper_keycode(keycode="", event="to"):
-    modifiers = ["right_command", "right_control", "right_option", "right_shift"]
+    modifiers = [
+        "right_command", "right_control", "right_option", "right_shift"
+    ]
     return basic_to(keycode=keycode, modifiers=modifiers, event=event)
 
 
-def spacefn_functions():
+def add_functions(in_definitions, rule_type=basic_rule):
     functions = {
         "from": basic_from,
         "to": basic_to,
+        "if_alone": basic_if_alone,
+        "if_held_down": basic_if_held_down,
         "shell": program_to,
         "hyper": hyper_keycode,
+        "device_unless": device_unless,
+        "parameters": parameters,
     }
 
     rules = []
-    for definition in definitions:
+    for definition in in_definitions:
         global_name = ""
         funcs = []
 
@@ -188,50 +226,51 @@ def spacefn_functions():
             if callable(function):
                 funcs.append(function(**options))
 
-        for name, options in definition.iteritems():
+        for name, options in definition.items():
             if name == "name":
                 global_name = options
             elif name == "complex":
                 for option in options:
                     sub_funcs = []
-                    for sub_name, sub_options in option.iteritems():
+                    for sub_name, sub_options in option.items():
                         add_funcs_to(sub_name, sub_options, sub_funcs)
                     funcs.append(sub_funcs)
             else:
                 add_funcs_to(name, options, funcs)
-        rules.append(basic_spaceFN(global_name, functions=funcs))
+        rules.append(rule_type(description=global_name, functions=funcs))
     return rules
 
 
-def main():
-    out = []
+def main(spacefn_definitions, normal_definitions):
     rules = [
         base_spaceFN(),
     ]
-    rules += spacefn_functions()
+    rules += add_functions(spacefn_definitions, rule_type=basic_spaceFN)
+    rules += add_functions(normal_definitions, rule_type=basic_rule)
 
-    base = {"title": "Enrique's rules", "rules": rules}
-    print(json.dumps(base, indent=2))
+    base = OrderedDict({"title": "Enrique's rules", "rules": rules})
+    return base
 
 
-definitions = [
+spacefn_definitions = [
     {"name": "a to Alfred", "from": {"keycode":"a"}, "shell": { "program": "Alfred 4"}},
     {"name": "b to spacebar", "from": {"keycode":"b"}, "to": { "keycode": "spacebar"}},
     {"name": "i to Kitty", "from": {"keycode":"i"}, "shell": { "program": "kitty"}},
     {"name": "s to Safari", "from": {"keycode":"s"}, "shell": { "program": "Safari"}},
     {"name": "c to Chrome", "from": {"keycode":"c"}, "shell": { "program": "Google Chrome"}},
-    {"name": "t to Slack", "from": {"keycode":"t", "optional": False}, "shell": { "program": "Slack"}},
+    {"name": "t to Teams", "from": {"keycode":"t", "optional": False}, "shell": { "program": "Microsoft Teams"}},
+    {"name": "o to Outlook", "from": {"keycode":"o", "optional": False}, "shell": { "program": "Microsoft Outlook"}},
     {"name": "p to PyCharm", "from": {"keycode":"p"}, "shell": { "program": "PyCharm"}},
     {"name": "hyper g to Alfred github", "from": {"keycode":"g"}, "hyper": { "keycode": "g"}},
-    {"name": "hyper T to Trello", "from": {"keycode":"t", "mandatory": ["shift"]}, "hyper": { "keycode": "t"}},
+    {"name": "hyper T to Trello", "from": {"keycode":"t", "mandatory": ["shift"]}, "hyper": {"keycode": "t"}},
     {"name": "hyper w to Trello", "from": {"keycode":"w"}, "hyper": { "keycode": "w"}},
     {"name": "hyper hjkl to arrows", "complex":[
-        {"from": {"keycode":"h"}, "to": { "keycode": "left_arrow"}},
-        {"from": {"keycode":"j"}, "to": { "keycode": "down_arrow"}},
-        {"from": {"keycode":"k"}, "to": { "keycode": "up_arrow"}},
-        {"from": {"keycode":"l"}, "to": { "keycode": "right_arrow"}},
-        {"from": {"keycode":"semicolon", "optional": False}, "to": { "keycode": "delete_or_backspace"}},
-        {"from": {"keycode":"semicolon", "mandatory": ["shift"]}, "to": { "keycode": "delete_or_backspace", "modifiers": ["fn"]}},
+        {"from": {"keycode": "h"}, "to": {"keycode": "left_arrow"}},
+        {"from": {"keycode": "j"}, "to": {"keycode": "down_arrow"}},
+        {"from": {"keycode": "k"}, "to": {"keycode": "up_arrow"}},
+        {"from": {"keycode": "l"}, "to": {"keycode": "right_arrow"}},
+        {"from": {"keycode": "semicolon", "optional": False}, "to": { "keycode": "delete_or_backspace"}},
+        {"from": {"keycode": "semicolon", "mandatory": ["shift"]}, "to": { "keycode": "delete_or_backspace", "modifiers": ["fn"]}},
     ]},
     {"name": "Navigation", "complex":[
         {"from": {"keycode":"n"}, "to": { "keycode": "left_arrow", "modifiers": ["control"]}},
@@ -241,6 +280,50 @@ definitions = [
     ]},
 ]
 
+non_ansii_keyboards = {"identifiers": [{"description": "Atreus", "vendor_id": 4617}]}
+
+normal_definitions = [
+    {"name": "Escape to caps lock", "from": {"keycode": "escape"}, "if_alone": {"keycode": "escape"}, "if_held_down": {"keycode": "caps_lock"}, "parameters": {
+        "basic.to_if_alone_timeout_milliseconds": 250,
+        "basic.to_if_held_down_threshold_milliseconds": 250
+    }, "device_unless": non_ansii_keyboards},
+    {"name": "Enter right control", "from": {"keycode": "return_or_enter"}, "to": {"keycode": "right_control", "lazy": True}, "if_alone": {"keycode": "return_or_enter"}},
+    {"name": "Capslock to escape or control", "from": {"keycode": "caps_lock"}, "to": {"keycode": "left_control", "lazy": True}, "if_alone": {"keycode": "escape"}},
+    {"name": "Double shift caps lock", "complex": [
+        {"from": {"keycode":"left_shift", "mandatory": ["right_shift"], "optional": ["caps_lock"]}, "to": {"keycode": "caps_lock"}, "if_alone": {"keycode": "left_shift"}},
+        {"from": {"keycode":"right_shift", "mandatory": ["left_shift"], "optional": ["caps_lock"]}, "to": {"keycode": "caps_lock"}, "if_alone": {"keycode": "right_shift"}},
+    ]},
+    {"name": "Special Shifts arrows", "complex": [
+        {"from": {"keycode": "up_arrow", "mandatory": ["shift"]}, "to": {"keycode": "page_up"}},
+        {"from": {"keycode": "down_arrow", "mandatory": ["shift"]}, "to": {"keycode": "page_down"}},
+        {"from": {"keycode": "left_arrow", "mandatory": ["shift"]}, "to": {"keycode": "home"}},
+        {"from": {"keycode": "right_arrow", "mandatory": ["shift"]}, "to": {"keycode": "end"}},
+    ]},
+]
 
 if __name__ == "__main__":
-    main()
+    rules = main(spacefn_definitions, normal_definitions)
+
+    full_path = os.path.join(os.getenv("HOME"), '.config/karabiner/karabiner.json')
+    data = {}
+    with open(full_path) as json_file:
+        data = json.load(json_file)
+
+    i = 0
+    new_path = "{}_{}.back.json"
+    while os.path.exists(new_path.format(full_path, i)):
+        i += 1
+
+    print(f"Backupfile: {new_path.format(full_path, i)}")
+    with open(new_path.format(full_path, i), "w+") as back_file:
+        back_file.write(json.dumps(data, indent=4))
+
+    profile = {}
+    for value in data["profiles"]:
+        if value["name"] == "VIM":
+            profile = value
+            break
+    profile["complex_modifications"]["rules"] = rules["rules"]
+
+    with open(full_path, "w") as json_file:
+        json.dump(data, json_file, indent=4)
