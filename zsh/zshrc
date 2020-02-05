@@ -118,3 +118,11 @@ function zle-keymap-select {
 	zle -R
 }
 zle -N zle-keymap-select
+
+# .zshrc
+
+_fix_cursor() {
+	echo -ne '\e[5 q'
+}
+
+precmd_functions+=(_fix_cursor)

@@ -264,6 +264,7 @@ spacefn_definitions = [
     {"name": "hyper g to Alfred github", "from": {"keycode":"g"}, "hyper": { "keycode": "g"}},
     {"name": "hyper T to Trello", "from": {"keycode":"t", "mandatory": ["shift"]}, "hyper": {"keycode": "t"}},
     {"name": "hyper w to Trello", "from": {"keycode":"w"}, "hyper": { "keycode": "w"}},
+    {"name": "v to Viber", "from": {"keycode":"v"}, "shell": { "program": "Viber"}},
     {"name": "hyper hjkl to arrows", "complex":[
         {"from": {"keycode": "h"}, "to": {"keycode": "left_arrow"}},
         {"from": {"keycode": "j"}, "to": {"keycode": "down_arrow"}},
