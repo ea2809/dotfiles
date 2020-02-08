@@ -278,6 +278,8 @@ spacefn_definitions = [
         {"from": {"keycode":"m"}, "to": { "keycode": "right_arrow", "modifiers": ["control"]}},
         {"from": {"keycode":"d"}, "to": { "keycode": "tab", "modifiers": ["control", "shift"]}},
         {"from": {"keycode":"f"}, "to": { "keycode": "tab", "modifiers": ["control"]}},
+        {"from": {"keycode":"comma"}, "to": {"keycode": "left_arrow", "modifiers": ["option"]}},
+        {"from": {"keycode":"period"}, "to": {"keycode": "right_arrow", "modifiers": ["option"]}},
     ]},
 ]
 
