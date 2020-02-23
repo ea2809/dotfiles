@@ -531,7 +531,20 @@ endif
 
 " Coc config{{{
 	nnoremap <Leader>ca :CocAction<CR>
+	" noremap <Leader>ca <Plug>(coc-codeaction)
 	nnoremap <Leader>cf :CocFix<CR>
+	nmap <leader>qf  <Plug>(coc-fix-current)
+
+	" Code navigation
+	nmap <silent> <Leader>gy <Plug>(coc-type-definition)
+	nmap <silent> <Leader>gi <Plug>(coc-implementation)
+	nmap <silent> <Leader>gr <Plug>(coc-references)
+
+	" Symbol renaming.
+	nmap <leader>rn <Plug>(coc-rename)
+	nmap <leader>rr <Plug>(coc-refactor)
+
+
 " }}}}
 
 " Markdown {{{

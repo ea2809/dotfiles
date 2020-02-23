@@ -260,10 +260,10 @@ spacefn_definitions = [
     {"name": "c to Chrome", "from": {"keycode":"c"}, "shell": { "program": "Google Chrome"}},
     {"name": "t to Teams", "from": {"keycode":"t", "optional": False}, "shell": { "program": "Microsoft Teams"}},
     {"name": "o to Outlook", "from": {"keycode":"o", "optional": False}, "shell": { "program": "Microsoft Outlook"}},
-    {"name": "p to PyCharm", "from": {"keycode":"p"}, "shell": { "program": "PyCharm"}},
+    # {"name": "p to PyCharm", "from": {"keycode":"p"}, "shell": { "program": "PyCharm"}},
     {"name": "hyper g to Alfred github", "from": {"keycode":"g"}, "hyper": { "keycode": "g"}},
-    {"name": "hyper T to Trello", "from": {"keycode":"t", "mandatory": ["shift"]}, "hyper": {"keycode": "t"}},
-    {"name": "hyper w to Trello", "from": {"keycode":"w"}, "hyper": { "keycode": "w"}},
+    {"name": "hyper T to Trello", "from": {"keycode":"t", "mandatory": ["shift"]}, "shell": {"program": "Trello"}},
+    {"name": "hyper w to Trello", "from": {"keycode":"w"}, "hyper": { "keycode": "spacebar"}},
     {"name": "v to Viber", "from": {"keycode":"v"}, "shell": { "program": "Viber"}},
     {"name": "hyper hjkl to arrows", "complex":[
         {"from": {"keycode": "h"}, "to": {"keycode": "left_arrow"}},
