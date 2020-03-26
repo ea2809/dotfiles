@@ -204,6 +204,13 @@ def hyper_keycode(keycode="", event="to"):
     return basic_to(keycode=keycode, modifiers=modifiers, event=event)
 
 
+def meh_keycode(keycode="", event="to"):
+    modifiers = [
+        "right_command", "right_control", "right_option"
+    ]
+    return basic_to(keycode=keycode, modifiers=modifiers, event=event)
+
+
 def add_functions(in_definitions, rule_type=basic_rule):
     functions = {
         "from": basic_from,
@@ -212,6 +219,7 @@ def add_functions(in_definitions, rule_type=basic_rule):
         "if_held_down": basic_if_held_down,
         "shell": program_to,
         "hyper": hyper_keycode,
+        "meh": meh_keycode,
         "device_unless": device_unless,
         "parameters": parameters,
     }
@@ -253,33 +261,35 @@ def main(spacefn_definitions, normal_definitions):
 
 
 spacefn_definitions = [
-    {"name": "a to Alfred", "from": {"keycode":"a"}, "shell": { "program": "Alfred 4"}},
-    {"name": "b to spacebar", "from": {"keycode":"b"}, "to": { "keycode": "spacebar"}},
-    {"name": "i to Kitty", "from": {"keycode":"i"}, "shell": { "program": "kitty"}},
-    {"name": "s to Safari", "from": {"keycode":"s"}, "shell": { "program": "Safari"}},
-    {"name": "c to Chrome", "from": {"keycode":"c"}, "shell": { "program": "Google Chrome"}},
-    {"name": "t to Teams", "from": {"keycode":"t", "optional": False}, "shell": { "program": "Microsoft Teams"}},
-    {"name": "o to Outlook", "from": {"keycode":"o", "optional": False}, "shell": { "program": "Microsoft Outlook"}},
+    {"name": "a to Alfred", "from": {"keycode": "a"}, "shell": {"program": "Alfred 4"}},
+    {"name": "b to spacebar", "from": {"keycode": "b"}, "to": {"keycode": "spacebar"}},
+    {"name": "i to Kitty", "from": {"keycode": "i"}, "shell": {"program": "kitty"}},
+    {"name": "s to Safari", "from": {"keycode": "s"}, "shell": {"program": "Safari"}},
+    {"name": "c to Chrome", "from": {"keycode": "c"}, "shell": {"program": "Google Chrome"}},
+    {"name": "t to Teams", "from": {"keycode": "t", "optional": False}, "shell": {"program": "Microsoft Teams"}},
+    {"name": "o to Outlook", "from": {"keycode": "o", "optional": False}, "shell": {"program": "Microsoft Outlook"}},
     # {"name": "p to PyCharm", "from": {"keycode":"p"}, "shell": { "program": "PyCharm"}},
-    {"name": "hyper g to Alfred github", "from": {"keycode":"g"}, "hyper": { "keycode": "g"}},
-    {"name": "hyper T to Trello", "from": {"keycode":"t", "mandatory": ["shift"]}, "shell": {"program": "Trello"}},
-    {"name": "hyper w to Trello", "from": {"keycode":"w"}, "hyper": { "keycode": "spacebar"}},
-    {"name": "v to Viber", "from": {"keycode":"v"}, "shell": { "program": "Viber"}},
-    {"name": "hyper hjkl to arrows", "complex":[
+    {"name": "hyper g to Alfred github", "from": {"keycode": "g"}, "hyper": {"keycode": "g"}},
+    {"name": "hyper T to Trello", "from": {"keycode": "t", "mandatory": ["shift"]}, "shell": {"program": "Trello"}},
+    {"name": "hyper w to Trello", "from": {"keycode": "w"}, "hyper": {"keycode": "spacebar"}},
+    {"name": "hyper r to Todoist", "from": {"keycode": "r"}, "meh": {"keycode": "r"}},
+    {"name": "hyper R to Todoist", "from": {"keycode": "r", "mandatory": ["shift"]}, "hyper": {"keycode": "r"}},
+    {"name": "v to Viber", "from": {"keycode": "v"}, "shell": {"program": "Viber"}},
+    {"name": "hyper hjkl to arrows", "complex": [
         {"from": {"keycode": "h"}, "to": {"keycode": "left_arrow"}},
         {"from": {"keycode": "j"}, "to": {"keycode": "down_arrow"}},
         {"from": {"keycode": "k"}, "to": {"keycode": "up_arrow"}},
         {"from": {"keycode": "l"}, "to": {"keycode": "right_arrow"}},
-        {"from": {"keycode": "semicolon", "optional": False}, "to": { "keycode": "delete_or_backspace"}},
-        {"from": {"keycode": "semicolon", "mandatory": ["shift"]}, "to": { "keycode": "delete_or_backspace", "modifiers": ["fn"]}},
+        {"from": {"keycode": "semicolon", "optional": False}, "to": {"keycode": "delete_or_backspace"}},
+        {"from": {"keycode": "semicolon", "mandatory": ["shift"]}, "to": {"keycode": "delete_or_backspace", "modifiers": ["fn"]}},
     ]},
-    {"name": "Navigation", "complex":[
-        {"from": {"keycode":"n"}, "to": { "keycode": "left_arrow", "modifiers": ["control"]}},
-        {"from": {"keycode":"m"}, "to": { "keycode": "right_arrow", "modifiers": ["control"]}},
-        {"from": {"keycode":"d"}, "to": { "keycode": "tab", "modifiers": ["control", "shift"]}},
-        {"from": {"keycode":"f"}, "to": { "keycode": "tab", "modifiers": ["control"]}},
-        {"from": {"keycode":"comma"}, "to": {"keycode": "left_arrow", "modifiers": ["option"]}},
-        {"from": {"keycode":"period"}, "to": {"keycode": "right_arrow", "modifiers": ["option"]}},
+    {"name": "Navigation", "complex": [
+        {"from": {"keycode": "n"}, "to": {"keycode": "left_arrow", "modifiers": ["control"]}},
+        {"from": {"keycode": "m"}, "to": {"keycode": "right_arrow", "modifiers": ["control"]}},
+        {"from": {"keycode": "d"}, "to": {"keycode": "tab", "modifiers": ["control", "shift"]}},
+        {"from": {"keycode": "f"}, "to": {"keycode": "tab", "modifiers": ["control"]}},
+        {"from": {"keycode": "comma"}, "to": {"keycode": "left_arrow", "modifiers": ["option"]}},
+        {"from": {"keycode": "period"}, "to": {"keycode": "right_arrow", "modifiers": ["option"]}},
     ]},
 ]
 
