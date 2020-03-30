@@ -162,6 +162,9 @@ let g:netrw_fastbrowse = 0
 " https://stackoverflow.com/questions/44065404/vim-does-not-reload-set-option-config-in-vimrc/44066065#44066065
 set viewoptions-=options
 
+" Save globals variables to save vim-workspace variable
+set sessionoptions+=globals
+
 " Reload when something happens
 autocmd FocusGained * silent! checktime
 
