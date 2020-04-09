@@ -71,11 +71,11 @@ def basic_from(keycode="", mandatory=None, optional=["any"]):
             }
 
             if mandatory:
-                modifiers = fron.setdefault("modifiers", {}) 
+                modifiers = fron.setdefault("modifiers", {})
                 modifiers.update({"mandatory": mandatory})
 
             if optional:
-                modifiers = fron.setdefault("modifiers", {}) 
+                modifiers = fron.setdefault("modifiers", {})
                 modifiers.update({"optional": optional})
 
             base_json["from"] = fron
