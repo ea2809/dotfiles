@@ -1,4 +1,4 @@
-" {{{ Virtualenv
+"{{{ Virtualenv
 let g:python_host_prog=$HOME.'/venvs/nvim/bin/python'
 let g:python3_host_prog=$HOME.'/venvs/nvim3/bin/python'
 " }}}
@@ -26,11 +26,13 @@ map j gj
 " search will center on the line it's found in.
 nnoremap n nzzzv
 nnoremap N Nzzzv
-" }}}
 
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Move lines on visual mode
 vnoremap <Down> :m '>+1<CR>gv=gv
 vnoremap <Up> :m '<-2<CR>gv=gv
+" }}}
 
 " Base configuration {{{
 set nocompatible
@@ -536,7 +538,7 @@ if executable('ag')
 	command -nargs=+ -complete=file -bar Agg silent! grep! <args>|cwindow|redraw!
 	nnoremap <Leader>ag :Ag<Space> 
 endif
-" }}}}
+" }}}
 
 " Coc config{{{
 nnoremap <Leader>ca :CocAction<CR>
@@ -554,12 +556,12 @@ nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>rr <Plug>(coc-refactor)
 
 
-" }}}}
+" }}}
 
 " Markdown {{{
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
-" }}}}
+" }}}
 
 " Netrw {{{
 " Quit netrw when selecting a file
@@ -574,20 +576,18 @@ let g:vim_markdown_conceal_code_blocks = 0
 " endfunction
 
 " autocmd VimLeavePre *  call QuitNetrw()
-" }}}}
+" }}}
 
 " Devicons config {{{
 let g:WebDevIconsTabAirLineAfterGlyphPadding = ' '
 let g:WebDevIconsTabAirLineBeforeGlyphPadding = ''
-" }}}}
+" }}}
 
 " Behave Gherkin config {{{
 let g:behave_path = "test"
 
 autocmd FileType gherkin nmap <leader>gt  :call behave#goto_step_definition()call behave#goto_step_definition()<CR>
-" }}}}
-"
-" cwjk"rpb"ryiwn@a
+" }}}
 
 " Git configurtion{{{
 nnoremap <Leader>gst :Gstatus<CR>
@@ -598,3 +598,5 @@ nnoremap <Leader>gb :Gblame<CR>
 " Abbrevations{{{
 iabbrev pdbd import sys, pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
 " }}}
+
+" cwjk"rpb"ryiwn@a
