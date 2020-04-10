@@ -8,10 +8,10 @@ autocmd FileType python let b:coc_root_patterns = ['requirements.txt', 'behave.i
 " }}}
 
 " Install plugins using vim-plug {{{
-  let plugfile = $HOME . '/dotfiles/vim/plug.vim'
-  if filereadable(plugfile)
-    exec 'source' plugfile
-  endif
+let plugfile = $HOME . '/dotfiles/vim/plug.vim'
+if filereadable(plugfile)
+	exec 'source' plugfile
+endif
 " }}}
 
 " Better move in text{{{
@@ -33,114 +33,114 @@ vnoremap <Down> :m '>+1<CR>gv=gv
 vnoremap <Up> :m '<-2<CR>gv=gv
 
 " Base configuration {{{
-	set nocompatible
+set nocompatible
 
-	set clipboard=unnamed " Set clipboard
+set clipboard=unnamed " Set clipboard
 
-	let maplocalleader = " "
-	let mapleader = " "
+let maplocalleader = " "
+let mapleader = " "
 
-	" enable syntax and plugins (for netrw)
-	syntax enable
-	filetype off
-	filetype plugin on
+" enable syntax and plugins (for netrw)
+syntax enable
+filetype off
+filetype plugin on
 
-	" Search down into subfolders
-	" Provides tab-completion for all file-related tasks
-	set path+=**
+" Search down into subfolders
+" Provides tab-completion for all file-related tasks
+set path+=**
 
-	" Display all matching files when we tab complete
-	set wildmenu
-	set wildignore+=*/.git/*
+" Display all matching files when we tab complete
+set wildmenu
+set wildignore+=*/.git/*
 
-	set backspace=indent,eol,start
+set backspace=indent,eol,start
 
-	" Display problematic whitespace
-	" set listchars=tab:▸▹,trail:•,extends:#,precedes:#,nbsp:⌻
-	" set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-	set listchars=eol:¬,tab:»\ ,trail:~,extends:>,precedes:<,space:·
-	set list
+" Display problematic whitespace
+" set listchars=tab:▸▹,trail:•,extends:#,precedes:#,nbsp:⌻
+" set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+set listchars=eol:¬,tab:»\ ,trail:~,extends:>,precedes:<,space:·
+set list
 
-	" Toggle hlsearch
-	nnoremap <Leader>t :set hlsearch! hlsearch?<CR>
+" Toggle hlsearch
+nnoremap <Leader>t :set hlsearch! hlsearch?<CR>
 
-	" Show other match
-	set showmatch
+" Show other match
+set showmatch
 
-	" Display linebreaks and tabs
-	set linebreak
-	set showbreak=↪\ 
-	set breakindent
-	set tabstop=2
-	set showtabline=2
-	set softtabstop=2 " Width of a soft tab stop when using spaces
-	set shiftwidth=2  " Indent width
+" Display linebreaks and tabs
+set linebreak
+set showbreak=↪\ 
+set breakindent
+set tabstop=2
+set showtabline=2
+set softtabstop=2 " Width of a soft tab stop when using spaces
+set shiftwidth=2  " Indent width
 
-	set cursorline
+set cursorline
 
-	set visualbell " No sound
+set visualbell " No sound
 
-	" Set up undo configuration
-	let vimDir = '$HOME/.vim'
-	if has('persistent_undo')
-		" Set persistent undo
-		let myUndoDir = expand(vimDir . '/undodir')
-		set undofile
-		set undodir=~/.vim/undo
-		" Create dirs
-		call system('mkdir -p ' . myUndoDir)
-	endif
+" Set up undo configuration
+let vimDir = '$HOME/.vim'
+if has('persistent_undo')
+	" Set persistent undo
+	let myUndoDir = expand(vimDir . '/undodir')
+	set undofile
+	set undodir=~/.vim/undo
+	" Create dirs
+	call system('mkdir -p ' . myUndoDir)
+endif
 
-	" Set levels for history an undo
-	set history=1000
-	set undolevels=1000
+" Set levels for history an undo
+set history=1000
+set undolevels=1000
 
-	" Activar las búsquedas
-	set hlsearch
-	set ignorecase
-	set smartcase
+" Activar las búsquedas
+set hlsearch
+set ignorecase
+set smartcase
 
-	" Print when needed
-	" set lazyredraw 
+" Print when needed
+" set lazyredraw 
 
-	set complete=.,w,b,u,t
-	set completeopt=longest,menuone
+set complete=.,w,b,u,t
+set completeopt=longest,menuone
 
-	set smarttab
+set smarttab
 
-	" Disable mode show
-	set noshowmode
+" Disable mode show
+set noshowmode
 
-	" Show always the status
-	set laststatus=2
+" Show always the status
+set laststatus=2
 
-	set number relativenumber
+set number relativenumber
 
-	set termguicolors
+set termguicolors
 
-	set ttimeoutlen=50
+set ttimeoutlen=50
 
-	set spelllang=es
+set spelllang=es
 
-	" Auto reload files
-	set autoread
+" Auto reload files
+set autoread
 
-	" Setup style
-	set background=dark
-	set t_Co=256  
-	let g:PaperColor_Theme_Options = {
-  \   'theme': {
-  \     'default': {
-  \       'transparent_background': 1,
-  \       'allow_bold': 1,
-  \       'allow_italic': 1
-  \     }
-  \   }
-  \ }
-	colorscheme PaperColor
+" Setup style
+set background=dark
+set t_Co=256  
+let g:PaperColor_Theme_Options = {
+			\   'theme': {
+			\     'default': {
+			\       'transparent_background': 1,
+			\       'allow_bold': 1,
+			\       'allow_italic': 1
+			\     }
+			\   }
+			\ }
+colorscheme PaperColor
 
-	nnoremap <Leader>fm :Vifm . <Enter>
-	nnoremap <Leader>ff :Vifm "expand('%:r')"<Enter>
+nnoremap <Leader>fm :Vifm . <Enter>
+nnoremap <Leader>ff :Vifm "expand('%:r')"<Enter>
 
 " Netrw look like nerdtree
 let g:netrw_banner = 0
@@ -231,14 +231,14 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
 " Prose mode found on the net {{{
 function! ProseMode()
-  call goyo#execute(0, [])
-  set spell noci nosi noai nolist noshowmode noshowcmd
-  set complete+=s
-  "set bg=light
-  "if !has('gui_running')
-    "let g:solarized_termcolors=256
-  "endif
-  "colors solarized
+	call goyo#execute(0, [])
+	set spell noci nosi noai nolist noshowmode noshowcmd
+	set complete+=s
+	"set bg=light
+	"if !has('gui_running')
+	"let g:solarized_termcolors=256
+	"endif
+	"colors solarized
 endfunction
 
 command! ProseMode call ProseMode()
@@ -247,35 +247,35 @@ nmap <leader>p :ProseMode<CR>
 
 " Deople and UltiSnips config {{{
 if has("nvim")
-		" Enable deoplete at startup
-		let g:deoplete#enable_at_startup = 1
-		" let g:deoplete#omni_patterns = {}
-		" let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
-		" let g:deoplete#sources = {}
-		" let g:deoplete#sources._ = []
-		" let g:deoplete#file#enable_buffer_path = 1	" Close preview window
-		" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-		" " Configure deoplete so that it uses tabs
-		" let g:SuperTabDefaultCompletionType = "<C-n>"
-		inoremap <expr><tab> pumvisible() ? "\<C-n>" : "\<tab>"
-		let g:UltiSnipsExpandTrigger="<leader><tab>"
-		let g:UltiSnipsJumpForwardTrigger="<leader>ss"
-		let g:UltiSnipsJumpBackwardTrigger="<leader>sk"
-		inoremap <silent><expr> <leader><tab>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<tab>" :
-      \ coc#refresh()
+	" Enable deoplete at startup
+	let g:deoplete#enable_at_startup = 1
+	" let g:deoplete#omni_patterns = {}
+	" let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
+	" let g:deoplete#sources = {}
+	" let g:deoplete#sources._ = []
+	" let g:deoplete#file#enable_buffer_path = 1	" Close preview window
+	" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+	" " Configure deoplete so that it uses tabs
+	" let g:SuperTabDefaultCompletionType = "<C-n>"
+	inoremap <expr><tab> pumvisible() ? "\<C-n>" : "\<tab>"
+	let g:UltiSnipsExpandTrigger="<leader><tab>"
+	let g:UltiSnipsJumpForwardTrigger="<leader>ss"
+	let g:UltiSnipsJumpBackwardTrigger="<leader>sk"
+	inoremap <silent><expr> <leader><tab>
+				\ pumvisible() ? coc#_select_confirm() :
+				\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+				\ <SID>check_back_space() ? "\<tab>" :
+				\ coc#refresh()
 
-		function! s:check_back_space() abort
-			let col = col('.') - 1
-			return !col || getline('.')[col - 1]  =~# '\s'
-		endfunction
+	function! s:check_back_space() abort
+		let col = col('.') - 1
+		return !col || getline('.')[col - 1]  =~# '\s'
+	endfunction
 
-		let g:coc_snippet_next = '<leader><tab>'
-" UtilSnips
-nnoremap <leader>ss :call UltiSnips#JumpForwards()<CR>
-nnoremap <leader>sk :call UltiSnips#JumpBackwards()<CR>
+	let g:coc_snippet_next = '<leader><tab>'
+	" UtilSnips
+	nnoremap <leader>ss :call UltiSnips#JumpForwards()<CR>
+	nnoremap <leader>sk :call UltiSnips#JumpBackwards()<CR>
 
 endif
 " }}}
@@ -287,9 +287,9 @@ let g:airline_right_sep = ''
 let g:airline_left_alt_sep= ''
 let g:airline_left_sep = ''
 let g:airline#extensions#tabline#enabled = 1
- 
+
 if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
+	let g:airline_symbols = {}
 endif
 
 let g:airline_symbols.branch = ''
@@ -326,27 +326,27 @@ autocmd FileType go nmap <Leader>i  <Plug>(go-info)
 " }}}
 
 " Scrolling {{{
-  set scrolljump=5      " Lines to scroll when cursor leaves screen
-  set scrolloff=8       " Minimum lines to keep above and below cursor
-  set sidescrolloff=15  " Minimum columns to keep left and right of cursor
-  set sidescroll=1      " Number of columns to scroll horizontally
+set scrolljump=5      " Lines to scroll when cursor leaves screen
+set scrolloff=8       " Minimum lines to keep above and below cursor
+set sidescrolloff=15  " Minimum columns to keep left and right of cursor
+set sidescroll=1      " Number of columns to scroll horizontally
 " }}}
 
 " Vim files {{{
-	au FileType vim setlocal foldmethod=marker
+au FileType vim setlocal foldmethod=marker
 " }}}
 
 " Java {{{
 let g:gitdir=system("git rev-parse --show-toplevel")
 let isnotgitdir=matchstr(gitdir, '^fatal:.*')
 if empty(isnotgitdir)
-				" \ 'java': [$HOME.'/dotfiles/bin/jdtls', g:gitdir.'src/main/java/'],
-				 " \ 'java': ['tcp://127.0.0.1: 1044'],
-		let g:LanguageClient_serverCommands = {
+	" \ 'java': [$HOME.'/dotfiles/bin/jdtls', g:gitdir.'src/main/java/'],
+	" \ 'java': ['tcp://127.0.0.1: 1044'],
+	let g:LanguageClient_serverCommands = {
 				\ 'java': [$HOME.'/dotfiles/bin/jdtls', g:gitdir.'src/main/java/'],
 				\ }
 else
-		let g:LanguageClient_serverCommands = {
+	let g:LanguageClient_serverCommands = {
 				\ 'java': [$HOME.'/dotfiles/bin/jdtls'],
 				\ }
 endif
@@ -393,9 +393,9 @@ autocmd CursorHold *.java silent call CocActionAsync('highlight')
 
 " Gui Setting {{{
 if has('gui_macvim')
-  set guifont=FuraCode\ Nerd\ Font:h13
-  set linespace=2
-  set macligatures
+	set guifont=FuraCode\ Nerd\ Font:h13
+	set linespace=2
+	set macligatures
 endif
 
 " }}}
@@ -423,7 +423,7 @@ elseif executable('rg')
 	let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 	let g:ctrlp_use_caching = 0
 elseif executable('ag')
-	 let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+	let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
 				\ --ignore .git
 				\ --ignore .svn
 				\ --ignore .hg
@@ -492,13 +492,13 @@ autocmd FileType cfg setlocal commentstring=#\ %s
 " }}}
 
 " Neoformat {{{
- let g:LanguageClient_serverCommands = {
-    \ 'java': ['/usr/local/bin/jdtls'],
-    \ }
+let g:LanguageClient_serverCommands = {
+			\ 'java': ['/usr/local/bin/jdtls'],
+			\ }
 let g:neoformat_only_msg_on_error = 1
 augroup fmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
+	autocmd!
+	autocmd BufWritePre * undojoin | Neoformat
 augroup END
 " }}}
 
@@ -524,41 +524,41 @@ let g:workspace_session_disable_on_args = 1
 
 " Rg (ripgrep) and Ag (Silver Searcher) {{{
 if executable('rg')
-  set grepprg=rg\ --vimgrep\ --no-heading
-  command -nargs=+ -complete=file -bar Rgg silent! grep! <args>|cwindow|redraw!
-  set grepformat=%f:%l:%c:%m,%f:%l:%m
-  nnoremap <Leader>ag :Rg<Space> 
+	set grepprg=rg\ --vimgrep\ --no-heading
+	command -nargs=+ -complete=file -bar Rgg silent! grep! <args>|cwindow|redraw!
+	set grepformat=%f:%l:%c:%m,%f:%l:%m
+	nnoremap <Leader>ag :Rg<Space> 
 endif
 
 if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-  command -nargs=+ -complete=file -bar Agg silent! grep! <args>|cwindow|redraw!
-  nnoremap <Leader>ag :Ag<Space> 
+	" Use ag over grep
+	set grepprg=ag\ --nogroup\ --nocolor
+	command -nargs=+ -complete=file -bar Agg silent! grep! <args>|cwindow|redraw!
+	nnoremap <Leader>ag :Ag<Space> 
 endif
 " }}}}
 
 " Coc config{{{
-	nnoremap <Leader>ca :CocAction<CR>
-	" noremap <Leader>ca <Plug>(coc-codeaction)
-	nnoremap <Leader>cf :CocFix<CR>
-	nmap <leader>qf  <Plug>(coc-fix-current)
+nnoremap <Leader>ca :CocAction<CR>
+" noremap <Leader>ca <Plug>(coc-codeaction)
+nnoremap <Leader>cf :CocFix<CR>
+nmap <leader>qf  <Plug>(coc-fix-current)
 
-	" Code navigation
-	nmap <silent> <Leader>gy <Plug>(coc-type-definition)
-	nmap <silent> <Leader>gi <Plug>(coc-implementation)
-	nmap <silent> <Leader>gr <Plug>(coc-references)
+" Code navigation
+nmap <silent> <Leader>gy <Plug>(coc-type-definition)
+nmap <silent> <Leader>gi <Plug>(coc-implementation)
+nmap <silent> <Leader>gr <Plug>(coc-references)
 
-	" Symbol renaming.
-	nmap <leader>rn <Plug>(coc-rename)
-	nmap <leader>rr <Plug>(coc-refactor)
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>rr <Plug>(coc-refactor)
 
 
 " }}}}
 
 " Markdown {{{
-	let g:vim_markdown_conceal = 0
-	let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
 " }}}}
 
 " Netrw {{{
@@ -577,14 +577,14 @@ endif
 " }}}}
 
 " Devicons config {{{
-  let g:WebDevIconsTabAirLineAfterGlyphPadding = ' '
-  let g:WebDevIconsTabAirLineBeforeGlyphPadding = ''
+let g:WebDevIconsTabAirLineAfterGlyphPadding = ' '
+let g:WebDevIconsTabAirLineBeforeGlyphPadding = ''
 " }}}}
 
 " Behave Gherkin config {{{
-	let g:behave_path = "test"
+let g:behave_path = "test"
 
-	autocmd FileType gherkin nmap <leader>gt  :call behave#goto_step_definition()call behave#goto_step_definition()<CR>
+autocmd FileType gherkin nmap <leader>gt  :call behave#goto_step_definition()call behave#goto_step_definition()<CR>
 " }}}}
 "
 " cwjk"rpb"ryiwn@a
