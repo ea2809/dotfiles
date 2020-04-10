@@ -137,6 +137,10 @@ vnoremap <Up> :m '<-2<CR>gv=gv
   \ }
 	colorscheme PaperColor
 
+
+	nnoremap <Leader>fm :Vifm . <Enter>
+	nnoremap <Leader>ff :Vifm expand('%:p:h')<Enter>
+
 " Netrw look like nerdtree
 let g:netrw_banner = 0
 " let g:netrw_liststyle = 3
@@ -207,11 +211,12 @@ inoremap <leader>bb <Esc>:ls<CR>
 nnoremap <leader>bp :bp<CR>
 inoremap <leader>bp <Esc>:bp<CR>
 
+nnoremap <leader>dd :bd<CR>
 nnoremap <leader>bd :bd<CR>
 inoremap <leader>bd <Esc>:bd<CR>
 
 nnoremap <leader>q :q<CR>
-
+nnoremap <leader>qq :q<CR>
 nnoremap <leader>wq :wq<CR>
 
 nnoremap <leader>Q :q!<CR>

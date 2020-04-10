@@ -38,3 +38,4 @@ alias bwip="behave -t @wip"
 
 alias in="source .in"
 alias tx="tmux attach || tmux"
+alias fm="vifm ."

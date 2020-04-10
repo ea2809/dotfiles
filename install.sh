@@ -73,6 +73,12 @@ copyifnot ~/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
 echo "VIM section is needed"
 python ./karabiner/spacefn.py
 
+# Vimf
+createdir ~/.config/vifm/
+createdir ~/.config/vifm/colors
+copyifnot ~/dotfiles/vifm/palenight.vifm ~/.config/vifm/colors/palenight.vifm
+copyifnot ~/dotfiles/vifm/vifmrc ~/.config/vifm/vifmrc
+
 #createdir ~/.firstinstall
 #pushd ~/.firstinstall
 #git clone git@github.com:ryanoasis/nerd-fonts.git

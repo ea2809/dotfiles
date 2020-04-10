@@ -17,7 +17,7 @@ Plug 'gioele/vim-autoswap'
 Plug 'davidhalter/jedi-vim', { 'for': 'python'}
 Plug 'stephpy/vim-yaml', { 'for': 'yaml'}
 Plug 'vim-airline/vim-airline'
-Plug 'ea2809/vim-devicons'
+Plug 'ryanoasis/vim-devicons'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-scripts/restore_view.vim'
 Plug 'christoomey/vim-tmux-navigator'
@@ -57,4 +57,5 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-vinegar'
 Plug 'thaerkh/vim-workspace'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'vifm/vifm.vim'"
 call plug#end()
