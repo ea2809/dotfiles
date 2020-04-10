@@ -298,11 +298,12 @@ fileviewer *.docx docx2txt.pl %f -
 "
 " Or leave it for automatic detection
 "
-" fileviewer *[^/] pygmentize -O style=monokai -f console256 -g
-" fileviewer *[^/] env COLORTERM=8bit bat --color=always --style="plain"
-fileviewer .*[^/],*[^/] env -uCOLORTERM bat --color always --wrap never --pager never %c -p
 " fileviewer .*[^/],*[^/] env -uCOLORTERM cat %c
 fileviewer */,.*/ lsd --tree --depth 1 --icon always --color always
+"
+" fileviewer *[^/] pygmentize -O style=monokai -f console256 -g
+" fileviewer *[^/] env COLORTERM=8bit bat --color=always --style="plain"
+fileviewer .*[^/],*[^/],* env -uCOLORTERM bat --color always --wrap never --pager never %c -p
 
 " Displaying pictures in terminal
 "
