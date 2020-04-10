@@ -79,7 +79,7 @@ createdir ~/.config/vifm/colors
 copyifnot ~/dotfiles/vifm/palenight.vifm ~/.config/vifm/colors/palenight.vifm
 copyifnot ~/dotfiles/vifm/vifmrc ~/.config/vifm/vifmrc
 
-# Vimf
+# Bat
 createdir ~/.config/bat/
 copyifnot ~/dotfiles/bat/config ~/.config/bat/config
 
