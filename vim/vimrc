@@ -131,15 +131,16 @@ vnoremap <Up> :m '<-2<CR>gv=gv
 	let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default': {
-  \       'transparent_background': 1
+  \       'transparent_background': 1,
+  \       'allow_bold': 1,
+  \       'allow_italic': 1
   \     }
   \   }
   \ }
 	colorscheme PaperColor
 
-
 	nnoremap <Leader>fm :Vifm . <Enter>
-	nnoremap <Leader>ff :Vifm expand('%:p:h')<Enter>
+	nnoremap <Leader>ff :Vifm "expand('%:r')"<Enter>
 
 " Netrw look like nerdtree
 let g:netrw_banner = 0
