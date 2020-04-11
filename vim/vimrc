@@ -348,9 +348,9 @@ let g:neoformat_java_google = {
 let g:neoformat_enabled_java = ['google']
 
 
-" autocmd FileType java setlocal omnifunc=javacomplete#Complete
-autocmd! BufWritePost,BufEnter *.java Neomake
+autocmd! BufWritePost,BufEnter *.java Neomake  " Linting
 autocmd FileType java setlocal tabstop=2 shiftwidth=2 expandtab
+" autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " autocmd! BufWritePre *.java Neoformat
 " let g:EclimCompletionMethod = 'omnifunc'
 
@@ -392,14 +392,14 @@ autocmd FileType tex nnoremap <leader>r :! pdflatex %<CR>
 nnoremap <leader>o :! open . <CR><CR>
 " }}}
 
-"" CTRLP{{{
+" CTRLP (FZF){{{
+
+if executable('fzf')
+	let g:ctrlp_map = '<m-p>'
+	noremap <silent> <C-p> :Files<CR>
+endif
+
 ""let g:ctrlp_mruf_relative = 1
-
-"if executable('fzf')
-"	let g:ctrlp_map = '<m-p>'
-"	noremap <silent> <C-p> :Files<CR>
-"endif
-
 "if executable('fd')
 "	let g:ctrlp_user_command = 'fd --type f --color never "" %s'
 "	let g:ctrlp_use_caching = 0
@@ -419,7 +419,7 @@ nnoremap <leader>o :! open . <CR><CR>
 "else
 "	let g:ctrlp_clear_cache_on_exit = 0
 "endif
-"" }}}
+" }}}
 
 " YAML{{{
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
@@ -451,8 +451,7 @@ autocmd FileType python let g:neoformat_run_all_formatters = 1
 autocmd FileType python nmap <leader>gt <Plug>(coc-definition)
 autocmd FileType python nmap <leader>rn <Plug>(coc-rename)
 
-
-autocmd FileType python let b:coc_root_patterns = ['requirements.txt', 'behave.ini', 'features', '.git', '.env']
+autocmd CursorHold *.py silent call CocActionAsync('highlight')
 " }}}
 
 " Cucumber {{{
