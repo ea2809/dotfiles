@@ -153,17 +153,6 @@ let g:netrw_winsize = 20
 let g:netrw_list_hide= '.*\.swp$,.*\.pyc'
 let g:netrw_hide = 1
 let g:netrw_fastbrowse = 0
-" augroup ProjectDrawer
-"   autocmd!
-"   autocmd VimEnter * :Vexplore
-" augroup END
-
-" autocmd vimenter * NERDTree
-" nnoremap <Leader>nt :NERDTreeToggle<Enter>
-" let NERDTreeAutoDeleteBuffer = 1
-" let NERDTreeMinimalUI = 1
-" let NERDTreeDirArrows = 1
-" let NERDTreeShowHidden=1
 
 " Views do not save options
 " https://stackoverflow.com/questions/44065404/vim-does-not-reload-set-option-config-in-vimrc/44066065#44066065
@@ -327,13 +316,6 @@ autocmd FileType go nmap <leader>do  :GoDoc<CR>
 autocmd FileType go nmap <Leader>i  <Plug>(go-info)
 " }}}
 
-" Scrolling {{{
-set scrolljump=5      " Lines to scroll when cursor leaves screen
-set scrolloff=8       " Minimum lines to keep above and below cursor
-set sidescrolloff=15  " Minimum columns to keep left and right of cursor
-set sidescroll=1      " Number of columns to scroll horizontally
-" }}}
-
 " Vim files {{{
 au FileType vim setlocal foldmethod=marker
 " }}}
@@ -410,34 +392,34 @@ autocmd FileType tex nnoremap <leader>r :! pdflatex %<CR>
 nnoremap <leader>o :! open . <CR><CR>
 " }}}
 
-" CTRLP{{{
-"let g:ctrlp_mruf_relative = 1
+"" CTRLP{{{
+""let g:ctrlp_mruf_relative = 1
 
-if executable('fzf')
-	let g:ctrlp_map = '<m-p>'
-	noremap <silent> <C-p> :Files<CR>
-endif
+"if executable('fzf')
+"	let g:ctrlp_map = '<m-p>'
+"	noremap <silent> <C-p> :Files<CR>
+"endif
 
-if executable('fd')
-	let g:ctrlp_user_command = 'fd --type f --color never "" %s'
-	let g:ctrlp_use_caching = 0
-elseif executable('rg')
-	let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-	let g:ctrlp_use_caching = 0
-elseif executable('ag')
-	let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-				\ --ignore .git
-				\ --ignore .svn
-				\ --ignore .hg
-				\ --ignore .DS_Store
-				\ --ignore "**/*.pyc"
-				\ --ignore "*.class"
-				\ -g ""'
-	let g:ctrlp_use_caching = 0
-else
-	let g:ctrlp_clear_cache_on_exit = 0
-endif
-" }}}
+"if executable('fd')
+"	let g:ctrlp_user_command = 'fd --type f --color never "" %s'
+"	let g:ctrlp_use_caching = 0
+"elseif executable('rg')
+"	let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+"	let g:ctrlp_use_caching = 0
+"elseif executable('ag')
+"	let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+"				\ --ignore .git
+"				\ --ignore .svn
+"				\ --ignore .hg
+"				\ --ignore .DS_Store
+"				\ --ignore "**/*.pyc"
+"				\ --ignore "*.class"
+"				\ -g ""'
+"	let g:ctrlp_use_caching = 0
+"else
+"	let g:ctrlp_clear_cache_on_exit = 0
+"endif
+"" }}}
 
 " YAML{{{
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
@@ -489,14 +471,7 @@ autocmd FileType gherkin setlocal tabstop=2 shiftwidth=2 expandtab
 autocmd FileType cfg setlocal commentstring=#\ %s
 " }}}
 
-" Rust {{{
-
-" }}}
-
 " Neoformat {{{
-let g:LanguageClient_serverCommands = {
-			\ 'java': ['/usr/local/bin/jdtls'],
-			\ }
 let g:neoformat_only_msg_on_error = 1
 augroup fmt
 	autocmd!
@@ -504,7 +479,7 @@ augroup fmt
 augroup END
 " }}}
 
-" Neoformat {{{
+" Configure .env file {{{
 autocmd BufNewFile,BufReadPost .env set filetype=sh
 " }}}
 
@@ -585,8 +560,7 @@ let g:WebDevIconsTabAirLineBeforeGlyphPadding = ''
 
 " Behave Gherkin config {{{
 let g:behave_path = "test"
-
-autocmd FileType gherkin nmap <leader>gt  :call behave#goto_step_definition()call behave#goto_step_definition()<CR>
+autocmd FileType gherkin nmap <leader>gt  :call behave#goto_step_definition()<CR>
 " }}}
 
 " Git configurtion{{{
@@ -597,6 +571,24 @@ nnoremap <Leader>gb :Gblame<CR>
 
 " Abbrevations{{{
 iabbrev pdbd import sys, pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+" }}}
+
+" Terminal config {{{
+augroup TerminalStuff
+	" Fix problem when you run a fullscreen command (vifm,top,...)
+	autocmd!
+	autocmd TermOpen * set sidescrolloff=0
+	autocmd TermClose * set sidescrolloff=15 " Copy value from the Scrolling section
+augroup END
+" }}}
+
+" Scrolling {{{
+" Note: is sidescrolloff is modifies should be modified in the Terminal Config
+" section
+set scrolljump=5      " Lines to scroll when cursor leaves screen
+set scrolloff=8       " Minimum lines to keep above and below cursor
+set sidescrolloff=15  " Minimum columns to keep left and right of cursor
+set sidescroll=1      " Number of columns to scroll horizontally
 " }}}
 
 " cwjk"rpb"ryiwn@a

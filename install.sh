@@ -73,7 +73,7 @@ copyifnot ~/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
 echo "VIM section is needed"
 python ./karabiner/spacefn.py
 
-# Vimf
+# Vifm
 createdir ~/.config/vifm/
 createdir ~/.config/vifm/colors
 copyifnot ~/dotfiles/vifm/palenight.vifm ~/.config/vifm/colors/palenight.vifm
