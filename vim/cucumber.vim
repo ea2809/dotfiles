@@ -82,12 +82,21 @@ function! s:pattern(key)
   return '\<\%('.join(map(languages,'get(v:val,a:key,"\\%(a\\&b\\)")'),'\|').'\)'
 endfunction
 
+
+" Add todo and notes
+sy keyword cucumberTodoTask       TODO FIXME FIX contained
+sy keyword cucumberrTodoNote      NOTE           contained
+
+hi def link cucumberTodoTask      cucumberTodo
+hi def link cucumberTodoNote      cucumberTodo
+sy cluster cucumberTodos    contains=cucumberTodoTask,cucumberTodoNote
+
 function! s:Add(name)
   let next = " skipempty skipwhite nextgroup=".join(map(["Region","AndRegion","ButRegion","Comment","String","Table"],'"cucumber".a:name.v:val'),",")
   exe "syn region cucumber".a:name.'Region matchgroup=cucumber'.a:name.' start="\%(^\s*\)\@<=\%('.s:pattern(tolower(a:name)).'\)" end="$"'.next
   exe 'syn region cucumber'.a:name.'AndRegion matchgroup=cucumber'.a:name.'And start="\%(^\s*\)\@<='.s:pattern('and').'" end="$" contained'.next
   exe 'syn region cucumber'.a:name.'ButRegion matchgroup=cucumber'.a:name.'But start="\%(^\s*\)\@<='.s:pattern('but').'" end="$" contained'.next
-  exe 'syn match cucumber'.a:name.'Comment "\%(^\s*\)\@<=#.*" contained'.next
+  exe 'syn match cucumber'.a:name.'Comment "\%(^\s*\)\@<=#.*" contained contains=@cucumberTodos'.next
   exe 'syn region cucumber'.a:name.'String start=+\%(^\s*\)\@<="""+ end=+"""+ contained'.next
   exe 'syn match cucumber'.a:name.'Table "\%(^\s*\)\@<=|.*" contained contains=cucumberDelimiter'.next
   exe 'hi def link cucumber'.a:name.'Comment cucumberComment'
@@ -97,22 +106,25 @@ function! s:Add(name)
   exe 'syn cluster cucumberStepRegions add=cucumber'.a:name.'Region,cucumber'.a:name.'AndRegion,cucumber'.a:name.'ButRegion'
 endfunction
 
-syn match   cucumberComment  "\%(^\s*\)\@<=#.*"
+
+syn match   cucumberComment  "\%(^\s*\)\@<=#.*" contains=@cucumberTodos
 syn match   cucumberComment  "\%(\%^\s*\)\@<=#.*" contains=cucumberLanguage
-syn match   cucumberLanguage "\%(#\s*\)\@<=language:" contained
+syn match   cucumberLanguage "\%(#\s*\)\@<=language:" contains=@cucumberTodos contained
 syn match   cucumberUnparsed "\S.*" nextgroup=cucumberUnparsedComment,cucumberUnparsed,cucumberTags,cucumberBackground,cucumberScenario,cucumberScenarioOutline,cucumberExamples skipwhite skipempty contained
-syn match   cucumberUnparsedComment "#.*" nextgroup=cucumberUnparsedComment,cucumberUnparsed,cucumberTags,cucumberBackground,cucumberScenario,cucumberScenarioOutline,cucumberExamples skipwhite skipempty contained
+syn match   cucumberUnparsedComment "#.*" contains=@cucumberTodos nextgroup=cucumberUnparsedComment,cucumberUnparsed,cucumberTags,cucumberBackground,cucumberScenario,cucumberScenarioOutline,cucumberExamples skipwhite skipempty contained
 
 exe 'syn match cucumberFeature "\%(^\s*\)\@<='.s:pattern('feature').':" nextgroup=cucumberUnparsedComment,cucumberUnparsed,cucumberBackground,cucumberScenario,cucumberScenarioOutline,cucumberExamples skipwhite skipempty'
 exe 'syn match cucumberBackground "\%(^\s*\)\@<='.s:pattern('background').':"'
 exe 'syn match cucumberScenario "\%(^\s*\)\@<='.s:pattern('scenario').':"'
 exe 'syn match cucumberScenarioOutline "\%(^\s*\)\@<='.s:pattern('scenario_outline').':"'
-exe 'syn match cucumberExamples "\%(^\s*\)\@<='.s:pattern('examples').':" nextgroup=cucumberExampleTable skipempty skipwhite'
+exe 'syn match cucumberExamples "\%(^\s*\)\@<='.s:pattern('examples').':" nextgroup=cucumberExampleTable,cucumberExampleRegion skipempty skipwhite'
+exe 'syn region cucumberExampleRegion start="\%(^\s*\)\@<='.s:pattern('examples').':" end="$" matchgroup=cucumberExamples nextgroup=cucumberExampleTable contains=cucumberPlaceholder,cucumberExamples'
 
-syn match   cucumberPlaceholder   "<[^<>]*>" contained containedin=@cucumberStepRegions
+syn match   cucumberPlaceholder   "<[^<>]*>" contained containedin=@cucumberStepRegions,@cucumberExamples
 syn match   cucumberExampleTable  "\%(^\s*\)\@<=|.*" contains=cucumberDelimiter
 syn match   cucumberDelimiter     "\\\@<!\%(\\\\\)*\zs|" contained
 syn match   cucumberTags          "\%(^\s*\)\@<=\%(@[^@[:space:]]\+\s\+\)*@[^@[:space:]]\+\s*$" contains=@NoSpell
+
 
 call s:Add('Then')
 call s:Add('When')
@@ -133,6 +145,12 @@ hi def link cucumberString            String
 hi def link cucumberGiven             Conditional
 hi def link cucumberWhen              Function
 hi def link cucumberThen              Type
+hi def link cucumberTodo              Todo
+
+
+highlight! def link cucumberGivenAnd             cucumberGiven
+highlight! def link cucumberWhenAnd              cucumberWhen
+highlight! def link cucumberThenAnd              cucumberThen
 
 let b:current_syntax = "cucumber"
 

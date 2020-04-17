@@ -13,7 +13,7 @@ Plug 'sheerun/vim-polyglot' " Improve syntax
 Plug 'tpope/vim-repeat' " Repeteat custom commands
 Plug 'tpope/vim-commentary' " Comment lines 'gcc'
 Plug 'tpope/vim-surround' "Surround words
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sbdchd/neoformat' " Automatic formatter
 Plug 'w0rp/ale' " Linting
 Plug 'neomake/neomake' " Linting
@@ -22,6 +22,7 @@ Plug 'tpope/vim-eunuch' " Adds thingks like Rename, Move
 Plug 'vifm/vifm.vim' " Vifm file manager
 Plug 'SirVer/ultisnips' " Snippets
 Plug 'honza/vim-snippets' " Users snippets repository
+Plug 'liuchengxu/vim-which-key' " Show actual mapping on screen
 
 " Language
 Plug 'davidhalter/jedi-vim', { 'for': 'python'} " Improve completion and go to code
@@ -29,6 +30,8 @@ Plug 'stephpy/vim-yaml', { 'for': 'yaml'}
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries'}
 Plug 'ea2809/behave.vim', { 'for': ['python', 'gherkin', 'cucumber']}
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'uiiaoo/java-syntax.vim', { 'for': 'java'}
+Plug 'derekwyatt/vim-scala', { 'for': 'scala'}
 
 " Improve style
 Plug 'vim-airline/vim-airline' " Statusline and tabline
