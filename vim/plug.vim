@@ -25,7 +25,7 @@ Plug 'honza/vim-snippets' " Users snippets repository
 Plug 'liuchengxu/vim-which-key' " Show actual mapping on screen
 
 " Language
-Plug 'davidhalter/jedi-vim', { 'for': 'python'} " Improve completion and go to code
+" Plug 'davidhalter/jedi-vim', { 'for': 'python'} " Improve completion and go to code
 Plug 'stephpy/vim-yaml', { 'for': 'yaml'}
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries'}
 Plug 'ea2809/behave.vim', { 'for': ['python', 'gherkin', 'cucumber']}

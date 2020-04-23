@@ -1,0 +1,31 @@
+{
+  "coc.preferences.rootPatterns": [
+    "requirements.txt", 
+    "behave.ini", 
+    "features", 
+    ".env", 
+    ".in",
+    ".git",
+    ".hg",
+    ".projections.json"
+  ],
+
+  //Personal Java home
+  "java.home": "/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home",
+
+  // Python settings
+  "python.jediEnabled": false,
+  "python.venvFolders": [
+    "envs",
+    ".pyenv",
+    ".direnv",
+    "venvs"
+  ],
+
+  // make vim select first item on completion
+  // "suggest.noselect": false,
+
+  // Show help
+  "java.signatureHelp.enabled": true
+
+}

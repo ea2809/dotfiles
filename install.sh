@@ -59,6 +59,7 @@ copyifnot ~/dotfiles/vim/es.utf-8.sug ~/.vim/spell/es.utf-8.sug
 createdir ~/.config/nvim/
 copyifnot ~/dotfiles/vim/vimrc ~/.vimrc
 copyifnot ~/dotfiles/vim/init.vim ~/.config/nvim/init.vim
+copyifnot ~/dotfiles/vim/coc-settings.json ~/.config/nvim/coc-settings.json
 
 # TMUX configuration
 copyifnot ~/dotfiles/tmux/tmux.conf ~/.tmux.conf

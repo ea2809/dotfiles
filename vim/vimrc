@@ -4,7 +4,7 @@ let g:python3_host_prog=$HOME.'/venvs/nvim3/bin/python'
 " }}}
 
 " Pre plug preferences {{{
-autocmd FileType python let b:coc_root_patterns = ['requirements.txt', 'behave.ini', 'features', '.git', '.env']
+let g:rooter_patterns = ['behave.ini', 'behave.ini', 'venv', '.in', '.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/' , ]
 " }}}
 
 " Install plugins using vim-plug {{{
@@ -437,6 +437,7 @@ au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\
 autocmd FileType python setlocal foldmethod=indent foldlevel=99
 autocmd FileType python setlocal commentstring=#\ %s
 let g:jedi#show_call_signatures = 2
+let g:jedi#auto_vim_configuration = 0
 " let g:neoformat_enabled_python = ['autopep8', 'yapf', 'isort']
 let g:neoformat_enabled_python = ['autopep8', 'yapf']
 autocmd FileType python let g:neoformat_run_all_formatters = 1

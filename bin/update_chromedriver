@@ -1,0 +1,36 @@
+#!/bin/bash
+
+####
+# Author: ea2809 (Enrique García Galán)
+# Description: Download the Mac chromedriver and move it to the expected site
+####
+function updateChrome() {
+  chromedriver="chromedriver"
+  file_name="chromedriver_mac64.zip"
+  file_dir="/tmp"
+  file_path="$file_dir/$file_name"
+  chromedriver_path="$file_dir/$chromedriver"
+
+  # Get local chrome version
+  chrome_version=$(/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --version | cut -d" " -f3 | cut -d"." -f-3)
+
+  # Get the actual chromedriver version
+  download_location=$(curl "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$chrome_version")
+
+  chromedriver_location="https://chromedriver.storage.googleapis.com/$download_location/$file_name"
+
+  rm $file_path
+  curl -o $file_path $chromedriver_location
+  pushd $file_dir
+  unzip $file_path $chromedriver
+  popd
+
+  actual_driver=$(which $chromedriver)
+  mv $actual_driver $actual_driver.back
+  mv $chromedriver_path $actual_driver
+
+  # Clean
+  rm $file_path
+}
+
+updateChrome
