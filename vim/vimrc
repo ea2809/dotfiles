@@ -166,10 +166,16 @@ autocmd FocusGained * silent! checktime
 
 " Search for the selected text
 vnoremap // y/\V<C-r>=escape(@",'/\')<CR><CR>
+vnoremap agg y:Agg '<C-r>"'<CR>
+vnoremap ag y:Ag '<C-r>"'<CR>
+vnoremap rg y:Rg '<C-r>"'<CR>
+vnoremap fzf y:FZF '<C-r>"'<CR>
 
 " Activate vim-which-key
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
+
+nnoremap <silent> <leader>rf :%s/
 
 " }}}
 
@@ -378,7 +384,7 @@ endif
 " }}}
 
 " Latex settings{{{
-autocmd FileType tex nnoremap <leader>r :! pdflatex %<CR>
+autocmd FileType tex nnoremap <leader>gr :! pdflatex %<CR>
 " }}}
 
 " Basic mappings {{{
@@ -639,6 +645,10 @@ function! s:SynStack()
         endfor
     endif
 endfunc 
+
+"Fix gitgutter
+highlight! link SignColumn LineNr
+
 "}}}
 
 " cwjk"rpb"ryiwn@a

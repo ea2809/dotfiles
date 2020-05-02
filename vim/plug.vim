@@ -30,7 +30,7 @@ Plug 'stephpy/vim-yaml', { 'for': 'yaml'}
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries'}
 Plug 'ea2809/behave.vim', { 'for': ['python', 'gherkin', 'cucumber']}
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-Plug 'uiiaoo/java-syntax.vim', { 'for': 'java'}
+Plug 'ea2809/java-syntax.vim', { 'for': 'java'}
 Plug 'derekwyatt/vim-scala', { 'for': 'scala'}
 
 " Improve style

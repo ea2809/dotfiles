@@ -1,20 +1,41 @@
 #!/bin/bash
+
 # Install plug
 if [ ! -f ~/.local/share/nvim/site/autoload/plug.vim ]; then
   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-copyifnot() {
+checklink() {
   # Link $1 to $2 if $2 does not exist
   IN=$1
   OUT=$2
   if [ ! -f $OUT ]; then
     echo "Linking file $OUT"
     ln -s $IN $OUT
+  elif [ -L $OUT ]; then
+    # Check both files are the same
+    if [ $IN -ef $OUT ]; then
+      echo "File is linked as we expected ($IN -> $OUT)"
+    else
+      echo "File is linked to other file"
+      movefile $IN $OUT
+    fi
   else
-    echo "File $OUT exists"
+    echo "File $OUT exists and is not linked"
+    movefile $IN $OUT
   fi
+}
+
+movefile() {
+  # Create file $1 with $2 link, if file exists a backup file will be created
+  local FILE=$IN
+  local CONTENT=$OUT
+  if [ -f $FILE ]; then
+    echo "File $FILE moved with extension backup."
+    mv $FILE $FILE.backup
+  fi
+  checklink $IN $OUT
 }
 
 checkfile() {
@@ -52,23 +73,23 @@ createdir() {
 
 # Vim languages
 createdir ~/.vim/spell/
-copyifnot ~/dotfiles/vim/es.utf-8.spl ~/.vim/spell/es.utf-8.spl
-copyifnot ~/dotfiles/vim/es.utf-8.sug ~/.vim/spell/es.utf-8.sug
+checklink ~/dotfiles/vim/es.utf-8.spl ~/.vim/spell/es.utf-8.spl
+checklink ~/dotfiles/vim/es.utf-8.sug ~/.vim/spell/es.utf-8.sug
 
 # Vim configuration
 createdir ~/.config/nvim/
-copyifnot ~/dotfiles/vim/vimrc ~/.vimrc
-copyifnot ~/dotfiles/vim/init.vim ~/.config/nvim/init.vim
-copyifnot ~/dotfiles/vim/coc-settings.json ~/.config/nvim/coc-settings.json
+checklink ~/dotfiles/vim/vimrc ~/.vimrc
+checklink ~/dotfiles/vim/init.vim ~/.config/nvim/init.vim
+checklink ~/dotfiles/vim/coc-settings.json ~/.config/nvim/coc-settings.json
 
 # TMUX configuration
-copyifnot ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
+checklink ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 
 # ZSH configuration
 createifno ~/.zshrc "source ~/dotfiles/zsh/zshrc"
 
 # Kitty config
-copyifnot ~/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
+checklink ~/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
 
 # Change karabiner config file
 echo "VIM section is needed"
@@ -77,12 +98,12 @@ python ./karabiner/spacefn.py
 # Vifm
 createdir ~/.config/vifm/
 createdir ~/.config/vifm/colors
-copyifnot ~/dotfiles/vifm/palenight.vifm ~/.config/vifm/colors/palenight.vifm
-copyifnot ~/dotfiles/vifm/vifmrc ~/.config/vifm/vifmrc
+checklink ~/dotfiles/vifm/palenight.vifm ~/.config/vifm/colors/palenight.vifm
+checklink ~/dotfiles/vifm/vifmrc ~/.config/vifm/vifmrc
 
 # Bat
 createdir ~/.config/bat/
-copyifnot ~/dotfiles/bat/config ~/.config/bat/config
+checklink ~/dotfiles/bat/config ~/.config/bat/config
 
 #createdir ~/.firstinstall
 #pushd ~/.firstinstall
