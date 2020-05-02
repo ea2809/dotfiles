@@ -444,6 +444,7 @@ autocmd FileType python let g:neoformat_run_all_formatters = 1
 
 autocmd FileType python nmap <leader>gt <Plug>(coc-definition)
 
+autocmd FileType python nmap K :call CocAction('doHover')<CR>
 autocmd CursorHold *.py silent call CocActionAsync('highlight')
 " }}}
 
@@ -570,7 +571,7 @@ let g:WebDevIconsTabAirLineBeforeGlyphPadding = ''
 " }}}
 
 " Behave Gherkin config {{{
-let g:behave_path = "test"
+let g:behave_path = ""
 autocmd FileType gherkin nmap <leader>gt  :call behave#goto_step_definition()<CR>
 " }}}
 
