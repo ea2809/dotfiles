@@ -547,8 +547,6 @@ nnoremap <silent> <leader>cj  :<C-u>CocNext<CR>
 nnoremap <silent> <leader>ck  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <leader>cp  :<C-u>CocListResume<CR>
-
-
 " }}}
 
 " Markdown {{{

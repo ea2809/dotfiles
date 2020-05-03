@@ -105,6 +105,9 @@ checklink ~/dotfiles/vifm/vifmrc ~/.config/vifm/vifmrc
 createdir ~/.config/bat/
 checklink ~/dotfiles/bat/config ~/.config/bat/config
 
+echo "Configure git configuration"
+bash ./scripts/global/git.sh
+
 #createdir ~/.firstinstall
 #pushd ~/.firstinstall
 #git clone git@github.com:ryanoasis/nerd-fonts.git
