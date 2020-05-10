@@ -10,7 +10,7 @@ let g:rooter_patterns = ['behave.ini', 'behave.ini', 'venv', '.in', '.git', '.gi
 " Install plugins using vim-plug {{{
 let plugfile = $HOME . '/dotfiles/vim/plug.vim'
 if filereadable(plugfile)
-	exec 'source' plugfile
+  exec 'source' plugfile
 endif
 " }}}
 
@@ -295,6 +295,7 @@ if !exists('g:airline_symbols')
 endif
 
 let g:airline_symbols.branch = ''
+let g:airline_symbols.dirty = '  '
 " }}}
 
 " Quickfix window {{{
@@ -570,8 +571,8 @@ let g:vim_markdown_conceal_code_blocks = 0
 " }}}
 
 " Devicons config {{{
-let g:WebDevIconsTabAirLineAfterGlyphPadding = ' '
-let g:WebDevIconsTabAirLineBeforeGlyphPadding = ''
+let g:WebDevIconsTabAirLineAfterGlyphPadding = ''
+let g:WebDevIconsTabAirLineBeforeGlyphPadding = ' '
 " }}}
 
 " Behave Gherkin config {{{
