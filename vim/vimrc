@@ -295,7 +295,7 @@ if !exists('g:airline_symbols')
 endif
 
 let g:airline_symbols.branch = ''
-let g:airline_symbols.dirty = '  '
+let g:airline_symbols.dirty = ' '
 " }}}
 
 " Quickfix window {{{
@@ -548,6 +548,18 @@ nnoremap <silent> <leader>cj  :<C-u>CocNext<CR>
 nnoremap <silent> <leader>ck  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <leader>cp  :<C-u>CocListResume<CR>
+
+"TODO: coc keeps installing coc-java
+" let g:coc_global_extensions = [
+"   \ 'coc-highlight',
+"   \ 'coc-python',
+"   \ 'coc-snippets',
+"   \ 'coc-ultisnips',
+"   \ 'coc-metals',
+"   \ 'coc-json',
+"   \ 'coc-java ',
+"   \ ]
+
 " }}}
 
 " Markdown {{{

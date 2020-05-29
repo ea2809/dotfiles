@@ -126,3 +126,6 @@ _fix_cursor() {
 }
 
 precmd_functions+=(_fix_cursor)
+
+# Expand alias con (C-x a)
+bindkey "^Xa" _expand_alias

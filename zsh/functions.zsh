@@ -1,25 +1,25 @@
 #autoload
 # alias gerritpush="git push origin HEAD:refs/for/master"
-	gerritpush(){
-		if [ "$1" = "" ];
-		then
-			echo "No topic provided"
-		else
-			echo "Topic $1"
-			git push origin HEAD:refs/for/master/$1
-			fi
-		}
-	## autoload -Uz gerritpush
+gerritpush(){
+	if [ "$1" = "" ];
+	then
+		echo "No topic provided"
+	else
+		echo "Topic $1"
+		git push origin HEAD:refs/for/master/$1
+	fi
+}
+## autoload -Uz gerritpush
 
-	activate(){
-		if [ "$1" = "" ];
-		then
-			echo "No virtualenv name provided"
-		else
-			echo "Activating virtualenv $1"
-			source ~/venvs/$1/bin/activate
-		fi
-	}
+activate(){
+	if [ "$1" = "" ];
+	then
+		echo "No virtualenv name provided"
+	else
+		echo "Activating virtualenv $1"
+		source ~/venvs/$1/bin/activate
+	fi
+}
 
 
 workon(){
@@ -47,13 +47,13 @@ workon(){
 # From https://superuser.com/questions/419775/with-bash-iterm2-how-to-name-tabs
 #setup terminal tab title
 function title {
-    if [ "$1" ]
-    then
-        unset PROMPT_COMMAND
-        echo -ne "\033]0;${*}\007"
-    else
-        export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
-    fi
+	if [ "$1" ]
+	then
+		unset PROMPT_COMMAND
+		echo -ne "\033]0;${*}\007"
+	else
+		export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
+	fi
 }
 
 
@@ -63,14 +63,14 @@ function title {
 # Using '--quiet' with 'symbolic-ref' will not cause a fatal error (128) if
 # it's not a symbolic ref, but in a Git repo.
 function git_current_branch() {
-  local ref
-  ref=$(command git symbolic-ref --quiet HEAD 2> /dev/null)
-  local ret=$?
-  if [[ $ret != 0 ]]; then
-    [[ $ret == 128 ]] && return  # no git repo.
-    ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
-  fi
-  echo ${ref#refs/heads/}
+	local ref
+	ref=$(command git symbolic-ref --quiet HEAD 2> /dev/null)
+	local ret=$?
+	if [[ $ret != 0 ]]; then
+		[[ $ret == 128 ]] && return  # no git repo.
+		ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
+	fi
+	echo ${ref#refs/heads/}
 }
 
 ds() {
@@ -85,28 +85,28 @@ drmf() {
 	docker rm $2 $(docker ps -a | grep $1 | awk '{print $1;}')
 }
 
-dsm() { ds mobility }
-dkm() { dk mobility }
-drmm() { drmf mobility ""}
-drmmf() { drmf mobility "-f" }
+alias dsm="ds mobility"
+alias dkm="dk mobility"
+alias drmm='drmf mobility ""'
+alias drmmf='drmf mobility "-f"'
 
-dsc() { ds comms } 
-dkc() { dk comms }
-drmc() { drmf comms ""}
-drmmc() { drmf comms "-f" }
+alias dsc="ds comms"
+alias dkc="dk comms"
+alias drmc='drmf comms ""'
+alias drmmc='drmf comms "-f"'
 
 # Get the real path
 realpath() { for f in "$@"; do echo ${f}(:A); done }
 
 fbehave() {
-    behave "$@" -d -f steps 2> /dev/null | \
-    awk -v pwd=$(pwd) -F " *# " '/\s*(Given|When|Then|\*)/ {print $1"\t"pwd"/"$2}' | \
-    fzf -d "\t" --with-nth=1 \
-        --bind 'enter:execute(echo {} | cut -f1 | awk "{\$1=\$1};1" | pbcopy )' \
-        --bind 'tab:execute(echo {} | cut -f2 | cut -d ":" -f1 | pbcopy )' \
-        --bind 'shift-tab:execute(echo {} | cut -f2 | awk -F: "{printf \"e +%s %s\",\$2,\$1}" | pbcopy )' \
-        --prompt='Step> '
-}
+	behave "$@" -d -f steps 2> /dev/null | \
+		awk -v pwd=$(pwd) -F " *# " '/\s*(Given|When|Then|\*)/ {print $1"\t"pwd"/"$2}' | \
+		fzf -d "\t" --with-nth=1 \
+		--bind 'enter:execute(echo {} | cut -f1 | awk "{\$1=\$1};1" | pbcopy )' \
+		--bind 'tab:execute(echo {} | cut -f2 | cut -d ":" -f1 | pbcopy )' \
+		--bind 'shift-tab:execute(echo {} | cut -f2 | awk -F: "{printf \"e +%s %s\",\$2,\$1}" | pbcopy )' \
+		--prompt='Step> '
+	}
 
 _name(){
 	print -P "%F{green}  ________ %f                                    ";
