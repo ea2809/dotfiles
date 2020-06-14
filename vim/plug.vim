@@ -25,13 +25,13 @@ Plug 'honza/vim-snippets' " Users snippets repository
 Plug 'liuchengxu/vim-which-key' " Show actual mapping on screen
 
 " Language
-" Plug 'davidhalter/jedi-vim', { 'for': 'python'} " Improve completion and go to code
 Plug 'stephpy/vim-yaml', { 'for': 'yaml'}
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries'}
 Plug 'ea2809/behave.vim', { 'for': ['python', 'gherkin', 'cucumber']}
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'ea2809/java-syntax.vim', { 'for': 'java'}
 Plug 'derekwyatt/vim-scala', { 'for': 'scala'}
+" Plug 'davidhalter/jedi-vim', { 'for': 'python'} " Improve completion and go to code
 
 " Improve style
 Plug 'vim-airline/vim-airline' " Statusline and tabline
@@ -39,20 +39,9 @@ Plug 'ryanoasis/vim-devicons' " Tabline icons
 Plug 'Yggdroot/indentLine' " Shows tabs in a different line
 Plug 'NLKNguyen/papercolor-theme' " Theme
 Plug 'junegunn/vim-easy-align' " Align sentences or markdown table
+Plug 'luochen1990/rainbow' " Add colors to every marker () {} <>
 
 " Alternative to CtrlP
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 call plug#end()
-
-
-" Old completion configuration
-" Plug 'zchee/deoplete-jedi', { 'for': 'python'}
-" Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go'}
-" Plug 'autozimu/LanguageClient-neovim', {
-" 			\ 'branch': 'next',
-" 			\ 'do': 'bash install.sh',
-" 			\ }
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-" Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java'}

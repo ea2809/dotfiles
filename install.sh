@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Install vim-plug
 if [ ! -f ~/.local/share/nvim/site/autoload/plug.vim ]; then
