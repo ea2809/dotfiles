@@ -177,6 +177,11 @@ vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
 
 nnoremap <silent> <leader>rf :%s/
 
+
+" }}}
+
+"Terminal mappings {{{
+tmap jk <C-\><C-N>
 " }}}
 
 "Split navigations {{{
