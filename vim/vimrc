@@ -180,8 +180,26 @@ nnoremap <silent> <leader>rf :%s/
 
 " }}}
 
-"Terminal mappings {{{
-tmap jk <C-\><C-N>
+"Terminal thing {{{
+tmap <space>jk <C-\><C-N>
+
+"TODO: this is not working
+let g:terminal_color_0 = '#222222'
+let g:terminal_color8 = '#444444'
+let g:terminal_color1 = '#ff000f'
+let g:terminal_color9 = '#ff273f'
+let g:terminal_color2 = '#8ce00a'
+let g:terminal_color10 = '#abe05a'
+let g:terminal_color3 = '#e3d000'
+let g:terminal_color11 = '#ffff00'
+let g:terminal_color4 = '#008df8'
+let g:terminal_color12 = '#0092ff'
+let g:terminal_color5 = '#6c43a5'
+let g:terminal_color13 = '#9a5feb'
+let g:terminal_color6 = '#00d7eb'
+let g:terminal_color14 = '#67ffef'
+let g:terminal_color7 = '#ffffff'
+let g:terminal_color15 = '#ffffff'
 " }}}
 
 "Split navigations {{{
