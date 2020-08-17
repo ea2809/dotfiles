@@ -1,2 +1,3 @@
 #!/bin/bash
-/usr/bin/osascript -e "display notification \"$*\""
+[ $# -ne 2 ] && /usr/bin/osascript -e "display notification \"$*\" with Title \"Terminal\""
+[ $# -eq 2 ] && /usr/bin/osascript -e "display notification \"$2\" with Title \"$1\""

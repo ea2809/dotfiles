@@ -71,37 +71,37 @@ createdir() {
   fi
 }
 
-# Vim languages
+echo "Move vim dictionary"
 createdir ~/.vim/spell/
 checklink ~/dotfiles/vim/es.utf-8.spl ~/.vim/spell/es.utf-8.spl
 checklink ~/dotfiles/vim/es.utf-8.sug ~/.vim/spell/es.utf-8.sug
 
-# Vim configuration
+echo "Vim configuration"
 createdir ~/.config/nvim/
 checklink ~/dotfiles/vim/vimrc ~/.vimrc
 checklink ~/dotfiles/vim/init.vim ~/.config/nvim/init.vim
 checklink ~/dotfiles/vim/coc-settings.json ~/.config/nvim/coc-settings.json
 
-# TMUX configuration
+echo "Tmux configuration"
 checklink ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 
-# ZSH configuration
+echo "ZSH configuration"
 createifno ~/.zshrc "source ~/dotfiles/zsh/zshrc"
 
-# Kitty config
+echo "Kitty configuration"
 checklink ~/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
 
 # Change karabiner config file
-echo "VIM section is needed"
+echo "VIM section is needed in KARABINER"
 python ./karabiner/spacefn.py
 
-# Vifm
+echo "Vifm configuration"
 createdir ~/.config/vifm/
 createdir ~/.config/vifm/colors
 checklink ~/dotfiles/vifm/palenight.vifm ~/.config/vifm/colors/palenight.vifm
 checklink ~/dotfiles/vifm/vifmrc ~/.config/vifm/vifmrc
 
-# Bat
+echo "Bat configuration"
 createdir ~/.config/bat/
 checklink ~/dotfiles/bat/config ~/.config/bat/config
 

@@ -1,4 +1,5 @@
-source ~/dotfiles/zsh/antigen.zsh
+typeset -g BASE_ZSH_CONFIG=${0:a:h}
+source $BASE_ZSH_CONFIG/antigen.zsh
 PATH+=:~/go/bin
 PATH+=:~/dotfiles/bin
 #antigen use oh-my-zsh
@@ -16,20 +17,13 @@ case `uname` in
 esac
 
 
-# POWERLEVEL9K_MODE='nerdfont-complete'
-# POWERLEVEL9K_MODE='awesome-fontconfig'
-#source ~/dotfiles/zsh/powerlevel9k.zsh
-
 antigen bundle git
 antigen bundle docker
 antigen bundle pip
 antigen bundle command-not-found
 antigen bundle golang
 antigen bundle colorize
-# antigen bundle globalias
 antigen bundle fzf
-#antigen bundle autojump
-#antigen bundle common-aliases
 antigen bundle compleat
 antigen bundle zsh-users/fizsh
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -37,13 +31,21 @@ antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle wfxr/forgit
+# antigen bundle globalias
+#antigen bundle autojump
+#antigen bundle common-aliases
 
 #antigen theme bhilburn/powerlevel9k powerlevel9k
-source ~/dotfiles/zsh/spaceship.zsh
-antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
+source $BASE_ZSH_CONFIG/spaceship.zsh
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+source $BASE_ZSH_CONFIG/p10k.zsh
+
+# antigen theme https://github.com/denysdovhan/spaceship-prompt spaceship
+# spaceship_vi_mode_enable
+antigen theme romkatv/powerlevel10k
 antigen apply
 
-# source ~/dotfiles/zsh/zsh-autosuggestions.zsh/zsh-autosuggestions.zsh
+# source $BASE_ZSH_CONFIG/zsh-autosuggestions.zsh/zsh-autosuggestions.zsh
    
 setopt prompt_subst
 #Custom titlebar
@@ -76,7 +78,6 @@ bindkey "^?" backward-delete-char
 # vim-style command-line
 # bindkey -M viins 'jk' vi-cmd-mode
 
-spaceship_vi_mode_enable
 export KEYTIMEOUT=1
 
 # FZF
@@ -91,8 +92,9 @@ if [ -z "$HISTFILE" ]; then
     HISTFILE=$HOME/.zsh_history
 fi
 
-source ~/dotfiles/zsh/alias.zsh
-source ~/dotfiles/zsh/functions.zsh
+source $BASE_ZSH_CONFIG/alias.zsh
+source $BASE_ZSH_CONFIG/functions.zsh
+source $BASE_ZSH_CONFIG/bgnotify.zsh
 
 banner
 
