@@ -355,6 +355,10 @@ autocmd FileType go nmap <Leader>i  <Plug>(go-info)
 au FileType vim setlocal foldmethod=marker
 " }}}
 
+" Html files {{{
+au FileType html setlocal expandtab
+" }}}
+
 " Java {{{
 let g:gitdir=system("git rev-parse --show-toplevel")
 let isnotgitdir=matchstr(gitdir, '^fatal:.*')
