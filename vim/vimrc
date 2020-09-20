@@ -4,7 +4,7 @@ let g:python3_host_prog=$HOME.'/venvs/nvim3/bin/python'
 " }}}
 
 " Pre plug preferences {{{
-let g:rooter_patterns = ['behave.ini', 'behave.ini', 'venv', '.in', '.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/' , ]
+let g:rooter_patterns = ['behave.ini', 'venv', '.in', '.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/' , ]
 " }}}
 
 " Install plugins using vim-plug {{{

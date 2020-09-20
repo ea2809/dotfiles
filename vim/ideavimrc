@@ -1,0 +1,97 @@
+let maplocalleader = " "
+let mapleader = " "
+
+" Show current vim mode
+set showmode
+
+" Use the clipboard register '*' for all yank, delete, change and put operations
+" which would normally go to the unnamed register.
+set clipboard+=unnamed
+
+" Search as characters are entered
+set incsearch
+
+" Highlight search results
+set hlsearch
+
+" If a pattern contains an uppercase letter, searching is case sensitive,
+" otherwise, it is not.
+set ignorecase
+set smartcase
+
+" Emulate vim-surround. Commands: ys, cs, ds, S.
+set surround
+
+set relativenumber number
+nmap <leader>gt :action GoToDeclaration<CR>
+nmap <leader>gd :action GoToDeclaration<CR>
+nmap <Leader>gy :action GoToGotoTypeDeclaration<CR>
+nmap <Leader>gi :action GoToImplementaion<CR>
+nmap <Leader>ga :action GoToAction<CR>
+nmap <Leader>gr :action FindUsages<CR>
+
+set commentary
+" nmap gcc :action CommentByLineComment<CR>
+" vmap gcc :action CommentByBlockComment<CR>
+map <Leader>dd :action CloseContent<CR>
+
+
+" nmap <left> :action PreviousEditorTab<CR>
+" nmap <right> :action NextEditorTab<CR>
+
+"Thanksto intellimacs https://github.com/MarcoIeni/intellimacs
+" Next Tab
+nnoremap <leader>bn    :action NextTab<CR>
+vnoremap <leader>bn    <Esc>:action NextTab<CR>
+nnoremap <left> :action NextTab<CR>
+
+" Previous Tab
+nnoremap <leader>bp    :action PreviousTab<CR>
+vnoremap <leader>bp    <Esc>:action PreviousTab<CR>
+nnoremap <right> :action PreviousTab<CR>
+
+" Execute an action. Like <M-x>
+nnoremap <leader><Space>    :action GotoAction<CR>
+vnoremap <leader><Space>    :action GotoAction<CR>
+
+" Rename symbol
+nnoremap <leader>rn    :action RenameElement<CR>
+vnoremap <leader>rn    :action RenameElement<CR>
+
+" Search in project
+nnoremap <leader>fp    :action FindInPath<CR>
+vnoremap <leader>fp    :action FindInPath<CR>
+
+" Search in project. Unfortunately <leader>/ does not work.
+nnoremap <leader>sp    :action FindInPath<CR>
+vnoremap <leader>sp    :action FindInPath<CR>
+nnoremap <leader>sl    :action FindInPath<CR>
+vnoremap <leader>sl    :action FindInPath<CR>
+nnoremap <leader>ss    :action FindInPath<CR>
+vnoremap <leader>ss    :action FindInPath<CR>
+
+" Toggle show indent guide
+nnoremap <leader>ti    :action EditorToggleShowIndentLines<CR>
+vnoremap <leader>ti    <Esc>:action EditorToggleShowIndentLines<CR>
+
+" Toggle truncate lines
+nnoremap <leader>tl    :action EditorToggleUseSoftWraps<CR>
+vnoremap <leader>tl    :action EditorToggleUseSoftWraps<CR>
+
+" Toggle line numbers
+nnoremap <leader>tn    :action EditorToggleShowLineNumbers<CR>
+vnoremap <leader>tn    :action EditorToggleShowLineNumbers<CR>
+
+" Toggle relative line numbers
+nnoremap <leader>tr    :set relativenumber!<CR>
+vnoremap <leader>tr    <Esc>:set relativenumber!<CR>
+
+" Toggle Show Whitespaces
+nnoremap <leader>tw    :action EditorToggleShowWhitespaces<CR>
+vnoremap <leader>tw    :action EditorToggleShowWhitespaces<CR>
+
+" Toggle distraction free mode
+nnoremap <leader>Tt    :action ToggleDistractionFreeMode<CR>
+vnoremap <leader>Tt    :action ToggleDistractionFreeMode<CR>
+
+vnoremap // y/<C-r>"<CR>

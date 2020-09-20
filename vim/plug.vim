@@ -31,6 +31,7 @@ Plug 'ea2809/behave.vim', { 'for': ['python', 'gherkin', 'cucumber']}
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'ea2809/java-syntax.vim', { 'for': 'java'}
 Plug 'derekwyatt/vim-scala', { 'for': 'scala'}
+Plug 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'davidhalter/jedi-vim', { 'for': 'python'} " Improve completion and go to code
 
 " Improve style

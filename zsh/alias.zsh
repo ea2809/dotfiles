@@ -18,6 +18,7 @@ alias ll='ls -la'
 alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
+alias cat='bat'
 
 alias f='find . -name '
 

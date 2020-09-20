@@ -10,9 +10,6 @@
     ".projections.json"
   ],
 
-  //Personal Java home
-  "java.home": "/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home",
-
   // Python settings
   "python.jediEnabled": false,
   "python.venvFolders": [
@@ -27,5 +24,4 @@
 
   // Show help
   "java.signatureHelp.enabled": true
-
 }
