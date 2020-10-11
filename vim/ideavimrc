@@ -23,11 +23,11 @@ set smartcase
 set surround
 
 set relativenumber number
-nmap <leader>gt :action GoToDeclaration<CR>
-nmap <leader>gd :action GoToDeclaration<CR>
-nmap <Leader>gy :action GoToGotoTypeDeclaration<CR>
-nmap <Leader>gi :action GoToImplementaion<CR>
-nmap <Leader>ga :action GoToAction<CR>
+nmap <leader>gt :action GotoDeclaration<CR>
+nmap <leader>gd :action GotoDeclaration<CR>
+nmap <Leader>gy :action GotoTypeDeclaration<CR>
+nmap <Leader>gi :action GotoImplementaion<CR>
+nmap <Leader>ga :action GotoAction<CR>
 nmap <Leader>gr :action FindUsages<CR>
 
 set commentary
@@ -43,12 +43,12 @@ map <Leader>dd :action CloseContent<CR>
 " Next Tab
 nnoremap <leader>bn    :action NextTab<CR>
 vnoremap <leader>bn    <Esc>:action NextTab<CR>
-nnoremap <left> :action NextTab<CR>
+nnoremap <right> :action NextTab<CR>
 
 " Previous Tab
 nnoremap <leader>bp    :action PreviousTab<CR>
 vnoremap <leader>bp    <Esc>:action PreviousTab<CR>
-nnoremap <right> :action PreviousTab<CR>
+nnoremap <left> :action PreviousTab<CR>
 
 " Execute an action. Like <M-x>
 nnoremap <leader><Space>    :action GotoAction<CR>

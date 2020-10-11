@@ -5,4 +5,5 @@ vim/java
 *.zwc
 
 .metals
+venv
 
