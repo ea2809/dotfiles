@@ -95,3 +95,5 @@ nnoremap <leader>Tt    :action ToggleDistractionFreeMode<CR>
 vnoremap <leader>Tt    :action ToggleDistractionFreeMode<CR>
 
 vnoremap // y/<C-r>"<CR>
+
+inoremap jk <ESC>
