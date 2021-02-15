@@ -500,10 +500,12 @@ autocmd FileType cfg setlocal commentstring=#\ %s
 
 " Neoformat {{{
 let g:neoformat_only_msg_on_error = 1
-augroup fmt
-	autocmd!
-	autocmd BufWritePre * undojoin | Neoformat
-augroup END
+" augroup fmt
+" 	autocmd!
+" 	autocmd BufWritePre * undojoin | Neoformat
+" augroup END
+nnoremap <space>L :Neoformat<CR>
+
 " }}}
 
 " Configure .env file {{{
@@ -576,16 +578,22 @@ nnoremap <silent> <leader>ck  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <leader>cp  :<C-u>CocListResume<CR>
 
-"TODO: coc keeps installing coc-java
-" let g:coc_global_extensions = [
-"   \ 'coc-highlight',
-"   \ 'coc-python',
-"   \ 'coc-snippets',
-"   \ 'coc-ultisnips',
-"   \ 'coc-metals',
-"   \ 'coc-json',
-"   \ 'coc-java ',
-"   \ ]
+"Coc keeps installing coc-java
+" \ 'coc-metals', Installed as a pluging in plug.vim
+let g:coc_global_extensions = [
+	\ 'coc-ultisnips',
+	\ 'coc-snippets',
+	\ 'coc-prettier',
+	\ 'coc-highlight',
+	\ 'coc-eslint',
+	\ 'coc-tsserver',
+	\ 'coc-python',
+	\ 'coc-json',
+	\ 'coc-java',
+	\ 'coc-html',
+	\ 'coc-html',
+	\ 'coc-go',
+	\ 'coc-css' ]
 
 " }}}
 
@@ -699,5 +707,27 @@ let g:rainbow_conf = {
 let g:rainbow_active = 1
 
 "}}}
+
+" LargeFile {{{
+" file is large from 10mb
+let g:LargeFile = 1024 * 1024 * 10
+augroup LargeFile 
+  au!
+  autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
+augroup END
+
+function! LargeFile()
+ " no syntax highlighting etc
+ set eventignore+=FileType
+ " save memory when other file is viewed
+ setlocal bufhidden=unload
+ " is read-only (write with :w new_filename)
+ setlocal buftype=nowrite
+ " no undo possible
+ setlocal undolevels=-1
+ " display message
+ autocmd VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
+endfunction
+" }}}
 
 " cwjk"rpb"ryiwn@a

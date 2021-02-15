@@ -23,6 +23,7 @@ Plug 'vifm/vifm.vim' " Vifm file manager
 Plug 'SirVer/ultisnips' " Snippets
 Plug 'honza/vim-snippets' " Users snippets repository
 Plug 'liuchengxu/vim-which-key' " Show actual mapping on screen
+Plug 'ludovicchabant/vim-gutentags' "Take tare of the tags
 
 " Language
 Plug 'stephpy/vim-yaml', { 'for': 'yaml'}

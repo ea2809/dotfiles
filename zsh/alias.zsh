@@ -32,7 +32,6 @@ alias yi='yarn install'
 alias gdu='git diff -u'
 alias gpd='git pull origin develop'
 
-
 alias fzfp="fzf --preview 'bat --color=always {}'"
 alias rerun='behave @rerun.txt'
 alias bwip="behave -t @wip"
@@ -41,3 +40,5 @@ alias in="source .in"
 alias tx="tmux attach || tmux"
 alias fm="vifm ."
 alias nupdate="nvim +PlugClean +PlugInstall +PlugUpdate +CocUpdate +qal"
+
+alias ctags="$(brew --prefix)/bin/ctags"
