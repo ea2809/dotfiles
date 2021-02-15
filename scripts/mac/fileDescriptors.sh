@@ -4,7 +4,7 @@
 # https://wilsonmar.github.io/maximum-limits/
 
 file=/Library/LaunchDaemons/limit.maxfiles.plist
-if [ -f $file]; then
+if [ -f $file ]; then
   echo "File $file exists, if you have to change it do it by hand"
 else
   sudo cat <<EOF >$file
