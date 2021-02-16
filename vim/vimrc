@@ -730,4 +730,8 @@ function! LargeFile()
 endfunction
 " }}}
 
+" GutenTags {{{
+let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git']
+" }}}
+
 " cwjk"rpb"ryiwn@a
