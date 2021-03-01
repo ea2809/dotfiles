@@ -24,6 +24,7 @@ Plug 'SirVer/ultisnips' " Snippets
 Plug 'honza/vim-snippets' " Users snippets repository
 Plug 'liuchengxu/vim-which-key' " Show actual mapping on screen
 Plug 'ludovicchabant/vim-gutentags' "Take tare of the tags
+Plug 'psliwka/vim-smoothie' " Better scrolling
 
 " Language
 Plug 'stephpy/vim-yaml', { 'for': 'yaml'}

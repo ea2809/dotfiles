@@ -204,6 +204,13 @@ def hyper_keycode(keycode="", event="to"):
     return basic_to(keycode=keycode, modifiers=modifiers, event=event)
 
 
+def fhyper_keycode(keycode="", event="from"):
+    modifiers = [
+        "left_command", "left_control", "left_option", "left_shift"
+    ]
+    return basic_from(keycode=keycode, mandatory=modifiers)
+
+
 def meh_keycode(keycode="", event="to"):
     modifiers = [
         "right_command", "right_control", "right_option"
@@ -211,19 +218,20 @@ def meh_keycode(keycode="", event="to"):
     return basic_to(keycode=keycode, modifiers=modifiers, event=event)
 
 
-def add_functions(in_definitions, rule_type=basic_rule):
-    functions = {
-        "from": basic_from,
-        "to": basic_to,
-        "if_alone": basic_if_alone,
-        "if_held_down": basic_if_held_down,
-        "shell": program_to,
-        "hyper": hyper_keycode,
-        "meh": meh_keycode,
-        "device_unless": device_unless,
-        "parameters": parameters,
-    }
+functions = {
+    "from": basic_from,
+    "to": basic_to,
+    "if_alone": basic_if_alone,
+    "if_held_down": basic_if_held_down,
+    "shell": program_to,
+    "hyper": hyper_keycode,
+    "fhyper": fhyper_keycode,
+    "meh": meh_keycode,
+    "device_unless": device_unless,
+    "parameters": parameters,
+}
 
+def add_functions(in_definitions, rule_type=basic_rule):
     rules = []
     for definition in in_definitions:
         global_name = ""
@@ -249,11 +257,38 @@ def add_functions(in_definitions, rule_type=basic_rule):
     return rules
 
 
+def add_functions_hyper(in_definitions, rule_type=basic_rule):
+    rules = []
+    for definition in in_definitions:
+        global_name = ""
+        funcs = []
+        ignore = False
+
+        def add_funcs_to(name, options, funcs):
+            function = functions.get(name)
+            if callable(function):
+                funcs.append(function(**options))
+
+        for name, options in definition.items():
+            if name == "name":
+                global_name = options
+            elif name == "complex" or name == "hyper":
+                ignore = True
+            elif name == "from":
+                add_funcs_to("fhyper", options, funcs)
+            else:
+                add_funcs_to(name, options, funcs)
+        if not ignore:
+            rules.append(rule_type(description="Hyper "+global_name, functions=funcs))
+    return rules
+
+
 def main(spacefn_definitions, normal_definitions):
     rules = [
         base_spaceFN(),
     ]
     rules += add_functions(spacefn_definitions, rule_type=basic_spaceFN)
+    rules += add_functions_hyper(spacefn_definitions, rule_type=basic_rule)
     rules += add_functions(normal_definitions, rule_type=basic_rule)
 
     base = OrderedDict({"title": "Enrique's rules", "rules": rules})
@@ -266,14 +301,14 @@ spacefn_definitions = [
     {"name": "i to Kitty", "from": {"keycode": "i"}, "shell": {"program": "kitty"}},
     {"name": "s to Safari", "from": {"keycode": "s"}, "shell": {"program": "Safari"}},
     {"name": "c to Chrome", "from": {"keycode": "c"}, "shell": {"program": "Google Chrome"}},
-    {"name": "t to Teams", "from": {"keycode": "t", "optional": False}, "shell": {"program": "Microsoft Teams"}},
-    {"name": "o to Outlook", "from": {"keycode": "o", "optional": False}, "shell": {"program": "Microsoft Outlook"}},
+    {"name": "t to Teams", "from": {"keycode": "t"}, "shell": {"program": "Microsoft Teams"}},
+    {"name": "o to Outlook", "from": {"keycode": "o"}, "shell": {"program": "Microsoft Outlook"}},
     # {"name": "p to PyCharm", "from": {"keycode":"p"}, "shell": { "program": "PyCharm"}},
     {"name": "hyper g to Alfred github", "from": {"keycode": "g"}, "hyper": {"keycode": "g"}},
-    {"name": "hyper T to Trello", "from": {"keycode": "t", "mandatory": ["shift"]}, "shell": {"program": "Trello"}},
-    {"name": "hyper w to Trello", "from": {"keycode": "w"}, "hyper": {"keycode": "spacebar"}},
+    # {"name": "hyper T to Trello", "from": {"keycode": "t", "mandatory": ["shift"]}, "shell": {"program": "Trello"}},
+    # {"name": "hyper w to Trello", "from": {"keycode": "w"}, "hyper": {"keycode": "spacebar"}},
     {"name": "hyper r to Todoist", "from": {"keycode": "r"}, "meh": {"keycode": "r"}},
-    {"name": "hyper R to Todoist", "from": {"keycode": "r", "mandatory": ["shift"]}, "hyper": {"keycode": "r"}},
+    # {"name": "hyper R to Todoist", "from": {"keycode": "r", "mandatory": ["shift"]}, "hyper": {"keycode": "r"}},
     {"name": "v to Viber", "from": {"keycode": "v"}, "shell": {"program": "Viber"}},
     {"name": "hyper hjkl to arrows", "complex": [
         {"from": {"keycode": "h"}, "to": {"keycode": "left_arrow"}},
