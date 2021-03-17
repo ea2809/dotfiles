@@ -45,7 +45,17 @@ Plug 'NLKNguyen/papercolor-theme' " Theme
 Plug 'junegunn/vim-easy-align' " Align sentences or markdown table
 Plug 'luochen1990/rainbow' " Add colors to every marker () {} <>
 
+Plug 'sainnhe/gruvbox-material'
+
 " Alternative to CtrlP
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf.vim'
+
+Plug 'nvim-lua/popup.nvim' " Needed for telescope
+Plug 'nvim-lua/plenary.nvim' " Needed for telescope
+Plug 'nvim-telescope/telescope.nvim' " Alternative to fzf
+Plug 'nvim-telescope/telescope-fzy-native.nvim' " Better sorter
+Plug 'kyazdani42/nvim-web-devicons' " Another devicons ??
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " Better Sintax
 call plug#end()

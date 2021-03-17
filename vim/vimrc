@@ -3,6 +3,12 @@ let g:python_host_prog=$HOME.'/venvs/nvim/bin/python'
 let g:python3_host_prog=$HOME.'/venvs/nvim3/bin/python'
 " }}}
 
+
+"{{{ Change runtimepath
+"Add the dotfiles folder to import lua files
+let &runtimepath.=','.escape($HOME . '/dotfiles/vim', '\,')
+" }}}
+
 " Pre plug preferences {{{
 let g:rooter_patterns = ['behave.ini', 'venv', '.in', '.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/' , ]
 " }}}
@@ -133,13 +139,18 @@ set t_Co=256
 let g:PaperColor_Theme_Options = {
 			\   'theme': {
 			\     'default': {
-			\       'transparent_background': 1,
 			\       'allow_bold': 1,
 			\       'allow_italic': 1
 			\     }
 			\   }
 			\ }
-colorscheme PaperColor
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_enable_italic = 1
+" let g:gruvbox_material_disable_italic_comment = 1
+let g:gruvbox_material_enable_bold = 1
+let g:gruvbox_material_palette = 'original'
+colorscheme gruvbox-material
+" colorscheme PaperColor
 
 nnoremap <Leader>fm :Vifm . <Enter>
 nnoremap <Leader>ff :Vifm "expand('%:r')"<Enter>
@@ -325,6 +336,7 @@ let g:airline_symbols.dirty = ' '
 map <leader>ee :cnext<CR>
 map <leader>ek :cprevious<CR>
 nnoremap <leader>ec :cclose<CR>
+nnoremap <leader>eo :copen<CR>
 nnoremap <leader>cc :cc<CR>
 " }}}
 
@@ -423,8 +435,15 @@ nnoremap <leader>o :! open . <CR><CR>
 
 if executable('fzf')
 	let g:ctrlp_map = '<m-p>'
-	noremap <silent> <C-p> :Files<CR>
-endif
+	" noremap <silent> <C-p> :Files<CR>
+
+	" Using lua functions
+	nnoremap <C-p> <cmd>lua require('local-telescope').search_files()<cr>
+	nnoremap <leader>fa <cmd>lua require('local-telescope').search_all_files()<cr>
+	nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+	nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+	nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+	endif
 
 ""let g:ctrlp_mruf_relative = 1
 "if executable('fd')
@@ -733,5 +752,9 @@ endfunction
 " GutenTags {{{
 let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git']
 " }}}
+
+" Lua files {{{
+lua require('tree-sitter')
+"}}}
 
 " cwjk"rpb"ryiwn@a
