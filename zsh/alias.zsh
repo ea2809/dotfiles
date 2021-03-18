@@ -1,6 +1,7 @@
 alias o="open ."
 alias n="nvim"
 alias e="exit"
+alias c="clear"
 alias dvimrc='nvim ~/dotfiles/vim/vimrc'
 alias dzshrc='nvim ~/dotfiles/zsh/zshrc'
 alias dtmux='nvim ~/dotfiles/tmux/tmux.conf'

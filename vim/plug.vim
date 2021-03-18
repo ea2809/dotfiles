@@ -41,11 +41,10 @@ Plug 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
 Plug 'vim-airline/vim-airline' " Statusline and tabline
 Plug 'ryanoasis/vim-devicons' " Tabline icons
 Plug 'Yggdroot/indentLine' " Shows tabs in a different line
-Plug 'NLKNguyen/papercolor-theme' " Theme
 Plug 'junegunn/vim-easy-align' " Align sentences or markdown table
 Plug 'luochen1990/rainbow' " Add colors to every marker () {} <>
-
-Plug 'sainnhe/gruvbox-material'
+" Plug 'NLKNguyen/papercolor-theme' " Old theme, probably the BEST
+Plug 'sainnhe/gruvbox-material' "New theme
 
 " Alternative to CtrlP
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
