@@ -1,6 +1,6 @@
-path=$HOME/venvs/nvim3
-venvs=dirname $path
-name=basename $path 
+name="nvim3"
+venvs="$HOME/venvs"
+path="$venvs/$name"
 
 rm -r $path || echo "Does not exists"
 
