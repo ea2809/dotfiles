@@ -114,6 +114,7 @@ echo "Vifm configuration"
 createdir ~/.config/vifm/
 createdir ~/.config/vifm/colors
 checklink ~/dotfiles/vifm/palenight.vifm ~/.config/vifm/colors/palenight.vifm
+checklink ~/dotfiles/vifm/gruvbox.vifm ~/.config/vifm/colors/gruvbox.vifm
 checklink ~/dotfiles/vifm/vifmrc ~/.config/vifm/vifmrc
 
 echo "Bat configuration"
