@@ -49,6 +49,7 @@ case `uname` in
     alias ctags="$(brew --prefix)/bin/ctags"
   ;;
   Linux)
+    alias bat=batcat
 #    antigen bundle archlinux
   ;;
 esac

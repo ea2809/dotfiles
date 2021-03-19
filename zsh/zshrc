@@ -1,7 +1,9 @@
 typeset -g BASE_ZSH_CONFIG=${0:a:h}
 source $BASE_ZSH_CONFIG/antigen.zsh
-PATH+=:~/go/bin
-PATH+=:~/dotfiles/bin
+export GOPATH=$HOME/go
+path+=("$GOPATH")
+path+=('~/dotfiles/bin')
+export PATH
 #antigen use oh-my-zsh
 
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
