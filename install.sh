@@ -56,6 +56,10 @@ createifno() {
   local CONTENT=$2
   if [ -f $FILE ]; then
     echo "File $FILE exists"
+    grep -q "$CONTENT" "$FILE" || {
+      echo "Appending $FILE"
+      echo $CONTENT >>$FILE
+    }
   else
     echo "Creating $FILE"
     echo $CONTENT >$FILE
@@ -70,6 +74,15 @@ createdir() {
     mkdir -p $DIR
   fi
 }
+
+# case "$OSTYPE" in
+#   linux*) bash ~/dotfiles/scripts/ubuntu/install.sh;;
+#   darwin*)  echo "No more install" ;; 
+#   *)        echo "No configuration for $OSTYPE" ;;
+# esac
+
+echo "Install antigen"
+curl -L git.io/antigen > antigen.zsh
 
 echo "Move vim dictionary"
 createdir ~/.vim/spell/
@@ -87,6 +100,7 @@ checklink ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 
 echo "ZSH configuration"
 createifno ~/.zshrc "source ~/dotfiles/zsh/zshrc"
+createifno /.zshrc "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh"
 
 echo "Kitty configuration"
 checklink ~/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
