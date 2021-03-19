@@ -42,4 +42,13 @@ alias tx="tmux attach || tmux"
 alias fm="vifm ."
 alias nupdate="nvim +PlugClean +PlugInstall +PlugUpdate +CocUpdate +qal"
 
-alias ctags="$(brew --prefix)/bin/ctags"
+
+case `uname` in
+  Darwin)
+    alias ssh="kitty +kitten ssh"
+    alias ctags="$(brew --prefix)/bin/ctags"
+  ;;
+  Linux)
+#    antigen bundle archlinux
+  ;;
+esac
