@@ -100,9 +100,10 @@ checklink ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 
 echo "ZSH configuration"
 createifno ~/.zshrc "source ~/dotfiles/zsh/zshrc"
-createifno /.zshrc "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh"
+createifno ~/.zshrc "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh"
 
 echo "Kitty configuration"
+createdir ~/.config/kitty/
 checklink ~/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
 
 # Change karabiner config file
