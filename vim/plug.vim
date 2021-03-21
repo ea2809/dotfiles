@@ -26,6 +26,7 @@ Plug 'honza/vim-snippets' " Users snippets repository
 Plug 'liuchengxu/vim-which-key' " Show actual mapping on screen
 Plug 'ludovicchabant/vim-gutentags' "Take tare of the tags
 " Plug 'psliwka/vim-smoothie' " Better scrolling     -> Not workin as expected parecía normal pero no funcionó nada bien
+Plug 'unblevable/quick-scope' "Show movements to be faster
 
 " Language
 Plug 'stephpy/vim-yaml', { 'for': 'yaml'}
