@@ -7,7 +7,9 @@
     ".in",
     ".git",
     ".hg",
-    ".projections.json"
+    ".projections.json",
+    "pom.xml",
+    "build.gradle"
   ],
 
   // Python settings

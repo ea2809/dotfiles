@@ -40,7 +40,7 @@ alias bwip="behave -t @wip"
 alias in="source .in"
 alias tx="tmux attach || tmux"
 alias fm="vifm ."
-alias nupdate="nvim +PlugClean +PlugInstall +PlugUpdate +CocUpdate +qal"
+alias nupdate="nvim +PlugClean +PlugInstall +PlugUpdate +CocUpdate +TSUpdate +qal"
 
 
 case `uname` in
