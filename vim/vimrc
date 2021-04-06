@@ -798,6 +798,7 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " Vista {{{
 let g:vista#renderer#enable_icon = 1
+nnoremap <Leader>fv :Vista!!<CR>
 "}}}
 
 " cwjk"rpb"ryiwn@a
