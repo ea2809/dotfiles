@@ -108,6 +108,12 @@ fbehave() {
 		--prompt='Step> '
 	}
 
+node12(){
+  echo 'export PATH="/usr/local/opt/node@12/bin:$PATH"'
+  echo 'export LDFLAGS="-L/usr/local/opt/node@12/lib"'
+  echo 'export CPPFLAGS="-I/usr/local/opt/node@12/include"'
+}
+
 _name(){
 	print -P "%F{green}  ________ %f                                    ";
 	print -P "%F{green} /  _____/ %f _____    _______    ____    ___.__.";
