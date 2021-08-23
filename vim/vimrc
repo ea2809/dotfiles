@@ -218,8 +218,8 @@ vnoremap rg y:Rg '<C-r>"'<CR>
 vnoremap fzf y:FZF '<C-r>"'<CR>
 
 " Activate vim-which-key
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
-vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
+" nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+" vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
 
 nnoremap <silent> <leader>rf :%s/
 
@@ -649,6 +649,9 @@ let g:coc_global_extensions = [
 	\ 'coc-go',
 	\ 'coc-css' ]
 
+" disable coc in git commits
+autocmd BufRead,BufNewFile COMMIT_EDITMSG let b:coc_enabled=0
+
 " }}}
 
 " Markdown {{{
@@ -790,6 +793,7 @@ let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'git
 
 " Lua files {{{
 lua require('tree-sitter')
+lua require('which-key-local')
 "}}}
 
 " Quick-Scope {{{

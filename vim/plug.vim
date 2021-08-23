@@ -16,15 +16,16 @@ Plug 'tpope/vim-surround' "Surround words
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}  "Problem with coc-java
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'sbdchd/neoformat' " Automatic formatter
-Plug 'w0rp/ale' " Linting
+" Plug 'w0rp/ale' " Linting
 Plug 'neomake/neomake' " Linting
-Plug 'sbdchd/vim-run' " :Run
+" Plug 'sbdchd/vim-run' " :Run
 Plug 'tpope/vim-eunuch' " Adds thingks like Rename, Move
 Plug 'vifm/vifm.vim' " Vifm file manager
 Plug 'SirVer/ultisnips' " Snippets
 Plug 'honza/vim-snippets' " Users snippets repository
-Plug 'liuchengxu/vim-which-key' " Show actual mapping on screen
-Plug 'ludovicchabant/vim-gutentags' "Take tare of the tags
+" Plug 'liuchengxu/vim-which-key' " Show actual mapping on screen
+Plug 'folke/which-key.nvim'
+" Plug 'ludovicchabant/vim-gutentags' "Take tare of the tags -> Performance problems when there are too many files
 " Plug 'psliwka/vim-smoothie' " Better scrolling     -> Not workin as expected parecía normal pero no funcionó nada bien
 Plug 'unblevable/quick-scope' "Show movements to be faster
 
@@ -43,7 +44,6 @@ Plug 'vim-airline/vim-airline' " Statusline and tabline
 Plug 'ryanoasis/vim-devicons' " Tabline icons
 Plug 'Yggdroot/indentLine' " Shows tabs in a different line
 Plug 'junegunn/vim-easy-align' " Align sentences or markdown table
-Plug 'luochen1990/rainbow' " Add colors to every marker () {} <>
 " Plug 'NLKNguyen/papercolor-theme' " Old theme, probably the BEST
 Plug 'sainnhe/gruvbox-material' "New theme
 Plug 'liuchengxu/vista.vim'
@@ -58,5 +58,10 @@ Plug 'nvim-telescope/telescope.nvim' " Alternative to fzf
 Plug 'nvim-telescope/telescope-fzy-native.nvim' " Better sorter
 Plug 'kyazdani42/nvim-web-devicons' " Another devicons ??
 
+" Tree sitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " Better Sintax
+" Plug 'luochen1990/rainbow' " Add colors to every marker () {} <>
+Plug 'p00f/nvim-ts-rainbow'
+Plug 'romgrk/nvim-treesitter-context'
+
 call plug#end()
