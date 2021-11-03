@@ -641,7 +641,7 @@ let g:coc_global_extensions = [
 	\ 'coc-highlight',
 	\ 'coc-eslint',
 	\ 'coc-tsserver',
-	\ 'coc-python',
+	\ 'coc-pyright',
 	\ 'coc-json',
 	\ 'coc-java',
 	\ 'coc-html',
