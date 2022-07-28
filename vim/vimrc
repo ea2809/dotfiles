@@ -616,6 +616,10 @@ nmap <Leader>gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>rr <Plug>(coc-refactor)
 
+" Removed: https://github.com/neoclide/coc.nvim/commit/87c065ebde6bd28a2cc344430a714eb4025b1434
+command! -nargs=* -range CocAction :call coc#rpc#notify('codeActionRange', [<line1>, <line2>, <f-args>])
+command! -nargs=* -range CocFix    :call coc#rpc#notify('codeActionRange', [<line1>, <line2>, 'quickfix'])
+
 " Show all diagnostics.
 nnoremap <silent> <leader>cd  :<C-u>CocList diagnostics<cr>
 " Manage extensions.

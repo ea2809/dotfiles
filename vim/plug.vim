@@ -61,7 +61,7 @@ Plug 'kyazdani42/nvim-web-devicons' " Another devicons ??
 " Tree sitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " Better Sintax
 " Plug 'luochen1990/rainbow' " Add colors to every marker () {} <>
-Plug 'p00f/nvim-ts-rainbow'
+" Plug 'p00f/nvim-ts-rainbow'
 Plug 'romgrk/nvim-treesitter-context'
 
 call plug#end()
