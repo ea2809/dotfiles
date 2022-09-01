@@ -303,7 +303,7 @@ spacefn_definitions = [
     {"name": "c to Chrome", "from": {"keycode": "c"}, "shell": {"program": "Google Chrome"}},
     {"name": "t to Teams", "from": {"keycode": "t"}, "shell": {"program": "Microsoft Teams"}},
     {"name": "o to Outlook", "from": {"keycode": "o"}, "shell": {"program": "Microsoft Outlook"}},
-    # {"name": "p to PyCharm", "from": {"keycode":"p"}, "shell": { "program": "PyCharm"}},
+    {"name": "p to PyCharm", "from": {"keycode":"p"}, "shell": { "program": "PyCharm"}},
     {"name": "hyper g to Alfred github", "from": {"keycode": "g"}, "hyper": {"keycode": "g"}},
     # {"name": "hyper T to Trello", "from": {"keycode": "t", "mandatory": ["shift"]}, "shell": {"program": "Trello"}},
     # {"name": "hyper w to Trello", "from": {"keycode": "w"}, "hyper": {"keycode": "spacebar"}},

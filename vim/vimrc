@@ -31,7 +31,9 @@ map j gj
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
+															\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Move lines on visual mode
 vnoremap <Down> :m '>+1<CR>gv=gv
@@ -328,14 +330,22 @@ if has("nvim")
 	" " Configure deoplete so that it uses tabs
 	" let g:SuperTabDefaultCompletionType = "<C-n>"
 	inoremap <expr><tab> pumvisible() ? "\<C-n>" : "\<tab>"
+
 	let g:UltiSnipsExpandTrigger="<leader><tab>"
 	let g:UltiSnipsJumpForwardTrigger="<leader>ss"
 	let g:UltiSnipsJumpBackwardTrigger="<leader>sk"
-	inoremap <silent><expr> <leader><tab>
-				\ pumvisible() ? coc#_select_confirm() :
-				\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-				\ <SID>check_back_space() ? "\<tab>" :
-				\ coc#refresh()
+
+  inoremap <silent><expr> <TAB>
+    \ coc#pum#visible() ? coc#_select_confirm() :
+    \ coc#expandableOrJumpable() ?
+    \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
+	" inoremap <silent><expr> <leader><tab>
+	" 			\ pumvisible() ? coc#_select_confirm() :
+	" 			\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+	" 			\ <SID>check_back_space() ? "\<tab>" :
+	" 			\ coc#refresh()
 
 	function! s:check_back_space() abort
 		let col = col('.') - 1
