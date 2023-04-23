@@ -668,6 +668,15 @@ autocmd BufRead,BufNewFile COMMIT_EDITMSG let b:coc_enabled=0
 
 " }}}
 
+" Typescript {{{ 
+let g:neoformat_enabled_typescript = ['prettier']
+autocmd FileType typescript let g:neoformat_run_all_formatters = 1
+
+autocmd FileType typescript nmap <leader>gt <Plug>(coc-definition)
+
+autocmd FileType typescript nmap K :call CocAction('doHover')<CR>
+" }}}
+
 " Markdown {{{
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
@@ -808,6 +817,8 @@ let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'git
 " Lua files {{{
 lua require('tree-sitter')
 lua require('which-key-local')
+lua require('bufferline-setup')
+lua require('lualine-setup')
 "}}}
 
 " Quick-Scope {{{
@@ -818,5 +829,13 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 let g:vista#renderer#enable_icon = 1
 nnoremap <Leader>fv :Vista!!<CR>
 "}}}
+
+
+" Git mappings {{{
+nnoremap <Leader>gst :G<CR>
+nnoremap <Leader>gco :G checkout 
+nnoremap <Leader>gp :G push<CR>
+nnoremap <Leader>gpf :G push --force-with-lease --force-if-includes<CR>
+" }}}
 
 " cwjk"rpb"ryiwn@a

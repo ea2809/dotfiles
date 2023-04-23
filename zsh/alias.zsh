@@ -38,7 +38,7 @@ alias rerun='behave @rerun.txt'
 alias bwip="behave -t @wip"
 
 alias in="source .in"
-alias tx="tmux attach || tmux"
+alias tx="tmux -u attach || tmux -u"
 alias fm="vifm ."
 alias nupdate="nvim +PlugClean +PlugInstall +PlugUpdate +CocUpdate +TSUpdate +qal"
 

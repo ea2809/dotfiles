@@ -39,7 +39,8 @@ Plug 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'davidhalter/jedi-vim', { 'for': 'python'} " Improve completion and go to code    -> Coc is better
 
 " Improve style
-Plug 'vim-airline/vim-airline' " Statusline and tabline
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'ryanoasis/vim-devicons' " Tabline icons
 Plug 'Yggdroot/indentLine' " Shows tabs in a different line
 Plug 'junegunn/vim-easy-align' " Align sentences or markdown table
@@ -55,7 +56,7 @@ Plug 'nvim-lua/popup.nvim' " Needed for telescope
 Plug 'nvim-lua/plenary.nvim' " Needed for telescope
 Plug 'nvim-telescope/telescope.nvim' " Alternative to fzf
 Plug 'nvim-telescope/telescope-fzy-native.nvim' " Better sorter
-Plug 'kyazdani42/nvim-web-devicons' " Another devicons ??
+Plug 'nvim-tree/nvim-web-devicons' " Another devicons ??
 
 " Tree sitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " Better Sintax
