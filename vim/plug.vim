@@ -64,4 +64,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " Better Sintax
 " Plug 'p00f/nvim-ts-rainbow'
 Plug 'romgrk/nvim-treesitter-context'
 
+
+Plug 'echasnovski/mini.nvim'  " Swissknife
+
 call plug#end()

@@ -25,5 +25,6 @@
   // "suggest.noselect": false,
 
   // Show help
-  "java.signatureHelp.enabled": true
+  "java.signatureHelp.enabled": true,
+  "snippets.ultisnips.pythonPrompt": false
 }

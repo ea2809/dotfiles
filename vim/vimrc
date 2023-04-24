@@ -819,6 +819,7 @@ lua require('tree-sitter')
 lua require('which-key-local')
 lua require('bufferline-setup')
 lua require('lualine-setup')
+lua require('mini-setup')
 "}}}
 
 " Quick-Scope {{{
