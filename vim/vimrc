@@ -489,6 +489,7 @@ nnoremap <leader>fa <cmd>lua require('local-telescope').search_all_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>fr <cmd>lua require('telescope.builtin').resume()<cr>
 
 ""let g:ctrlp_mruf_relative = 1
 "if executable('fd')
