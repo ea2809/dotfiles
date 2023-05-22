@@ -128,7 +128,7 @@ _golf(){
 	print -P "     '\\\                   .  .               %F{white}%K{red} 18 %k%F{red}%f"
 	print -P "   %F{green}'%f   \\\              .         ' .          ┊"
 	print -P "      %F{172}O>>%f         .                 '        ┊"
-	print -P "       %F{197}\\\%f       .                      卵     ┊"
+	print -P "       %F{197}\\\%f       .                      󰐝      ┊"
 	print -P "       %F{blue}/\\\%f    .                               ┊"
 	print -P "      %F{blue}/ /%f  .'                                ┊"
 	print -P -- "jgs%F{green}^^^^^^^%f%F{94}▀▀%f%F{green}^^^^^^^ GARCY ^^^^^^^^^^^^^^^^^^%F{white}╚═╝%f%F{green}^^^%f"
