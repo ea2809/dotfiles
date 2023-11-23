@@ -532,11 +532,13 @@ autocmd FileType json setlocal tabstop=2 shiftwidth=2 expandtab
 " Python{{{
 "Copy from github: https://gist.github.com/eduardocereto/3088543
 au FileType python setlocal expandtab shiftwidth=4 tabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-autocmd FileType python setlocal foldmethod=indent foldlevel=99
+autocmd FileType python setlocal indentkeys-=<:>
+autocmd FileType python setlocal indentkeys-=:
+" au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+" autocmd FileType python setlocal foldmethod=indent foldlevel=99
 autocmd FileType python setlocal commentstring=#\ %s
-let g:jedi#show_call_signatures = 2
-let g:jedi#auto_vim_configuration = 0
+" let g:jedi#show_call_signatures = 2
+" let g:jedi#auto_vim_configuration = 0
 " let g:neoformat_enabled_python = ['autopep8', 'yapf', 'isort']
 let g:neoformat_enabled_python = ['autopep8', 'yapf']
 autocmd FileType python let g:neoformat_run_all_formatters = 1

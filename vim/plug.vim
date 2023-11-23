@@ -9,7 +9,7 @@ Plug 'thaerkh/vim-workspace' " Save file you were working on
 Plug 'christoomey/vim-tmux-navigator' " Tmux panel change
 Plug 'airblade/vim-rooter' " Auto CD to the base folder
 Plug 'junegunn/goyo.vim' " No distraction mode
-Plug 'sheerun/vim-polyglot' " Improve syntax
+" Plug 'sheerun/vim-polyglot' " Improve syntax
 Plug 'tpope/vim-repeat' " Repeteat custom commands
 Plug 'tpope/vim-commentary' " Comment lines 'gcc'
 Plug 'tpope/vim-surround' "Surround words

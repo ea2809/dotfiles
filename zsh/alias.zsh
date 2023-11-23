@@ -53,3 +53,8 @@ case `uname` in
 #    antigen bundle archlinux
   ;;
 esac
+
+# The magic of poetry
+alias pr="poetry run"
+alias prb="poetry run black"
+alias prr="poetry run ruff --fix"
