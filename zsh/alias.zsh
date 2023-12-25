@@ -45,7 +45,6 @@ alias nupdate="nvim +PlugClean +PlugInstall +PlugUpdate +CocUpdate +TSUpdate +qa
 
 case `uname` in
   Darwin)
-    alias ssh="kitty +kitten ssh"
     alias ctags="$(brew --prefix)/bin/ctags"
   ;;
   Linux)
