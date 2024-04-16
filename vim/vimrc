@@ -294,12 +294,6 @@ nnoremap <leader>wq :wq<CR>
 
 nnoremap <leader>Q :q!<CR>
 
-" better space identation
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indentLine_leadingSpaceChar = " "
-let g:indentLine_leadingSpaceEnabled = 1
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-" }}}
 
 " Prose mode found on the net {{{
 function! ProseMode()
@@ -823,6 +817,7 @@ lua require('which-key-local')
 lua require('bufferline-setup')
 lua require('lualine-setup')
 lua require('mini-setup')
+lua require('ident_line-setup')
 "}}}
 
 " Quick-Scope {{{

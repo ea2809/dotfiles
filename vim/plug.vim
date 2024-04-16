@@ -42,7 +42,7 @@ Plug 'derekwyatt/vim-scala', { 'for': 'scala'}
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'ryanoasis/vim-devicons' " Tabline icons
-Plug 'Yggdroot/indentLine' " Shows tabs in a different line
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'junegunn/vim-easy-align' " Align sentences or markdown table
 " Plug 'NLKNguyen/papercolor-theme' " Old theme, probably the BEST
 Plug 'sainnhe/gruvbox-material' "New theme
