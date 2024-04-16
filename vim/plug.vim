@@ -13,8 +13,8 @@ Plug 'junegunn/goyo.vim' " No distraction mode
 Plug 'tpope/vim-repeat' " Repeteat custom commands
 Plug 'tpope/vim-commentary' " Comment lines 'gcc'
 Plug 'tpope/vim-surround' "Surround words
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}  "Problem with coc-java
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+" Or build from source code by using npm
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm ci'}
 Plug 'sbdchd/neoformat' " Automatic formatter
 " Plug 'w0rp/ale' " Linting
 Plug 'neomake/neomake' " Linting
@@ -35,7 +35,7 @@ Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries'}
 Plug 'ea2809/behave.vim', { 'for': ['python', 'gherkin', 'cucumber']}
 Plug 'ea2809/java-syntax.vim', { 'for': 'java'}
 Plug 'derekwyatt/vim-scala', { 'for': 'scala'}
-Plug 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'davidhalter/jedi-vim', { 'for': 'python'} " Improve completion and go to code    -> Coc is better
 
 " Improve style
