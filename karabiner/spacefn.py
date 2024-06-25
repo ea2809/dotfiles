@@ -301,7 +301,7 @@ spacefn_definitions = [
     {"name": "i to Kitty", "from": {"keycode": "i"}, "shell": {"program": "kitty"}},
     {"name": "s to Safari", "from": {"keycode": "s"}, "shell": {"program": "Safari"}},
     {"name": "c to Chrome", "from": {"keycode": "c"}, "shell": {"program": "Google Chrome"}},
-    {"name": "t to Teams", "from": {"keycode": "t"}, "shell": {"program": "Microsoft Teams (work or school)"}},
+    {"name": "t to Teams", "from": {"keycode": "t"}, "shell": {"program": "Microsoft Teams"}},
     {"name": "o to Outlook", "from": {"keycode": "o"}, "shell": {"program": "Microsoft Outlook"}},
     {"name": "p to PyCharm", "from": {"keycode":"p"}, "shell": { "program": "PyCharm"}},
     {"name": "hyper g to Alfred github", "from": {"keycode": "g"}, "hyper": {"keycode": "g"}},

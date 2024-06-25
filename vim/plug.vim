@@ -39,7 +39,7 @@ Plug 'derekwyatt/vim-scala', { 'for': 'scala'}
 " Plug 'davidhalter/jedi-vim', { 'for': 'python'} " Improve completion and go to code    -> Coc is better
 
 " Improve style
-Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
+Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'ryanoasis/vim-devicons' " Tabline icons
 Plug 'lukas-reineke/indent-blankline.nvim'
