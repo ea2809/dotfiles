@@ -57,3 +57,4 @@ esac
 alias pr="poetry run"
 alias prb="poetry run black"
 alias prr="poetry run ruff --fix"
+alias prp="poetry run python"
