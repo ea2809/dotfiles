@@ -2,7 +2,6 @@ local actions = require('telescope.actions')
 
 require('telescope').setup {
     defaults = {
-        file_sorter = require('telescope.sorters').get_fzy_sorter,
         prompt_prefix = ' >',
         color_devicons = true,
 
@@ -17,15 +16,9 @@ require('telescope').setup {
             },
         }
     },
-    extensions = {
-        fzy_native = {
-            override_generic_sorter = false,
-            override_file_sorter = true,
-        }
-    }
 }
 
-require('telescope').load_extension('fzy_native')
+require('telescope').load_extension('fzf')
 
 local M = {}
 
@@ -33,14 +26,14 @@ local M = {}
 -- local fd_command = "fd --type file --color=always --follow --hidden --no-ignore-vcs --exclude .git"
 local fd = {}
 -- fd["find_command"] = {"fd","--type","file","--color=always","--follow","--hidden","--no-ignore-vcs"}
-fd["find_command"] = {"fd","--type","file","--follow","--hidden"}
+fd["find_command"] = {"fd", "--type", "file", "--follow", "--hidden", "--ignore", "--exclude", ".git"}
     
 M.search_files = function()
     require("telescope.builtin").find_files(fd)
 end
 
 local fd_all = {}
-fd_all["find_command"] = {"fd","--type","file","--follow","--hidden","--no-ignore-vcs"}
+fd_all["find_command"] = {"fd", "--type", "file", "--follow", "--hidden", "--no-ignore-vcs", "--exclude", ".git"}
 M.search_all_files = function()
     require("telescope.builtin").find_files(fd_all)
 end

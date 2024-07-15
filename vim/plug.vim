@@ -55,7 +55,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'nvim-lua/popup.nvim' " Needed for telescope
 Plug 'nvim-lua/plenary.nvim' " Needed for telescope
 Plug 'nvim-telescope/telescope.nvim' " Alternative to fzf
-Plug 'nvim-telescope/telescope-fzy-native.nvim' " Better sorter
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' } " Better sorter
 Plug 'nvim-tree/nvim-web-devicons' " Another devicons ??
 
 " Tree sitter
