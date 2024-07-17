@@ -474,16 +474,15 @@ nnoremap <leader>o :! open . <CR><CR>
 if executable('fzf')
 	let g:ctrlp_map = '<m-p>'
 	" noremap <silent> <C-p> :Files<CR>
-
-	" Using lua functions
 endif
 
-nnoremap <C-p> <cmd>lua require('local-telescope').search_files()<cr>
-nnoremap <leader>fa <cmd>lua require('local-telescope').search_all_files()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-nnoremap <leader>fr <cmd>lua require('telescope.builtin').resume()<cr>
+	" Using lua functions
+nnoremap <C-p> <cmd>lua require('fzf-lua').files()<cr>
+" nnoremap <leader>fa <cmd>lua require('local-telescope').search_all_files()<cr>
+nnoremap <leader>fg <cmd>lua require('fzf-lua').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('fzf-lua').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('fzf-lua').helptags()<cr>
+nnoremap <leader>fr <cmd>lua require('fzf-lua').resume()<cr>
 
 ""let g:ctrlp_mruf_relative = 1
 "if executable('fd')
@@ -818,6 +817,7 @@ lua require('bufferline-setup')
 lua require('lualine-setup')
 lua require('mini-setup')
 lua require('ident_line-setup')
+lua require('local-fzf')
 "}}}
 
 " Quick-Scope {{{

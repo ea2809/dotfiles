@@ -305,11 +305,7 @@ spacefn_definitions = [
     {"name": "o to Outlook", "from": {"keycode": "o"}, "shell": {"program": "Microsoft Outlook"}},
     {"name": "p to PyCharm", "from": {"keycode":"p"}, "shell": { "program": "PyCharm"}},
     {"name": "hyper g to Alfred github", "from": {"keycode": "g"}, "hyper": {"keycode": "g"}},
-    # {"name": "hyper T to Trello", "from": {"keycode": "t", "mandatory": ["shift"]}, "shell": {"program": "Trello"}},
-    # {"name": "hyper w to Trello", "from": {"keycode": "w"}, "hyper": {"keycode": "spacebar"}},
     {"name": "hyper r to Todoist", "from": {"keycode": "r"}, "meh": {"keycode": "r"}},
-    # {"name": "hyper R to Todoist", "from": {"keycode": "r", "mandatory": ["shift"]}, "hyper": {"keycode": "r"}},
-    {"name": "v to Viber", "from": {"keycode": "v"}, "shell": {"program": "Viber"}},
     {"name": "hyper hjkl to arrows", "complex": [
         {"from": {"keycode": "h"}, "to": {"keycode": "left_arrow"}},
         {"from": {"keycode": "j"}, "to": {"keycode": "down_arrow"}},
