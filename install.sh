@@ -127,6 +127,8 @@ bash ./scripts/global/git.sh
 echo "IdeaVim"
 checklink ~/dotfiles/vim/ideavimrc ~/.ideavimrc
 
+echo "We"
+checklink ~/dotfiles/zsh/wezterm.lua ~/.wezterm.lua
 #createdir ~/.firstinstall
 #pushd ~/.firstinstall
 #git clone git@github.com:ryanoasis/nerd-fonts.git

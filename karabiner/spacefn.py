@@ -298,7 +298,7 @@ def main(spacefn_definitions, normal_definitions):
 spacefn_definitions = [
     {"name": "a to Alfred", "from": {"keycode": "a"}, "shell": {"program": "Alfred 5"}},
     {"name": "b to spacebar", "from": {"keycode": "b"}, "to": {"keycode": "spacebar"}},
-    {"name": "i to Kitty", "from": {"keycode": "i"}, "shell": {"program": "kitty"}},
+    {"name": "i to WezTerm", "from": {"keycode": "i"}, "shell": {"program": "WezTerm"}},
     {"name": "s to Safari", "from": {"keycode": "s"}, "shell": {"program": "Safari"}},
     {"name": "c to Chrome", "from": {"keycode": "c"}, "shell": {"program": "Google Chrome"}},
     {"name": "t to Teams", "from": {"keycode": "t"}, "shell": {"program": "Microsoft Teams"}},
