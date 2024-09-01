@@ -410,35 +410,16 @@ au FileType html setlocal expandtab
 " }}}
 
 " Java {{{
-let g:gitdir=system("git rev-parse --show-toplevel")
-let isnotgitdir=matchstr(gitdir, '^fatal:.*')
-if empty(isnotgitdir)
-	" \ 'java': [$HOME.'/dotfiles/bin/jdtls', g:gitdir.'src/main/java/'],
-	" \ 'java': ['tcp://127.0.0.1: 1044'],
-	let g:LanguageClient_serverCommands = {
-				\ 'java': [$HOME.'/dotfiles/bin/jdtls', g:gitdir.'src/main/java/'],
-				\ }
-else
-	let g:LanguageClient_serverCommands = {
-				\ 'java': [$HOME.'/dotfiles/bin/jdtls'],
-				\ }
-endif
+" let g:neoformat_java_google = {
+" 			\ 'exe': '/usr/local/bin/java-formatter',
+" 			\ 'args': ["-"],
+" 			\ 'stdin': 1, 
+" 			\ }
 
-let g:JavaComplete_AutoStartServer = 0
-let g:JavaComplete_CheckServerVersionAtStartup = 0
-let g:JavaComplete_IgnoreErrorMsg = 1
+" let g:neoformat_enabled_java = ['google']
 
-let g:neoformat_java_google = {
-			\ 'exe': '/usr/local/bin/java-formatter',
-			\ 'args': ["-"],
-			\ 'stdin': 1, 
-			\ }
-
-let g:neoformat_enabled_java = ['google']
-
-
-autocmd! BufWritePost,BufEnter *.java Neomake  " Linting
-autocmd FileType java setlocal tabstop=2 shiftwidth=2 expandtab
+" autocmd! BufWritePost,BufEnter *.java Neomake  " Linting
+" autocmd FileType java setlocal tabstop=2 shiftwidth=2 expandtab
 
 autocmd FileType java nmap <leader>gt <Plug>(coc-definition)
 autocmd FileType java nmap K :call CocAction('doHover')<CR>

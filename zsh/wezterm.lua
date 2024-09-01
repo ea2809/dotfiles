@@ -7,18 +7,20 @@ wezterm.on("gui-startup", function()
   window:gui_window():toggle_fullscreen()
 end)
 
--- This will hold the configuration.
 local config = wezterm.config_builder()
--- For example, changing the color scheme:
 config.color_scheme = 'Gruvbox dark, hard (base16)'
 
--- config.font = wezterm.font_with_fallback('Iosevka Nerd Font')
+-- config.font = wezterm.font_with_fallback{'Iosevka Nerd Font'}
 config.font = wezterm.font_with_fallback{
   { -- Normal text
-    family='Iosevka',
+    family='Iosevka Term',
     harfbuzz_features={ 'calt', 'liga', 'dlig', 'ss15'},
   },
-  'Symbols Nerd Font Mono'}
+  {
+    family = 'Symbols Nerd Font Mono', 
+    scale = 0.7
+  },
+}
 -- Copied from https://github.com/HaleTom/dotfiles/blob/a2049913a35676eb4c449ebaff09f65abe055f62/wezterm/.config/wezterm/wezterm.lua#L93 
 -- Monaspace:  https://monaspace.githubnext.com/
 -- Based upon, contributed to:  https://gist.github.com/ErebusBat/9744f25f3735c1e0491f6ef7f3a9ddc3
@@ -120,5 +122,7 @@ config.window_padding = {
   bottom = 0,
 }
 
--- and finally, return the configuration to wezterm
+config.send_composed_key_when_left_alt_is_pressed = true
+config.send_composed_key_when_right_alt_is_pressed = true
+
 return config

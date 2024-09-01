@@ -77,12 +77,12 @@ createdir() {
 
 # case "$OSTYPE" in
 #   linux*) bash ~/dotfiles/scripts/ubuntu/install.sh;;
-#   darwin*)  echo "No more install" ;; 
+#   darwin*)  echo "No more install" ;;
 #   *)        echo "No configuration for $OSTYPE" ;;
 # esac
 
-echo "Install antigen"
-curl -L git.io/antigen > antigen.zsh
+echo "Install antibody"
+curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
 
 echo "Move vim dictionary"
 createdir ~/.vim/spell/
@@ -127,7 +127,7 @@ bash ./scripts/global/git.sh
 echo "IdeaVim"
 checklink ~/dotfiles/vim/ideavimrc ~/.ideavimrc
 
-echo "We"
+echo "WezTerm"
 checklink ~/dotfiles/zsh/wezterm.lua ~/.wezterm.lua
 #createdir ~/.firstinstall
 #pushd ~/.firstinstall
