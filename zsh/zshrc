@@ -13,7 +13,7 @@ forgit_add=gai
 
 case `uname` in
   Darwin)
-    # antidote bundle brew
+      antidote bundle ohmyzsh/ohmyzsh path:plugins/brew
   ;;
   Linux)
 #    antigen bundle archlinux
