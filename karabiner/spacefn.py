@@ -304,6 +304,7 @@ spacefn_definitions = [
     {"name": "t to Teams", "from": {"keycode": "t"}, "shell": {"program": "Microsoft Teams"}},
     {"name": "o to Outlook", "from": {"keycode": "o"}, "shell": {"program": "Microsoft Outlook"}},
     {"name": "p to PyCharm", "from": {"keycode":"p"}, "shell": { "program": "PyCharm"}},
+    {"name": "x to ChatGPT", "from": {"keycode": "x"}, "shell": {"program": "ChatGPT"}},
     {"name": "hyper g to Alfred github", "from": {"keycode": "g"}, "hyper": {"keycode": "g"}},
     {"name": "hyper r to Todoist", "from": {"keycode": "r"}, "meh": {"keycode": "r"}},
     {"name": "hyper hjkl to arrows", "complex": [

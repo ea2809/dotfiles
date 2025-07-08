@@ -36,6 +36,7 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'ryanoasis/vim-devicons' " Tabline icons
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'junegunn/vim-easy-align' " Align sentences or markdown table
+
 " Plug 'NLKNguyen/papercolor-theme' " Old theme, probably the BEST
 Plug 'sainnhe/gruvbox-material' "New theme
 Plug 'liuchengxu/vista.vim'
@@ -52,5 +53,8 @@ Plug 'nvim-tree/nvim-web-devicons' " Another devicons ??
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " Better Sintax
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'echasnovski/mini.nvim'  " Swissknife
+
+" Latex
+Plug 'lervag/vimtex'
 
 call plug#end()

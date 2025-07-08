@@ -81,8 +81,9 @@ createdir() {
 #   *)        echo "No configuration for $OSTYPE" ;;
 # esac
 
-echo "Install antibody"
-curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
+echo "Install Brew"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew bundle
 
 echo "Move vim dictionary"
 createdir ~/.vim/spell/
@@ -102,9 +103,8 @@ echo "ZSH configuration"
 createifno ~/.zshrc "source ~/dotfiles/zsh/zshrc"
 createifno ~/.zshrc "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh"
 
-echo "Kitty configuration"
-createdir ~/.config/kitty/
-checklink ~/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
+createifno ~/.zshrc 'export PATH="/Users/enrique/go/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"'
+createifno ~/.zshrc 'eval "$(pyenv init --path)"'
 
 # Change karabiner config file
 echo "VIM section is needed in KARABINER"
@@ -129,8 +129,3 @@ checklink ~/dotfiles/vim/ideavimrc ~/.ideavimrc
 
 echo "WezTerm"
 checklink ~/dotfiles/zsh/wezterm.lua ~/.wezterm.lua
-#createdir ~/.firstinstall
-#pushd ~/.firstinstall
-#git clone git@github.com:ryanoasis/nerd-fonts.git
-#cd nerd-fonts && ./install.sh
-#popd
