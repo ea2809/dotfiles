@@ -75,12 +75,6 @@ createdir() {
   fi
 }
 
-# case "$OSTYPE" in
-#   linux*) bash ~/dotfiles/scripts/ubuntu/install.sh;;
-#   darwin*)  echo "No more install" ;;
-#   *)        echo "No configuration for $OSTYPE" ;;
-# esac
-
 echo "Install Brew"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew bundle
@@ -106,7 +100,12 @@ createifno ~/.zshrc "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh"
 createifno ~/.zshrc 'export PATH="/Users/enrique/go/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"'
 createifno ~/.zshrc 'eval "$(pyenv init --path)"'
 
-# Change karabiner config file
+echo "NVM configuration"
+echo "VIM section is needed in KARABINER"
+mkdir ~/.nvm
+createifno ~/.zshrc 'export NVM_DIR=~/.nvm'
+createifno ~/.zshrc 'source $(brew --prefix nvm)/nvm.sh'
+
 echo "VIM section is needed in KARABINER"
 python ./karabiner/spacefn.py
 

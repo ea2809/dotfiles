@@ -368,6 +368,9 @@ if __name__ == "__main__":
         if value["name"] == "VIM":
             profile = value
             break
+    if "complex_modifications" not in profile:
+        profile["complex_modifications"] = {}
+
     profile["complex_modifications"]["rules"] = rules["rules"]
 
     with open(full_path, "w") as json_file:
