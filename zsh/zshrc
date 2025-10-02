@@ -88,6 +88,7 @@ fi
 source $BASE_ZSH_CONFIG/alias.zsh
 source $BASE_ZSH_CONFIG/functions.zsh
 source $BASE_ZSH_CONFIG/bgnotify.zsh
+source $BASE_ZSH_CONFIG/z_bell.zsh
 
 banner
 
