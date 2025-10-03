@@ -1,713 +1,462 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Keyboard</title>
-    <style type="text/css">
-        h2 {
-            font-size: 24px;
-            position: relative;
-            top: 15px;
-            left: 100px;
-        }
-
+    <meta charset="utf-8"/>
+    <title>Karabiner SpaceFN Configuration</title>
+    <style>
         body {
-            /*background: #f5f6f7;*/
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #f5f6f7;
             font-size: 12px;
+            padding: 20px;
         }
 
-        #jianpan {
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .legend {
+            max-width: 900px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .legend-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+
+        #keyboard {
             width: 900px;
-            height: 360px;
+            height: 340px;
             border: 1px solid #999;
-            margin: 100px auto;
+            margin: 0 auto;
             background: #fff;
             border-radius: 20px;
-            border: none;
-            box-shadow: rgba(0, 0, 0, 0.3) 0 1px 5px;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 2px 10px;
             position: relative;
+            padding: 40px 0 20px;
         }
 
-        .anjian {
+        .key {
             width: 40px;
             height: 40px;
             border: none;
-            box-shadow: rgba(0, 0, 0, 0.3) 0 1px 5px;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 1px 3px;
             position: absolute;
             border-radius: 4px;
+            background: #f8f8f8;
+            padding: 3px;
+            overflow: hidden;
         }
 
-        .lan_1 {
-            top: 47px;
-            height: 28px;
-        }
-
-        .esc {
-            left: 20px;
-            background-color: rgba(145, 130, 150, 0.4);
-        }
-
-        .f1 {
-            left: 116px;
-            background-color: rgba(224, 180, 163, 0.4);
-        }
-
-        .f2 {
-            left: 164px;
-            background-color: rgba(224, 180, 163, 0.4);
-        }
-
-        .f3 {
-            left: 212px;
-            background-color: rgba(224, 180, 163, 0.4);
-        }
-
-        .f4 {
-            left: 260px;
-            background-color: rgba(224, 180, 163, 0.4);
-        }
-
-        .f5 {
-            left: 328px;
-            background-color: rgba(224, 180, 163, 0.4);
-        }
-
-        .f6 {
-            left: 384px;
-            background-color: rgba(224, 180, 163, 0.4);
-        }
-
-        .f7 {
-            left: 432px;
-            background-color: rgba(224, 180, 163, 0.4);
-        }
-
-        .f8 {
-            left: 480px;
-            background-color: rgba(224, 180, 163, 0.4);
-        }
-
-        .f9 {
-            left: 548px;
-            background-color: rgba(224, 180, 163, 0.4);
-        }
-
-        .f10 {
-            left: 596px;
-            background-color: rgba(224, 180, 163, 0.4);
-        }
-
-        .f11 {
-            left: 644px;
-            background-color: rgba(224, 180, 163, 0.4);
-        }
-
-        .f12 {
-            left: 692px;
-            background-color: rgba(224, 180, 163, 0.4);
-        }
-
-        .prt {
-            background-color: rgba(224, 180, 163, 0.4);
-            left: 747px;
-        }
-
-        .scroll {
-            background-color: rgba(224, 180, 163, 0.4);
-            left: 796px;
-        }
-
-        .pause {
-            background-color: rgba(224, 180, 163, 0.4);
-            left: 844px;
-        }
-
-        .lan_2 {
-            top: 85px
-        }
-
-        .a_1 {
-            background-color: rgba(145, 130, 150, 0.4);
-            left: 20px;
-        }
-
-        .a_2 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 68px;
-        }
-
-        .a_3 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 116px;
-        }
-
-        .a_4 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 164px;
-        }
-
-        .a_5 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 212px;
-        }
-
-        .a_6 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 260px;
-        }
-
-        .a_7 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 308px;
-        }
-
-        .a_8 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 356px;
-        }
-
-        .a_9 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 404px;
-        }
-
-        .a_10 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 452px;
-        }
-
-        .a_11 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 500px;
-        }
-
-        .a_12 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 548px;
-        }
-
-        .a_13 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 596px;
-        }
-
-        .a_14 {
-            background-color: rgba(145,130,150,0.4);
-            left: 644px;
-            width: 88px;
-        }
-
-        .insert {
-            background-color: rgba(224, 180, 163, 0.4);
-            left: 747px;
-        }
-
-        .home {
-            background-color: rgba(224, 180, 163, 0.4);
-            left: 796px;
-        }
-
-        .page_up {
-            background-color: rgba(224, 180, 163, 0.4);
-            left: 844px;
-        }
-
-        .l_left {
-            left: 747px;
-        }
-
-        .l_up, .l_down {
-            left: 796px;
-        }
-
-        .l_right {
-            left: 844px;
-        }
-
-        .lan_3 {
-            top: 130px;
-        }
-
-        .tap {
-            background-color: rgba(190, 200, 222, 0.4);
-            left: 20px;
-            width: 70px;
-        }
-
-        .q {
-            background-color: rgba(190, 200, 222, 0.4);
-            left: 98px;
-        }
-
-        .w {
-            background-color: rgba(190, 200, 222, 0.4);
-            left: 146px;
-        }
-
-        .e {
-            background-color: rgba(223, 160, 180, 0.4);
-            left: 194px;
-        }
-
-        .r {
-            background-color: rgba(223, 160, 180, 0.4);
-            left: 242px;
-        }
-
-        .t {
-            background-color: rgba(223, 160, 180, 0.4);
-            left: 290px;
-        }
-
-        .y {
-            background-color: rgba(223, 160, 180, 0.4);
-            left: 338px;
-        }
-
-        .u {
-            background-color: rgba(175, 222, 200, 0.4);
-            left: 386px;
-        }
-
-        .i {
-            background-color: rgba(175, 222, 200, 0.4);
-            left: 434px;
-        }
-
-        .o {
-            background-color: rgba(175, 222, 200, 0.4);
-            left: 482px;
-        }
-
-        .p {
-            background-color: rgba(175, 222, 200, 0.4);
-            left: 530px;
-        }
-
-        .p1 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 578px;
-        }
-
-        .p2 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 626px;
-        }
-
-        .p3 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 674px;
-            width: 58px;
-        }
-
-        .delete {
-            background-color: rgba(224, 180, 163, 0.4);
-            left: 747px;
-        }
-
-        .end {
-            background-color: rgba(224, 180, 163, 0.4);
-            left: 796px;
-        }
-
-        .page_down {
-            background-color: rgba(224, 180, 163, 0.4);
-            left: 844px;
-        }
-
-        .lan_4 {
-            top: 175px;
-        }
-
-        .caps {
-            background-color: rgba(100,156,255,0.7);
-            left: 20px;
-            width: 80px;
-        }
-
-        .a {
-            background-color: rgba(190, 200, 222, 0.4);
-            left: 108px;
-        }
-
-        .s {
-            background-color: rgba(190, 200, 222, 0.4);
-            left: 156px;
-        }
-
-        .d {
-            background-color: rgba(160, 222, 141, 0.4);
-            left: 204px;
-        }
-
-        .f {
-            background-color: rgba(223, 160, 180, 0.4);
-            left: 252px;
-        }
-
-        .g {
-            background-color: rgba(223, 160, 180, 0.4);
-            left: 300px;
-        }
-
-        .h {
-            background-color: rgba(175, 222, 200, 0.4);
-            left: 348px;
-        }
-
-        .j {
-            background-color: rgba(175, 222, 200, 0.4);
-            left: 396px;
-        }
-
-        .k {
-            background-color: rgba(175, 222, 200, 0.4);
-            left: 444px;
-        }
-
-        .l {
-            background-color: rgba(175, 222, 200, 0.4);
-            left: 492px;
-        }
-
-        .b_1 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 540px;
-        }
-
-        .b_2 {
-            background-color: rgba(215, 222, 128, 0.4);
-            left: 588px;
-        }
-
-        .b_3 {
-            background-color: rgba(145,130,150,0.4);
-            left: 636px;
-            width: 96px;
-        }
-
-        .lan_5 {
-            top: 220px;
-        }
-
-        .shift {
-            background-color: darkgray;
-            left: 20px;
-            width: 107px;
-        }
-
-        .z {
-            background-color: rgba(160, 222, 141, 0.4);
-            left: 135px;
-        }
-
-        .x {
-            background-color: rgba(160, 222, 141, 0.4);
-            left: 183px;
-        }
-
-        .c {
-            background-color: rgba(160, 222, 141, 0.4);
-            left: 231px;
-        }
-
-        .v {
-            background-color: rgba(160, 222, 141, 0.4);
-            left: 279px;
-        }
-
-        .b {
-            background-color: rgba(160, 222, 141, 0.4);
-            left: 327px;
-        }
-
-        .n {
-            background-color: rgba(165, 200, 222, 0.4);
-            left: 375px;
-        }
-
-        .m {
-            background-color: rgba(165, 200, 222, 0.4);
-            left: 423px;
-        }
-
-        .m_1 {
-            background-color: rgba(165, 200, 222, 0.4);
-            left: 471px;
-        }
-
-        .m_2 {
-            background-color: rgba(165, 200, 222, 0.4);
-            left: 519px;
-        }
-
-        .m_3 {
-            background-color: rgba(145, 130, 150, 0.4);
-            left: 569px;
-        }
-
-        .m_4 {
-            background-color: darkgray;
-            left: 615px;
-            width: 117px;
-        }
-
-        .lan_6 {
-            top: 265px;
-        }
-
-        .ctrl, .ctrl_1 {
-            width: 65px;
-        }
-
-        .windows, .windows_1 {
-            width: 55px;
-        }
-
-        .alt, .alt_1, .right_on {
-            width: 50px;
-        }
-
-        .ctrl {
-            background-color: darkgray;
-            left: 20px;
-        }
-
-        .windows {
-            background-color: darkgray;
-            left: 93px;
-        }
-
-        .alt {
-            background-color: darkgray;
-            left: 156px;
-        }
-
-        .space {
-            background-color: rgba(145,130,150,0.4);
-            left: 214px;
-            width: 270px;
-        }
-
-        .alt_1 {
-            background-color: darkgray;
-            left: 492px;
-        }
-
-        .windows_1 {
-            background-color: darkgray;
-            left: 550px;
-        }
-
-        .right_on {
-            background-color: darkgray;
-            left: 613px;
-        }
-
-        .ctrl_1 {
-            background-color: darkgray;
-            left: 671px;
-            width: 61px;
-        }
-
-
-        span.first {
-            position: absolute;
-            font-size: 10px;
-            top: 2px;
-            left: 5px;
-            line-height: 12px;
-        }
+        .key.modified { background-color: rgba(100, 156, 255, 0.3); }
+        .key.spacefn { background-color: rgba(255, 200, 100, 0.3); }
+        .key.special { background-color: rgba(200, 100, 200, 0.3); }
 
-        span.second {
+        .key-label {
             position: absolute;
             font-size: 8px;
-            top: 20px;
-            left: 5px;
-            width: 40px;
-            color: #000b9a;
+            line-height: 9px;
+            left: 3px;
+            width: 34px;
+            word-wrap: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        span.third {
-            position: absolute;
-            font-size: 10px;
-            top: 10px;
-            left: 5px;
-            width: 40px;
-            line-height: 12px;
-        }
+        .key-main { top: 2px; font-weight: bold; font-size: 9px; }
+        .key-spacefn { top: 12px; color: #d97706; }
+        .key-normal { top: 21px; color: #0066cc; }
+        .key-hyper { top: 30px; color: #7c3aed; }
+        .key-meh { top: 30px; color: #059669; }
 
-        span.fourth {
-            position: absolute;
-            top: 23px;
-            left: 5px;
-            width: 40px;
-            line-height: 12px;
-        }
+        /* Key positioning - Row 1 (function keys) */
+        .esc { left: 20px; top: 10px; height: 28px; }
+        .f1 { left: 116px; top: 10px; height: 28px; }
+        .f2 { left: 164px; top: 10px; height: 28px; }
+        .f3 { left: 212px; top: 10px; height: 28px; }
+        .f4 { left: 260px; top: 10px; height: 28px; }
+        .f5 { left: 328px; top: 10px; height: 28px; }
+        .f6 { left: 384px; top: 10px; height: 28px; }
+        .f7 { left: 432px; top: 10px; height: 28px; }
+        .f8 { left: 480px; top: 10px; height: 28px; }
+        .f9 { left: 548px; top: 10px; height: 28px; }
+        .f10 { left: 596px; top: 10px; height: 28px; }
+        .f11 { left: 644px; top: 10px; height: 28px; }
+        .f12 { left: 692px; top: 10px; height: 28px; }
 
-        span.fifth {
-            position: absolute;
-            top: 40px;
-            left: 5px;
-            width: 40px;
-            line-height: 12px;
-        }
+        /* Key positioning - Row 2 (numbers) */
+        .a_1 { left: 20px; top: 45px; }
+        .a_2 { left: 68px; top: 45px; }
+        .a_3 { left: 116px; top: 45px; }
+        .a_4 { left: 164px; top: 45px; }
+        .a_5 { left: 212px; top: 45px; }
+        .a_6 { left: 260px; top: 45px; }
+        .a_7 { left: 308px; top: 45px; }
+        .a_8 { left: 356px; top: 45px; }
+        .a_9 { left: 404px; top: 45px; }
+        .a_10 { left: 452px; top: 45px; }
+        .a_11 { left: 500px; top: 45px; }
+        .a_12 { left: 548px; top: 45px; }
+        .a_13 { left: 596px; top: 45px; }
+        .a_14 { left: 644px; top: 45px; width: 88px; }
 
-        .num_lock, .seven, .four, .one, .zone {
-            left: 899px;
-        }
+        /* Row 3 (QWERTY) */
+        .tap { left: 20px; top: 90px; width: 70px; }
+        .q { left: 98px; top: 90px; }
+        .w { left: 146px; top: 90px; }
+        .e { left: 194px; top: 90px; }
+        .r { left: 242px; top: 90px; }
+        .t { left: 290px; top: 90px; }
+        .y { left: 338px; top: 90px; }
+        .u { left: 386px; top: 90px; }
+        .i { left: 434px; top: 90px; }
+        .o { left: 482px; top: 90px; }
+        .p { left: 530px; top: 90px; }
+        .p1 { left: 578px; top: 90px; }
+        .p2 { left: 626px; top: 90px; }
+        .p3 { left: 674px; top: 90px; width: 58px; }
 
-        .a_15, .eight, .five, .two {
-            left: 947px;
-        }
+        /* Row 4 (ASDF) */
+        .caps { left: 20px; top: 135px; width: 80px; }
+        .a { left: 108px; top: 135px; }
+        .s { left: 156px; top: 135px; }
+        .d { left: 204px; top: 135px; }
+        .f { left: 252px; top: 135px; }
+        .g { left: 300px; top: 135px; }
+        .h { left: 348px; top: 135px; }
+        .j { left: 396px; top: 135px; }
+        .k { left: 444px; top: 135px; }
+        .l { left: 492px; top: 135px; }
+        .b_1 { left: 540px; top: 135px; }
+        .b_2 { left: 588px; top: 135px; }
+        .b_3 { left: 636px; top: 135px; width: 96px; }
 
-        .a_16, .nine, .six, .three, .del {
-            left: 995px;
-        }
+        /* Row 5 (ZXCV) */
+        .shift { left: 20px; top: 180px; width: 107px; }
+        .z { left: 135px; top: 180px; }
+        .x { left: 183px; top: 180px; }
+        .c { left: 231px; top: 180px; }
+        .v { left: 279px; top: 180px; }
+        .b { left: 327px; top: 180px; }
+        .n { left: 375px; top: 180px; }
+        .m { left: 423px; top: 180px; }
+        .m_1 { left: 471px; top: 180px; }
+        .m_2 { left: 519px; top: 180px; }
+        .m_3 { left: 569px; top: 180px; }
+        .m_4 { left: 615px; top: 180px; width: 117px; }
 
-        .a_17, .add, .s_enter {
-            left: 1043px;
-        }
-
-        .zone {
-            width: 88px;
-        }
-
-        .add, .s_enter {
-            height: 85px;
-        }
+        /* Row 6 (modifiers) */
+        .ctrl { left: 20px; top: 225px; width: 65px; }
+        .windows { left: 93px; top: 225px; width: 55px; }
+        .alt { left: 156px; top: 225px; width: 50px; }
+        .space { left: 214px; top: 225px; width: 270px; }
+        .alt_1 { left: 492px; top: 225px; width: 50px; }
+        .windows_1 { left: 550px; top: 225px; width: 55px; }
+        .right_on { left: 613px; top: 225px; width: 50px; }
+        .ctrl_1 { left: 671px; top: 225px; width: 61px; }
     </style>
 </head>
 <body>
-<div id="jianpan">
-    <div class="esc anjian lan_1"><span class="first">Caps Lock</span></div>
-    <div class="f1 anjian lan_1"><span class="first">Bright Down</span></div>
-    <div class="f2 anjian lan_1"><span class="first">Bright Up</span></div>
-    <div class="f3 anjian lan_1"><span class="first">Expose All</span></div>
-    <div class="f4 anjian lan_1"><span class="first">Launch Pad</span></div>
-    <div class="f5 anjian lan_1"><span class="first">KLight Down</span></div>
-    <div class="f6 anjian lan_1"><span class="first">KLight Up</span></div>
-    <div class="f7 anjian lan_1"><span class="first">Music Prev</span></div>
-    <div class="f8 anjian lan_1"><span class="first">Music Play</span></div>
-    <div class="f9 anjian lan_1"><span class="first">Music Next</span></div>
-    <div class="f10 anjian lan_1"><span class="first">Mute</span></div>
-    <div class="f11 anjian lan_1"><span class="first">Volume Down</span></div>
-    <div class="f12 anjian lan_1"><span class="first">Volume Up</span></div>
-    <div class="prt anjian lan_1"><span class="first">Music Prev</span></div>
-    <div class="scroll anjian lan_1"><span class="first">Music Next</span></div>
-    <div class="pause anjian lan_1"><span class="first">Mute</span></div>
+    <h1>Karabiner SpaceFN Configuration</h1>
+    <p class="info">Generated from: <strong>HackedBook</strong> | Profile: <strong>VIM</strong></p>
 
-    <div class="a_1 anjian lan_2"><span class="first">Screen Shot</span></div>
-    <div class="a_2 anjian lan_2"><span class="first">!</span></div>
-    <div class="a_3 anjian lan_2"><span class="first">@</span></div>
-    <div class="a_4 anjian lan_2"><span class="first">#</span></div>
-    <div class="a_5 anjian lan_2"><span class="first">$</span></div>
-    <div class="a_6 anjian lan_2"><span class="first">%</span></div>
-    <div class="a_7 anjian lan_2"><span class="first">^</span></div>
-    <div class="a_8 anjian lan_2"><span class="first">& </span></div>
-    <div class="a_9 anjian lan_2"><span class="first">*</span></div>
-    <div class="a_10 anjian lan_2"><span class="first">(</span></div>
-    <div class="a_11 anjian lan_2"><span class="first">)</span></div>
-    <div class="a_12 anjian lan_2"><span class="first">-</span></div>
-    <div class="a_13 anjian lan_2"><span class="first">+</span></div>
-    <div class="a_14 anjian lan_2"><span class="first">←Backspace</span></div>
-
-    <div class="insert anjian lan_2"><span class="first">Slow Bright Up</span></div>
-    <div class="home anjian lan_2"><span class="first">Slow KbdLt UP</span></div>
-    <div class="page_up anjian lan_2"><span class="first">Slow Volume Up</span></div>
-
-
-    <div class="tap anjian lan_3"><span class="first">Switch Win</span></div>
-    <div class="q anjian lan_3"><span class="first">Close Win</span></div>
-    <div class="w anjian lan_3"><span class="first">Close Tab</span></div>
-    <div class="e anjian lan_3"><span class="first">Finder</span><span class="second">Safari</span></div>
-    <div class="r anjian lan_3"><span class="first">iTerm2</span><span class="second">PyCharm</span></div>
-    <div class="t anjian lan_3"><span class="first">Code</span><span class="second">Typora</span></div>
-    <div class="y anjian lan_3"><span class="first">Siri</span></div>
-    <div class="u anjian lan_3"><span class="first">PgUp</span></div>
-    <div class="i anjian lan_3"><span class="first">Home</span></div>
-    <div class="o anjian lan_3"><span class="first">End</span></div>
-    <div class="p anjian lan_3"><span class="first">PgDn</span></div>
-
-    <div class="p1 anjian lan_3"><span class="first">(</span></div>
-    <div class="p2 anjian lan_3"><span class="first">)</span></div>
-    <div class="p3 anjian lan_3"><span class="first">Comment</span><span class="fourth">\</span></div>
-    <div class="delete anjian lan_3"><span class="first">Slow Bright Down</span></div>
-    <div class="end anjian lan_3"><span class="first">Slow KbdLt Down</span></div>
-    <div class="page_down anjian lan_3"><span class="first">Slow Volume Down</span></div>
-
-
-    <div class="caps anjian lan_4"><span class="first">Caps Lock</span></div>
-    <div class="a anjian lan_4"><span class="first">Moom</span><span class="second">Expose</span></span></div>
-    <div class="s anjian lan_4"><span class="first">Switch Tab</span></div>
-    <div class="d anjian lan_4"><span class="first">EOF</span><span class="second">Dict</span></div>
-    <div class="f anjian lan_4"><span class="first"><span class="first"></span>Alfred<span
-            class="second">Dash</span></span></div>
-    <div class="g anjian lan_4">
-        <span class="first">
-                GitHub
-            </span>
-        <span class="second">
-            Chrome
-        </span>
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-box" style="background: rgba(100, 156, 255, 0.3);"></div>
+            <span>Normal Layer</span>
         </div>
-    <div class="h anjian lan_4"><span class="first">←</span></div>
-    <div class="j anjian lan_4"><span class="first">↓</span></div>
-    <div class="k anjian lan_4"><span class="first">↑</span></div>
-    <div class="l anjian lan_4"><span class="first">→</span></div>
-    <div class="b_1 anjian lan_4"><span class="first">!</span><span class="second">:</span></div>
-    <div class="b_2 anjian lan_4"><span class="first">=</span></div>
-    <div class="b_3 anjian lan_4"><span class="first">MouseButton</span></div>
+        <div class="legend-item">
+            <div class="legend-box" style="background: rgba(255, 200, 100, 0.3);"></div>
+            <span>SpaceFN Layer</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-box" style="background: rgba(200, 100, 200, 0.3);"></div>
+            <span>Special Modifier</span>
+        </div>
+        <div class="legend-item">
+            <span style="color: #d97706;">●</span> <span>SpaceFN</span>
+        </div>
+        <div class="legend-item">
+            <span style="color: #0066cc;">●</span> <span>Normal</span>
+        </div>
+        <div class="legend-item">
+            <span style="color: #7c3aed;">●</span> <span>Hyper</span>
+        </div>
+        <div class="legend-item">
+            <span style="color: #059669;">●</span> <span>Meh</span>
+        </div>
+    </div>
 
+    <div id="keyboard">
+        <div class="esc key modified">
+            <div class="key-label key-main">Escape</div>
+            <div class="key-label key-normal">escape / Ca…</div>
+        </div>
+        <div class="f1 key">
+            <div class="key-label key-main">F1</div>
+        </div>
+        <div class="f2 key">
+            <div class="key-label key-main">F2</div>
+        </div>
+        <div class="f3 key">
+            <div class="key-label key-main">F3</div>
+        </div>
+        <div class="f4 key">
+            <div class="key-label key-main">F4</div>
+        </div>
+        <div class="f5 key">
+            <div class="key-label key-main">F5</div>
+        </div>
+        <div class="f6 key">
+            <div class="key-label key-main">F6</div>
+        </div>
+        <div class="f7 key">
+            <div class="key-label key-main">F7</div>
+        </div>
+        <div class="f8 key">
+            <div class="key-label key-main">F8</div>
+        </div>
+        <div class="f9 key">
+            <div class="key-label key-main">F9</div>
+        </div>
+        <div class="f10 key">
+            <div class="key-label key-main">F10</div>
+        </div>
+        <div class="f11 key">
+            <div class="key-label key-main">F11</div>
+        </div>
+        <div class="f12 key">
+            <div class="key-label key-main">F12</div>
+        </div>
+        <div class="a_1 key">
+            <div class="key-label key-main">`</div>
+        </div>
+        <div class="a_2 key">
+            <div class="key-label key-main">1</div>
+        </div>
+        <div class="a_3 key">
+            <div class="key-label key-main">2</div>
+        </div>
+        <div class="a_4 key">
+            <div class="key-label key-main">3</div>
+        </div>
+        <div class="a_5 key">
+            <div class="key-label key-main">4</div>
+        </div>
+        <div class="a_6 key">
+            <div class="key-label key-main">5</div>
+        </div>
+        <div class="a_7 key">
+            <div class="key-label key-main">6</div>
+        </div>
+        <div class="a_8 key">
+            <div class="key-label key-main">7</div>
+        </div>
+        <div class="a_9 key">
+            <div class="key-label key-main">8</div>
+        </div>
+        <div class="a_10 key">
+            <div class="key-label key-main">9</div>
+        </div>
+        <div class="a_11 key">
+            <div class="key-label key-main">0</div>
+        </div>
+        <div class="a_12 key">
+            <div class="key-label key-main">-</div>
+        </div>
+        <div class="a_13 key">
+            <div class="key-label key-main">=</div>
+        </div>
+        <div class="a_14 key">
+            <div class="key-label key-main">Backspace</div>
+        </div>
+        <div class="tap key">
+            <div class="key-label key-main">Tab</div>
+        </div>
+        <div class="q key">
+            <div class="key-label key-main">Q</div>
+        </div>
+        <div class="w key">
+            <div class="key-label key-main">W</div>
+        </div>
+        <div class="e key">
+            <div class="key-label key-main">E</div>
+        </div>
+        <div class="r key">
+            <div class="key-label key-main">R</div>
+            <div class="key-label key-meh">Meh+R</div>
+        </div>
+        <div class="t key spacefn">
+            <div class="key-label key-main">T</div>
+            <div class="key-label key-spacefn">Slack</div>
+        </div>
+        <div class="y key">
+            <div class="key-label key-main">Y</div>
+        </div>
+        <div class="u key">
+            <div class="key-label key-main">U</div>
+        </div>
+        <div class="i key spacefn">
+            <div class="key-label key-main">I</div>
+            <div class="key-label key-spacefn">WezTerm</div>
+        </div>
+        <div class="o key spacefn">
+            <div class="key-label key-main">O</div>
+            <div class="key-label key-spacefn">Obsidian</div>
+        </div>
+        <div class="p key spacefn">
+            <div class="key-label key-main">P</div>
+            <div class="key-label key-spacefn">PyCharm</div>
+        </div>
+        <div class="p1 key">
+            <div class="key-label key-main">[</div>
+        </div>
+        <div class="p2 key">
+            <div class="key-label key-main">]</div>
+        </div>
+        <div class="p3 key">
+            <div class="key-label key-main">\</div>
+        </div>
+        <div class="caps key special">
+            <div class="key-label key-main">Caps Lock</div>
+            <div class="key-label key-normal">Ctrl</div>
+        </div>
+        <div class="a key spacefn">
+            <div class="key-label key-main">A</div>
+            <div class="key-label key-spacefn">Alfred 5</div>
+        </div>
+        <div class="s key spacefn">
+            <div class="key-label key-main">S</div>
+            <div class="key-label key-spacefn">Safari</div>
+        </div>
+        <div class="d key spacefn">
+            <div class="key-label key-main">D</div>
+            <div class="key-label key-spacefn">control+shi…</div>
+        </div>
+        <div class="f key spacefn">
+            <div class="key-label key-main">F</div>
+            <div class="key-label key-spacefn">control+TAB</div>
+        </div>
+        <div class="g key">
+            <div class="key-label key-main">G</div>
+            <div class="key-label key-hyper">Hyper+G</div>
+        </div>
+        <div class="h key spacefn">
+            <div class="key-label key-main">H</div>
+            <div class="key-label key-spacefn">←</div>
+        </div>
+        <div class="j key spacefn">
+            <div class="key-label key-main">J</div>
+            <div class="key-label key-spacefn">↓</div>
+        </div>
+        <div class="k key spacefn">
+            <div class="key-label key-main">K</div>
+            <div class="key-label key-spacefn">↑</div>
+        </div>
+        <div class="l key spacefn">
+            <div class="key-label key-main">L</div>
+            <div class="key-label key-spacefn">→</div>
+        </div>
+        <div class="b_1 key spacefn">
+            <div class="key-label key-main">;</div>
+            <div class="key-label key-spacefn">fn+Backspace</div>
+        </div>
+        <div class="b_2 key">
+            <div class="key-label key-main">'</div>
+        </div>
+        <div class="b_3 key special">
+            <div class="key-label key-main">Enter</div>
+            <div class="key-label key-normal">Ctrl</div>
+        </div>
+        <div class="shift key modified">
+            <div class="key-label key-main">Shift</div>
+            <div class="key-label key-normal">Caps Lock</div>
+        </div>
+        <div class="z key">
+            <div class="key-label key-main">Z</div>
+        </div>
+        <div class="x key spacefn">
+            <div class="key-label key-main">X</div>
+            <div class="key-label key-spacefn">ChatGPT</div>
+        </div>
+        <div class="c key spacefn">
+            <div class="key-label key-main">C</div>
+            <div class="key-label key-spacefn">Google Chro…</div>
+        </div>
+        <div class="v key">
+            <div class="key-label key-main">V</div>
+        </div>
+        <div class="b key spacefn">
+            <div class="key-label key-main">B</div>
+            <div class="key-label key-spacefn">Space</div>
+        </div>
+        <div class="n key spacefn">
+            <div class="key-label key-main">N</div>
+            <div class="key-label key-spacefn">control+←</div>
+        </div>
+        <div class="m key spacefn">
+            <div class="key-label key-main">M</div>
+            <div class="key-label key-spacefn">control+→</div>
+        </div>
+        <div class="m_1 key spacefn">
+            <div class="key-label key-main">,</div>
+            <div class="key-label key-spacefn">option+←</div>
+        </div>
+        <div class="m_2 key spacefn">
+            <div class="key-label key-main">.</div>
+            <div class="key-label key-spacefn">option+→</div>
+        </div>
+        <div class="m_3 key">
+            <div class="key-label key-main">/</div>
+        </div>
+        <div class="m_4 key modified">
+            <div class="key-label key-main">Shift</div>
+            <div class="key-label key-normal">Caps Lock</div>
+        </div>
+        <div class="ctrl key">
+            <div class="key-label key-main">Ctrl</div>
+        </div>
+        <div class="windows key">
+            <div class="key-label key-main">Opt</div>
+        </div>
+        <div class="alt key">
+            <div class="key-label key-main">Cmd</div>
+        </div>
+        <div class="space key">
+            <div class="key-label key-main">Space</div>
+        </div>
+        <div class="alt_1 key">
+            <div class="key-label key-main">Cmd</div>
+        </div>
+        <div class="windows_1 key">
+            <div class="key-label key-main">Opt</div>
+        </div>
+        <div class="right_on key">
+            <div class="key-label key-main">Fn</div>
+        </div>
+        <div class="ctrl_1 key">
+            <div class="key-label key-main">Ctrl</div>
+        </div>
 
-    <div class="shift anjian lan_5"><span class="first">Shift</span></div>
-    <div class="z anjian lan_5"><span class="first">SIG
-        TSTP</span></div>
-    <div class="x anjian lan_5"><span class="first">RUN</span></div>
-    <div class="c anjian lan_5"><span class="first">SIGINT</span></div>
-    <div class="v anjian lan_5"><span class="first">Vim Prefix</span></div>
-    <div class="b anjian lan_5"><span class="first">Tmux Prefix</span></div>
-    <div class="n anjian lan_5"><span class="first">Delete Word Ahead</span></div>
-    <div class="m anjian lan_5"><span class="first">Delete Char Ahead</span></div>
-    <div class="m_1 anjian lan_5"><span class="first">Delete Char After</span></div>
-    <div class="m_2 anjian lan_5"><span class="first">Delete Word After</span></div>
-    <div class="m_3 anjian lan_5"><span class="first">Cmt</span></div>
-    <div class="m_4 anjian lan_5"><span class="first">Shift</span></div>
-    <div class="l_up anjian lan_5"><span class="second">↑</span></div>
-
-    <!--<div class="one anjian lan_5"><span class="third">1</span><span class="fourth">End</span></div>-->
-    <!--<div class="two anjian lan_5"><span class="third">2</span><span class="fourth">↓</span></div>-->
-    <!--<div class="three anjian lan_5"><span class="third">3</span><span class="fourth">PgDn</span></div>-->
-    <!--<div class="four anjian lan_4"><span class="third">4</span><span class="fourth">←</span></div>-->
-    <!--<div class="five anjian lan_4"><span class="third">5</span></div>-->
-    <!--<div class="six anjian lan_4"><span class="third">6</span><span class="fourth">→</span></div>-->
-    <!--<div class="seven anjian lan_3"><span class="third">7</span><span class="fourth">Home</span></div>-->
-    <!--<div class="eight anjian lan_3"><span class="third">8</span><span class="fourth">↑</span></div>-->
-    <!--<div class="nine anjian lan_3"><span class="third">9</span><span class="fourth">PgUp</span></div>-->
-    <!--<div class="add anjian lan_3"><span class="fifth">+</span></div>-->
-    <!--<div class="s_enter anjian lan_5"><span class="fifth">Enter</span></div>-->
-    <!--<div class="zone anjian lan_6"><span class="third">0</span><span class="fourth">Ins</span></div>-->
-    <!--<div class="del anjian lan_6"><span class="third">.</span><span class="fourth">Del</span></div>-->
-    <!--<div class="num_lock anjian lan_2"><span class="third">Num Lock</span></div>-->
-    <!--<div class="a_15 anjian lan_2"><span class="third">/</span></div>-->
-    <!--<div class="a_16 anjian lan_2"><span class="third">*</span></div>-->
-    <!--<div class="a_17 anjian lan_2"><span class="third">-</span></div>-->
-
-
-    <div class="ctrl anjian lan_6"><span class="first">Ctrl</span></div>
-    <div class="windows anjian lan_6"><span class="first">Opt</span></div>
-    <div class="alt anjian lan_6"><span class="first">Cmd</span></div>
-    <div class="space anjian lan_6"><span class="first">Language Switcher</span></div>
-    <div class="alt_1 anjian lan_6"><span class="first">Cmd</span></div>
-    <div class="windows_1 anjian lan_6"><span class="first">Opt</span></div>
-    <div class="right_on anjian lan_6"><span class="first">Fn</span></div>
-    <div class="ctrl_1 anjian lan_6"><span class="first">Ctrl</span></div>
-    <div class="l_left anjian lan_6"><span class="second">←</span></div>
-    <div class="l_down anjian lan_6"><span class="second">↓</span></div>
-    <div class="l_right anjian lan_6"><span class="second">→</span></div>
-
-
-</div>
+    </div>
 </body>
 </html>

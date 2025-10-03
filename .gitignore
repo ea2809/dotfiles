@@ -7,3 +7,7 @@ vim/java
 .metals
 venv
 
+# Karabiner host-specific configs (keep default and example)
+karabiner/config.*.json
+!karabiner/config.default.json
+!karabiner/config.example-*.json

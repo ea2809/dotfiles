@@ -1,0 +1,19 @@
+{
+  "_comment": "This is an example host-specific configuration file.",
+  "_usage": "Rename this file to match your hostname, e.g., config.work-macbook.json",
+  "_note": "Host-specific configs are merged with config.default.json. Only specify what changes.",
+
+  "profile_name": "VIM",
+  "spacefn_definitions": [
+    {
+      "name": "i to Terminal",
+      "from": {"keycode": "i"},
+      "shell": {"program": "Terminal"}
+    },
+    {
+      "name": "v to VSCode",
+      "from": {"keycode": "v"},
+      "shell": {"program": "Visual Studio Code"}
+    }
+  ]
+}

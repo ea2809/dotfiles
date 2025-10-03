@@ -54,7 +54,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " Better Sintax
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'echasnovski/mini.nvim'  " Swissknife
 
-" Latex
+" Latex and others
 Plug 'lervag/vimtex'
 
 call plug#end()

@@ -1,0 +1,187 @@
+{
+  "profile_name": "VIM",
+  "non_ansii_keyboards": {
+    "identifiers": [
+      {
+        "description": "Atreus",
+        "vendor_id": 4617
+      }
+    ]
+  },
+  "spacefn_definitions": [
+    {
+      "name": "a to Alfred",
+      "from": {"keycode": "a"},
+      "shell": {"program": "Alfred 5"}
+    },
+    {
+      "name": "b to spacebar",
+      "from": {"keycode": "b"},
+      "to": {"keycode": "spacebar"}
+    },
+    {
+      "name": "i to WezTerm",
+      "from": {"keycode": "i"},
+      "shell": {"program": "WezTerm"}
+    },
+    {
+      "name": "s to Safari",
+      "from": {"keycode": "s"},
+      "shell": {"program": "Safari"}
+    },
+    {
+      "name": "c to Chrome",
+      "from": {"keycode": "c"},
+      "shell": {"program": "Google Chrome"}
+    },
+    {
+      "name": "t to Chat",
+      "from": {"keycode": "t"},
+      "shell": {"program": "Slack"}
+    },
+    {
+      "name": "o to Obsidian",
+      "from": {"keycode": "o"},
+      "shell": {"program": "Obsidian"}
+    },
+    {
+      "name": "p to PyCharm",
+      "from": {"keycode": "p"},
+      "shell": {"program": "PyCharm"}
+    },
+    {
+      "name": "x to ChatGPT",
+      "from": {"keycode": "x"},
+      "shell": {"program": "ChatGPT"}
+    },
+    {
+      "name": "hyper g to Alfred github",
+      "from": {"keycode": "g"},
+      "hyper": {"keycode": "g"}
+    },
+    {
+      "name": "hyper r to Todoist",
+      "from": {"keycode": "r"},
+      "meh": {"keycode": "r"}
+    },
+    {
+      "name": "hyper hjkl to arrows",
+      "complex": [
+        {
+          "from": {"keycode": "h"},
+          "to": {"keycode": "left_arrow"}
+        },
+        {
+          "from": {"keycode": "j"},
+          "to": {"keycode": "down_arrow"}
+        },
+        {
+          "from": {"keycode": "k"},
+          "to": {"keycode": "up_arrow"}
+        },
+        {
+          "from": {"keycode": "l"},
+          "to": {"keycode": "right_arrow"}
+        },
+        {
+          "from": {"keycode": "semicolon", "optional": false},
+          "to": {"keycode": "delete_or_backspace"}
+        },
+        {
+          "from": {"keycode": "semicolon", "mandatory": ["shift"]},
+          "to": {"keycode": "delete_or_backspace", "modifiers": ["fn"]}
+        }
+      ]
+    },
+    {
+      "name": "Navigation",
+      "complex": [
+        {
+          "from": {"keycode": "n"},
+          "to": {"keycode": "left_arrow", "modifiers": ["control"]}
+        },
+        {
+          "from": {"keycode": "m"},
+          "to": {"keycode": "right_arrow", "modifiers": ["control"]}
+        },
+        {
+          "from": {"keycode": "d"},
+          "to": {"keycode": "tab", "modifiers": ["control", "shift"]}
+        },
+        {
+          "from": {"keycode": "f"},
+          "to": {"keycode": "tab", "modifiers": ["control"]}
+        },
+        {
+          "from": {"keycode": "comma"},
+          "to": {"keycode": "left_arrow", "modifiers": ["option"]}
+        },
+        {
+          "from": {"keycode": "period"},
+          "to": {"keycode": "right_arrow", "modifiers": ["option"]}
+        }
+      ]
+    }
+  ],
+  "normal_definitions": [
+    {
+      "name": "Escape to caps lock",
+      "from": {"keycode": "escape"},
+      "if_alone": {"keycode": "escape"},
+      "if_held_down": {"keycode": "caps_lock"},
+      "parameters": {
+        "basic.to_if_alone_timeout_milliseconds": 250,
+        "basic.to_if_held_down_threshold_milliseconds": 250
+      },
+      "device_unless": "$non_ansii_keyboards"
+    },
+    {
+      "name": "Enter right control",
+      "from": {"keycode": "return_or_enter"},
+      "to": {"keycode": "right_control", "lazy": true},
+      "if_alone": {"keycode": "return_or_enter"}
+    },
+    {
+      "name": "Capslock to escape or control",
+      "from": {"keycode": "caps_lock"},
+      "to": {"keycode": "left_control", "lazy": true},
+      "if_alone": {"keycode": "escape"}
+    },
+    {
+      "name": "Double shift caps lock",
+      "complex": [
+        {
+          "from": {"keycode": "left_shift", "mandatory": ["right_shift"], "optional": ["caps_lock"]},
+          "to": {"keycode": "caps_lock"},
+          "if_alone": {"keycode": "left_shift"}
+        },
+        {
+          "from": {"keycode": "right_shift", "mandatory": ["left_shift"], "optional": ["caps_lock"]},
+          "to": {"keycode": "caps_lock"},
+          "if_alone": {"keycode": "right_shift"}
+        }
+      ]
+    },
+    {
+      "name": "Special Shifts arrows",
+      "complex": [
+        {
+          "from": {"keycode": "up_arrow", "mandatory": ["shift"]},
+          "to": {"keycode": "page_up"}
+        },
+        {
+          "from": {"keycode": "down_arrow", "mandatory": ["shift"]},
+          "to": {"keycode": "page_down"}
+        },
+        {
+          "from": {"keycode": "left_arrow", "mandatory": ["shift"]},
+          "to": {"keycode": "home"}
+        },
+        {
+          "from": {"keycode": "right_arrow", "mandatory": ["shift"]},
+          "to": {"keycode": "end"}
+        }
+      ]
+    }
+  ]
+}
