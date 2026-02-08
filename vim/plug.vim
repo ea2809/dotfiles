@@ -57,4 +57,8 @@ Plug 'echasnovski/mini.nvim'  " Swissknife
 " Latex and others
 Plug 'lervag/vimtex'
 
+"Clojure
+Plug 'liquidz/elin'
+Plug 'liquidz/elin-coc-source'
+
 call plug#end()

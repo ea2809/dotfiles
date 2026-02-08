@@ -133,6 +133,9 @@ set spelllang=es
 " Auto reload files
 set autoread
 
+" Auto Open cwindow on grep results
+autocmd QuickFixCmdPost grep,vimgrep cwindow
+
 " Setup style
 set background=dark
 set t_Co=256  
@@ -399,6 +402,36 @@ autocmd FileType go nmap <Leader>i  <Plug>(go-info)
 " autocmd FileType go nmap <leader>cc  <Plug>(go-coverage-clear)
 " autocmd FileType go nmap <leader>c  <Plug>(go-coverage)
 " autocmd FileType go nmap <leader>cb  <Plug>(go-coverage-browser)
+" }}}
+
+
+" Clojure files {{{
+" Elin mappings for Clojure buffers
+augroup MyElinMaps
+  autocmd!
+  autocmd FileType clojure,clojurescript,clojurec call s:elin_maps()
+augroup END
+
+function! s:elin_maps() abort
+  " Build/Run equivalents (there isn't a direct 'build' in Elin; these are common "do stuff" actions)
+  nnoremap <buffer> <leader>r  :ElinEvalCurrentTopList<CR>     " run current top form
+  nnoremap <buffer> <leader>b  :ElinEvalCurrentBuffer<CR>      " eval whole buffer (closest to "build")
+
+  " Testing (closest to your vim-go mappings)
+  nnoremap <buffer> <leader>tt :ElinTestUnderCursor<CR>
+  nnoremap <buffer> <leader>tf :ElinTestFocusedCurrentTesting<CR>
+
+  " Navigation (def / backstack equivalents)
+  nnoremap <buffer> <leader>gt :ElinJumpToDefinition<CR>
+  nnoremap <buffer> <leader>gk <C-t>                           " jump back (Vim tag stack)
+  nnoremap <buffer> <leader>gs :tags<CR>                       " show tag stack
+  nnoremap <buffer> <leader>gc :clearjumps<CR>                 " closest "clear stack" (jump list)
+
+  " “Decls” / “Doc” / “Info” style helpers
+  nnoremap <buffer> <leader>de :ElinReferences<CR>             " list usages (closest practical to decl list)
+  nnoremap <buffer> <leader>do :ElinLookup<CR>                 " docs for symbol (default key is K)
+  nnoremap <buffer> <leader>i  :ElinShowSource<CR>             " show source for symbol
+endfunction
 " }}}
 
 " Vim files {{{
