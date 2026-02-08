@@ -4,8 +4,8 @@
 -- }
 
 -- require("plugins.nvim-ts-rainbow")
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "go", "java", "python", "scala", "bash", "c", "html", "javascript", "json", "lua", "vim", "toml", "yaml", "dockerfile" },
+require'nvim-treesitter.config'.setup {
+  ensure_installed = { "go", "java", "python", "scala", "bash", "c", "html", "javascript", "json", "lua", "vim", "toml", "yaml", "dockerfile","clojure", "rust" },
   highlight = { enable = true, },
   indent = { enable = true},
   rainbow = {
