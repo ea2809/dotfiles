@@ -32,8 +32,7 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
-															\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Move lines on visual mode
 vnoremap <Down> :m '>+1<CR>gv=gv
@@ -332,24 +331,6 @@ if has("nvim")
 	let g:UltiSnipsJumpForwardTrigger="<leader>ss"
 	let g:UltiSnipsJumpBackwardTrigger="<leader>sk"
 
-  inoremap <silent><expr> <TAB>
-    \ coc#pum#visible() ? coc#_select_confirm() :
-    \ coc#expandableOrJumpable() ?
-    \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ coc#refresh()
-	" inoremap <silent><expr> <leader><tab>
-	" 			\ pumvisible() ? coc#_select_confirm() :
-	" 			\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-	" 			\ <SID>check_back_space() ? "\<tab>" :
-	" 			\ coc#refresh()
-
-	function! s:check_back_space() abort
-		let col = col('.') - 1
-		return !col || getline('.')[col - 1]  =~# '\s'
-	endfunction
-
-	let g:coc_snippet_next = '<leader><tab>'
 	" UtilSnips
 	nnoremap <leader>ss :call UltiSnips#JumpForwards()<CR>
 	nnoremap <leader>sk :call UltiSnips#JumpBackwards()<CR>
@@ -454,16 +435,10 @@ au FileType html setlocal expandtab
 " autocmd! BufWritePost,BufEnter *.java Neomake  " Linting
 " autocmd FileType java setlocal tabstop=2 shiftwidth=2 expandtab
 
-autocmd FileType java nmap <leader>gt <Plug>(coc-definition)
-autocmd FileType java nmap K :call CocAction('doHover')<CR>
-autocmd CursorHold *.java silent call CocActionAsync('highlight')
 " }}}
 
 " Scala {{{
 au BufRead,BufNewFile *.sbt set filetype=scala
-autocmd FileType scala nmap <leader>gt <Plug>(coc-definition)
-autocmd FileType scala nmap K :call CocAction('doHover')<CR>
-autocmd CursorHold *.scala silent call CocActionAsync('highlight')
 " }}}
 
 " Gui Setting {{{
@@ -549,11 +524,6 @@ autocmd FileType python setlocal commentstring=#\ %s
 " let g:neoformat_enabled_python = ['autopep8', 'yapf', 'isort']
 let g:neoformat_enabled_python = ['autopep8', 'yapf']
 autocmd FileType python let g:neoformat_run_all_formatters = 1
-
-autocmd FileType python nmap <leader>gt <Plug>(coc-definition)
-
-autocmd FileType python nmap K :call CocAction('doHover')<CR>
-autocmd CursorHold *.py silent call CocActionAsync('highlight')
 " }}}
 
 " Cucumber {{{
@@ -619,72 +589,30 @@ if executable('ag')
 endif
 " }}}
 
-" Coc config{{{
-nnoremap <Leader>ca :CocAction<CR>
-" noremap <Leader>ca <Plug>(coc-codeaction)
-nnoremap <Leader>cf :CocFix<CR>
-nmap <leader>qf  <Plug>(coc-fix-current)
+" LSP config{{{
+nnoremap <silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> <leader>cf <cmd>lua vim.lsp.buf.code_action({ apply = true })<CR>
+nnoremap <silent> <leader>qf <cmd>lua vim.lsp.buf.code_action({ context = { only = { 'quickfix' } }, apply = true })<CR>
 
-" Code navigation
-nmap <leader>gd <Plug>(coc-definition)
-nmap <Leader>gy <Plug>(coc-type-definition)
-nmap <Leader>gi <Plug>(coc-implementation)
-nmap <Leader>gr <Plug>(coc-references)
+nnoremap <silent> <leader>gd <cmd>lua require('lsp-setup').definition()<CR>
+nnoremap <silent> <leader>gy <cmd>lua require('lsp-setup').type_definition()<CR>
+nnoremap <silent> <leader>gi <cmd>lua require('lsp-setup').implementation()<CR>
+nnoremap <silent> <leader>gr <cmd>lua require('lsp-setup').references()<CR>
 
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>rr <Plug>(coc-refactor)
+nnoremap <silent> <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> <leader>rr <cmd>lua vim.lsp.buf.rename()<CR>
 
-" Removed: https://github.com/neoclide/coc.nvim/commit/87c065ebde6bd28a2cc344430a714eb4025b1434
-command! -nargs=* -range CocAction :call coc#rpc#notify('codeActionRange', [<line1>, <line2>, <f-args>])
-command! -nargs=* -range CocFix    :call coc#rpc#notify('codeActionRange', [<line1>, <line2>, 'quickfix'])
-
-" Show all diagnostics.
-nnoremap <silent> <leader>cd  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent> <leader>ce  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent> <leader>cm :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent> <leader>co  :<C-u>CocList outline<cr>
-" Search workleader symbols.
-nnoremap <silent> <leader>cs  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <leader>cj  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <leader>ck  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent> <leader>cp  :<C-u>CocListResume<CR>
-
-"Coc keeps installing coc-java
-" \ 'coc-metals', Installed as a pluging in plug.vim
-let g:coc_global_extensions = [
-	\ 'coc-ultisnips',
-	\ 'coc-snippets',
-	\ 'coc-prettier',
-	\ 'coc-highlight',
-	\ 'coc-eslint',
-	\ 'coc-tsserver',
-	\ 'coc-pyright',
-	\ 'coc-json',
-	\ 'coc-java',
-	\ 'coc-html',
-	\ 'coc-html',
-	\ 'coc-go',
-	\ 'coc-css' ]
-
-" disable coc in git commits
-autocmd BufRead,BufNewFile COMMIT_EDITMSG let b:coc_enabled=0
-
+nnoremap <silent> <leader>cd <cmd>Trouble diagnostics toggle<CR>
+nnoremap <silent> <leader>co <cmd>lua require('fzf-lua').lsp_document_symbols()<CR>
+nnoremap <silent> <leader>cs <cmd>lua require('fzf-lua').lsp_workspace_symbols()<CR>
+nnoremap <silent> <leader>cj <cmd>lua vim.diagnostic.goto_next()<CR>
+nnoremap <silent> <leader>ck <cmd>lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent> <leader>cp <cmd>lua vim.diagnostic.setqflist()<CR>
 " }}}
 
 " Typescript {{{ 
 let g:neoformat_enabled_typescript = ['prettier']
 autocmd FileType typescript let g:neoformat_run_all_formatters = 1
-
-autocmd FileType typescript nmap <leader>gt <Plug>(coc-definition)
-
-autocmd FileType typescript nmap K :call CocAction('doHover')<CR>
 " }}}
 
 " Markdown {{{
@@ -748,22 +676,21 @@ set sidescroll=1      " Number of columns to scroll horizontally
 " Syntax {{{
 
 " JAVA
-highlight link JavaIdentifier NONE
-highlight link JavaOperator NONE
+highlight link JavaIdentifier Identifier
+highlight link JavaOperator Operator
 
-highlight link JavaFunction javaClassDecl
-" highlight link JavaFunctionCall javaTypedef
-highlight link JavaFunctionCall NONE
-highlight link javaInclude pythonImport
-highlight link javaOverride semshiGlobal
-highlight link javaPackage semshiGlobal
-highlight link javaSpecialTags semshiGlobal
-highlight link javaPreProc pythonDecorator
-highlight link javaTypedef LineNr
-highlight link javaTypeIn Function
+highlight link JavaFunction Function
+highlight link JavaFunctionCall Function
+highlight link javaInclude Include
+highlight link javaOverride Identifier
+highlight link javaPackage Include
+highlight link javaSpecialTags PreProc
+highlight link javaPreProc PreProc
+highlight link javaTypedef Type
+highlight link javaTypeIn Type
 highlight link javaTypeSystem Type
-highlight link javaOperatorSystem Type
-highlight link javaOperatorSpecial Type
+highlight link javaOperatorSystem Operator
+highlight link javaOperatorSpecial Operator
 
 
 " Cucumber
@@ -832,6 +759,9 @@ lua require('lualine-setup')
 lua require('mini-setup')
 lua require('ident_line-setup')
 lua require('local-fzf')
+lua require('mason-tools-setup')
+lua require('lsp-setup')
+lua require('dap-setup')
 "}}}
 
 " Quick-Scope {{{

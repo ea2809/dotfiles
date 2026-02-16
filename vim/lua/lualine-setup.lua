@@ -1,3 +1,23 @@
+local function lsp_status()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local clients = vim.lsp.get_clients({ bufnr = bufnr })
+  if not clients or #clients == 0 then
+    return 'LSP:off'
+  end
+
+  local names = {}
+  for _, client in ipairs(clients) do
+    if client and client.name then
+      table.insert(names, client.name)
+    end
+  end
+
+  if #names == 0 then
+    return 'LSP:on'
+  end
+  return 'LSP:' .. table.concat(names, ',')
+end
+
 require('lualine').setup {
   options = {
     icons_enabled = true,
@@ -21,7 +41,7 @@ require('lualine').setup {
     lualine_a = {'mode'},
     lualine_b = {{'branch', icon = ''}, 'diff', 'diagnostics'},
     lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_x = {lsp_status, 'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },

@@ -12,7 +12,6 @@ Plug 'junegunn/goyo.vim' " No distraction mode
 Plug 'tpope/vim-repeat' " Repeteat custom commands
 Plug 'tpope/vim-commentary' " Comment lines 'gcc'
 Plug 'tpope/vim-surround' "Surround words
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm ci'}
 Plug 'sbdchd/neoformat' " Automatic formatter
 Plug 'neomake/neomake' " Linting
 Plug 'tpope/vim-eunuch' " Adds thingks like Rename, Move
@@ -48,6 +47,25 @@ Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 Plug 'nvim-lua/popup.nvim' " Needed for telescope
 Plug 'nvim-lua/plenary.nvim' " Needed for telescope
 Plug 'nvim-tree/nvim-web-devicons' " Another devicons ??
+Plug 'neovim/nvim-lspconfig' " Native LSP client config
+Plug 'williamboman/mason.nvim' " LSP/DAP/Linter installer
+Plug 'williamboman/mason-lspconfig.nvim' " Mason + lspconfig bridge
+Plug 'hrsh7th/nvim-cmp' " Completion engine
+Plug 'hrsh7th/cmp-nvim-lsp' " LSP completion source
+Plug 'hrsh7th/cmp-buffer' " Buffer completion source
+Plug 'hrsh7th/cmp-path' " Path completion source
+Plug 'quangnguyen30192/cmp-nvim-ultisnips' " UltiSnips completion source
+Plug 'onsails/lspkind.nvim' " Completion pictograms
+Plug 'folke/trouble.nvim' " Diagnostics list
+Plug 'WhoIsSethDaniel/mason-tool-installer.nvim' " Keep Mason tools in sync
+Plug 'mfussenegger/nvim-dap' " Debug Adapter Protocol core
+Plug 'rcarriga/nvim-dap-ui' " Debug UI
+Plug 'nvim-neotest/nvim-nio' " Async support for dap-ui
+Plug 'jay-babu/mason-nvim-dap.nvim' " Mason + DAP bridge
+Plug 'theHamsta/nvim-dap-virtual-text' " Inline debug values
+Plug 'leoluz/nvim-dap-go' " Go debug helpers
+Plug 'mfussenegger/nvim-dap-python' " Python debug helpers
+Plug 'mfussenegger/nvim-jdtls' " Java LSP/DAP integration
 
 " Tree sitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " Better Sintax
@@ -59,6 +77,5 @@ Plug 'lervag/vimtex'
 
 "Clojure
 Plug 'liquidz/elin'
-Plug 'liquidz/elin-coc-source'
 
 call plug#end()
