@@ -2,6 +2,7 @@ local ok_mason, mason = pcall(require, 'mason')
 local ok_mason_lsp, mason_lspconfig = pcall(require, 'mason-lspconfig')
 local ok_cmp, cmp = pcall(require, 'cmp')
 local M = {}
+vim.g.autoformat_enabled = vim.g.autoformat_enabled == nil and 1 or vim.g.autoformat_enabled
 
 if not (ok_mason and ok_mason_lsp and ok_cmp) then
   return
@@ -51,6 +52,26 @@ local on_attach = function(client, bufnr)
       group = group,
       buffer = bufnr,
       callback = vim.lsp.buf.clear_references,
+    })
+  end
+
+  if client:supports_method('textDocument/formatting') then
+    local format_group = vim.api.nvim_create_augroup('LspFormatOnSave' .. bufnr, { clear = true })
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      group = format_group,
+      buffer = bufnr,
+      callback = function()
+        if vim.g.autoformat_enabled ~= 1 then
+          return
+        end
+        vim.lsp.buf.format({
+          bufnr = bufnr,
+          async = false,
+          filter = function(c)
+            return c.name ~= 'GitHub Copilot'
+          end,
+        })
+      end,
     })
   end
 end
@@ -143,7 +164,7 @@ config_and_enable('rust_analyzer', {
 })
 
 config_and_enable('clojure_lsp', {
-  filetypes = { 'clojure' },
+  filetypes = { 'clojure', 'clojurescript', 'clojurec' },
   root_markers = { 'deps.edn', 'build.boot', 'project.clj', '.git' },
 })
 
@@ -242,6 +263,11 @@ function M.references()
     return vim.lsp.buf.references()
   end
   warn_missing('textDocument/references')
+end
+
+function M.toggle_autoformat()
+  vim.g.autoformat_enabled = vim.g.autoformat_enabled == 1 and 0 or 1
+  vim.notify('Autoformat ' .. (vim.g.autoformat_enabled == 1 and 'enabled' or 'disabled'))
 end
 
 return M

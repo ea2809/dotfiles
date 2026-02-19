@@ -1,0 +1,9 @@
+-- Project-local Neovim config example.
+-- Copy this file to your project root as .nvim.lua
+
+-- Disable global LSP format-on-save for this project.
+vim.g.autoformat_enabled = 0
+
+-- Example local preferences.
+vim.opt_local.colorcolumn = '100'
+vim.opt_local.textwidth = 100

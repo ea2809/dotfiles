@@ -18,26 +18,7 @@ if filereadable(plugfile)
 endif
 " }}}
 
-" Better move in text{{{
-" Most of the ideas from https://github.com/caarlos0/dotfiles/blob/master/vim/vimrc.symlink
-
-map <Up> gk
-map <Down> gj
-map k gk
-map j gj
-
-" Search mappings: These will make it so that going to the next one in a
-" search will center on the line it's found in.
-nnoremap n nzzzv
-nnoremap N Nzzzv
-
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Move lines on visual mode
-vnoremap <Down> :m '>+1<CR>gv=gv
-vnoremap <Up> :m '<-2<CR>gv=gv
-" }}}
+" Keymaps are configured in vim/lua/keymaps.lua
 
 " Base configuration {{{
 set nocompatible
@@ -67,9 +48,6 @@ set backspace=indent,eol,start
 " set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 set listchars=eol:¬,tab:»\ ,trail:~,extends:>,precedes:<,space:·
 set list
-
-" Toggle hlsearch
-nnoremap <Leader>t :nohls<CR>
 
 " Show other match
 set showmatch
@@ -132,9 +110,6 @@ set spelllang=es
 " Auto reload files
 set autoread
 
-" Auto Open cwindow on grep results
-autocmd QuickFixCmdPost grep,vimgrep cwindow
-
 " Setup style
 set background=dark
 set t_Co=256  
@@ -170,28 +145,7 @@ hi! link TelescopeMatching GruvboxBlue
 hi! link TelescopePromptPrefix GruvboxRed
 hi! link TelescopePrompt TelescopeNormal
 
-function MyCustomHighlights()
-    hi semshiLocal           ctermfg=209 guifg=#d65d0e
-    hi semshiGlobal          ctermfg=214 guifg=#8ec07c
-    hi semshiImported        ctermfg=214 guifg=#8ec07c cterm=bold gui=bold
-    hi semshiParameter       ctermfg=75  guifg=#83a598
-    hi semshiParameterUnused ctermfg=117 guifg=#458588 cterm=underline gui=underline
-    hi semshiFree            ctermfg=218 guifg=#d3869b
-    hi semshiBuiltin         ctermfg=207 guifg=#b16286
-    hi semshiAttribute       ctermfg=49  guifg=#fe8019
-    hi semshiSelf            ctermfg=249 guifg=#fb4934
-    hi semshiUnresolved      ctermfg=226 guifg=#fabd2f cterm=underline gui=underline
-    hi semshiSelected        ctermfg=231 guifg=#ebdbb2 ctermbg=161 guibg=#b57614
-
-    hi semshiErrorSign       ctermfg=231 guifg=#ebdbb2 ctermbg=160 guibg=#fb4934
-    hi semshiErrorChar       ctermfg=231 guifg=#ebdbb2 ctermbg=160 guibg=#fb4934
-    sign define semshiError text=E> texthl=semshiErrorSign
-endfunction
-autocmd FileType python call MyCustomHighlights()
 " }}}
-
-nnoremap <Leader>fm :Vifm . <Enter>
-nnoremap <Leader>ff :Vifm "expand('%:r')"<Enter>
 
 " Netrw look like nerdtree
 let g:netrw_banner = 0
@@ -210,27 +164,9 @@ set viewoptions-=options
 " Save globals variables to save vim-workspace variable
 set sessionoptions+=globals
 
-" Reload when something happens
-autocmd FocusGained * silent! checktime
-
-" Search for the selected text
-vnoremap // y/\V<C-r>=escape(@",'/\')<CR><CR>
-vnoremap agg y:Agg '<C-r>"'<CR>
-vnoremap ag y:Ag '<C-r>"'<CR>
-vnoremap rg y:Rg '<C-r>"'<CR>
-vnoremap fzf y:FZF '<C-r>"'<CR>
-
-" Activate vim-which-key
-" nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
-" vnoremap <silent> <leader> :WhichKeyVisual '<Space>'<CR>
-
-nnoremap <silent> <leader>rf :%s/
-
-
 " }}}
 
 "Terminal thing {{{
-tmap <space>jk <C-\><C-N>
 
 "TODO: this is not working
 let g:terminal_color_0 = '#222222'
@@ -251,51 +187,7 @@ let g:terminal_color7 = '#ffffff'
 let g:terminal_color15 = '#ffffff'
 " }}}
 
-"Split navigations {{{
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-" }}}
-
-" Save with control+s and <leader>fs {{{
-nmap <C-s> :w<CR>
-nmap <leader>w :w<CR>
-nmap <leader>ww :w<CR>
-imap jk <ESC>
-" imap <C-s> <Esc>:w<CR>
-nmap <leader>fs :w<CR>
-" imap <leader>fs <Esc>:w<CR>
-" }}}
-
-" Buffers mappings {{{
-nnoremap <leader>bn :bn<CR>
-inoremap <leader>bn <Esc>:bn<CR>
-
-nnoremap <leader>bt :b#<CR>
-inoremap <leader>bt <Esc>:b#<CR>
-nnoremap <leader><tab> :b#<CR>
-inoremap <leader><tab> <Esc>:b#<CR>
-
-noremap <Right> :bn<CR>
-noremap <Left> :bp<CR>
-
-nnoremap <leader>bb :ls<CR>
-inoremap <leader>bb <Esc>:ls<CR>
-
-nnoremap <leader>bp :bp<CR>
-inoremap <leader>bp <Esc>:bp<CR>
-
-nnoremap <leader>dd :bd<CR>
-nnoremap <leader>bd :bd<CR>
-inoremap <leader>bd <Esc>:bd<CR>
-
-nnoremap <leader>q :q<CR>
-nnoremap <leader>qq :q<CR>
-nnoremap <leader>wq :wq<CR>
-
-nnoremap <leader>Q :q!<CR>
-
+"Split/Save/Buffers mappings moved to vim/lua/keymaps.lua
 
 " Prose mode found on the net {{{
 function! ProseMode()
@@ -310,7 +202,6 @@ function! ProseMode()
 endfunction
 
 command! ProseMode call ProseMode()
-nmap <leader>p :ProseMode<CR>
 " }}}
 
 " Deople and UltiSnips config {{{
@@ -354,74 +245,7 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.dirty = ' '
 " }}}
 
-" Quickfix window {{{
-map <leader>ee :cnext<CR>
-map <leader>ek :cprevious<CR>
-nnoremap <leader>ec :cclose<CR>
-nnoremap <leader>eo :copen<CR>
-nnoremap <leader>cc :cc<CR>
-" }}}
-
-" Go Configuration {{{
-let g:go_fmt_command = "goimports"
-let g:go_list_type = "quickfix" " Everything in quickfix windows
-let g:go_auto_type_info = 1
-let g:go_auto_sameids = 1
-
-autocmd FileType go nmap <leader>b  <Plug>(go-build)
-autocmd FileType go nmap <leader>r  <Plug>(go-run)
-autocmd FileType go nmap <leader>tt  <Plug>(go-test)
-autocmd FileType go nmap <leader>tf  <Plug>(go-test-func)
-autocmd FileType go nmap <leader>gt  <Plug>(go-def)
-autocmd FileType go nmap <leader>gk  <Plug>(go-def-pop)
-autocmd FileType go nmap <leader>gs  <Plug>(go-def-stack)
-autocmd FileType go nmap <leader>gc  <Plug>(go-def-stack-clear)
-autocmd FileType go nmap <leader>de  :GoDecls<CR>
-autocmd FileType go nmap <leader>do  :GoDoc<CR>
-autocmd FileType go nmap <Leader>i  <Plug>(go-info)
-" autocmd FileType go nmap <leader>ct  <Plug>(go-coverage-toggle)
-" autocmd FileType go nmap <leader>cc  <Plug>(go-coverage-clear)
-" autocmd FileType go nmap <leader>c  <Plug>(go-coverage)
-" autocmd FileType go nmap <leader>cb  <Plug>(go-coverage-browser)
-" }}}
-
-
-" Clojure files {{{
-" Elin mappings for Clojure buffers
-augroup MyElinMaps
-  autocmd!
-  autocmd FileType clojure,clojurescript,clojurec call s:elin_maps()
-augroup END
-
-function! s:elin_maps() abort
-  " Build/Run equivalents (there isn't a direct 'build' in Elin; these are common "do stuff" actions)
-  nnoremap <buffer> <leader>r  :ElinEvalCurrentTopList<CR>     " run current top form
-  nnoremap <buffer> <leader>b  :ElinEvalCurrentBuffer<CR>      " eval whole buffer (closest to "build")
-
-  " Testing (closest to your vim-go mappings)
-  nnoremap <buffer> <leader>tt :ElinTestUnderCursor<CR>
-  nnoremap <buffer> <leader>tf :ElinTestFocusedCurrentTesting<CR>
-
-  " Navigation (def / backstack equivalents)
-  nnoremap <buffer> <leader>gt :ElinJumpToDefinition<CR>
-  nnoremap <buffer> <leader>gk <C-t>                           " jump back (Vim tag stack)
-  nnoremap <buffer> <leader>gs :tags<CR>                       " show tag stack
-  nnoremap <buffer> <leader>gc :clearjumps<CR>                 " closest "clear stack" (jump list)
-
-  " “Decls” / “Doc” / “Info” style helpers
-  nnoremap <buffer> <leader>de :ElinReferences<CR>             " list usages (closest practical to decl list)
-  nnoremap <buffer> <leader>do :ElinLookup<CR>                 " docs for symbol (default key is K)
-  nnoremap <buffer> <leader>i  :ElinShowSource<CR>             " show source for symbol
-endfunction
-" }}}
-
-" Vim files {{{
-au FileType vim setlocal foldmethod=marker
-" }}}
-
-" Html files {{{
-au FileType html setlocal expandtab
-" }}}
+" Language-specific ftplugin config lives under vim/after/ftplugin/*.lua
 
 " Java {{{
 " let g:neoformat_java_google = {
@@ -438,7 +262,6 @@ au FileType html setlocal expandtab
 " }}}
 
 " Scala {{{
-au BufRead,BufNewFile *.sbt set filetype=scala
 " }}}
 
 " Gui Setting {{{
@@ -450,14 +273,6 @@ endif
 
 " }}}
 
-" Latex settings{{{
-autocmd FileType tex nnoremap <leader>gr :! pdflatex %<CR>
-" }}}
-
-" Basic mappings {{{
-nnoremap <leader>o :! open . <CR><CR>
-" }}}
-
 " CTRLP (FZF){{{
 
 if executable('fzf')
@@ -465,13 +280,7 @@ if executable('fzf')
 	" noremap <silent> <C-p> :Files<CR>
 endif
 
-	" Using lua functions
-nnoremap <C-p> <cmd>lua require('fzf-lua').files()<cr>
-" nnoremap <leader>fa <cmd>lua require('local-telescope').search_all_files()<cr>
-nnoremap <leader>fg <cmd>lua require('fzf-lua').live_grep()<cr>
-nnoremap <leader>fb <cmd>lua require('fzf-lua').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('fzf-lua').helptags()<cr>
-nnoremap <leader>fr <cmd>lua require('fzf-lua').resume()<cr>
+	" Using lua functions configured in vim/lua/keymaps.lua
 
 ""let g:ctrlp_mruf_relative = 1
 "if executable('fd')
@@ -495,78 +304,38 @@ nnoremap <leader>fr <cmd>lua require('fzf-lua').resume()<cr>
 "endif
 " }}}
 
-" YAML{{{
-au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
-autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 expandtab
-
-let g:neoformat_enabled_yaml = ['prettier']
-" }}}
-
-" JSX{{{
-autocmd FileType javascript.jsx setlocal tabstop=2 shiftwidth=2 expandtab
-" }}}
-
-" JSON{{{
-au! BufNewFile,BufReadPost *.json set filetype=json foldmethod=syntax
-autocmd FileType json setlocal tabstop=2 shiftwidth=2 expandtab
-" }}}
-
-" Python{{{
-"Copy from github: https://gist.github.com/eduardocereto/3088543
-au FileType python setlocal expandtab shiftwidth=4 tabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-autocmd FileType python setlocal indentkeys-=<:>
-autocmd FileType python setlocal indentkeys-=:
-" au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-" autocmd FileType python setlocal foldmethod=indent foldlevel=99
-autocmd FileType python setlocal commentstring=#\ %s
-" let g:jedi#show_call_signatures = 2
-" let g:jedi#auto_vim_configuration = 0
-" let g:neoformat_enabled_python = ['autopep8', 'yapf', 'isort']
-let g:neoformat_enabled_python = ['autopep8', 'yapf']
-autocmd FileType python let g:neoformat_run_all_formatters = 1
-" }}}
+" YAML/JSON filetype setup moved to vim/lua/autocmds.lua
 
 " Cucumber {{{
 " Thankts tpope for you awesome plugin: https://github.com/tpope/vim-cucumber
-autocmd BufNewFile,BufReadPost *.feature set filetype=gherkin
-au! Syntax gherkin source ~/dotfiles/vim/cucumber.vim
-autocmd FileType gherkin setlocal commentstring=#\ %s
-autocmd FileType cucumber setlocal commentstring=#\ %s
-autocmd FileType feature setlocal commentstring=#\ %s
-autocmd FileType gherkin vnoremap <leader>= :EasyAlign*<Bar><Enter>
-autocmd FileType gherkin nnoremap <leader>= V}k<leader>=
-autocmd FileType gherkin setlocal tabstop=2 shiftwidth=2 expandtab
-" }}}
-
-" CFG (.cfg) {{{
-autocmd FileType cfg setlocal commentstring=#\ %s
 " }}}
 
 " Neoformat {{{
 let g:neoformat_only_msg_on_error = 1
+let g:neoformat_clojure_zprint = {
+      \ 'exe': '/opt/homebrew/bin/zprint',
+      \ 'stdin': 1,
+      \ }
+let g:neoformat_clojurescript_zprint = {
+      \ 'exe': '/opt/homebrew/bin/zprint',
+      \ 'stdin': 1,
+      \ }
+let g:neoformat_clojurec_zprint = {
+      \ 'exe': '/opt/homebrew/bin/zprint',
+      \ 'stdin': 1,
+      \ }
+let g:neoformat_enabled_clojure = ['zprint']
+let g:neoformat_enabled_clojurescript = ['zprint']
+let g:neoformat_enabled_clojurec = ['zprint']
 " augroup fmt
 " 	autocmd!
 " 	autocmd BufWritePre * undojoin | Neoformat
 " augroup END
-nnoremap <space>L :Neoformat<CR>
 
-" }}}
-
-" Configure .env file {{{
-autocmd BufNewFile,BufReadPost .env set filetype=sh
-" }}}
-
-" EasyAlign {{{
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
 " }}}
 
 " vim-workspace{{{
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
-nnoremap <leader>wt :ToggleWorkspace<CR>
 let g:workspace_autosave = 0
 let g:workspace_persist_undo_history = 0
 let g:workspace_session_disable_on_args = 1
@@ -578,41 +347,17 @@ if executable('rg')
 	set grepprg=rg\ --vimgrep\ --no-heading
 	command -nargs=+ -complete=file -bar Rgg silent! grep! <args>|cwindow|redraw!
 	set grepformat=%f:%l:%c:%m,%f:%l:%m
-	nnoremap <Leader>ag :Rg<Space> 
 endif
 
 if executable('ag')
 	" Use ag over grep
 	set grepprg=ag\ --nogroup\ --nocolor
 	command -nargs=+ -complete=file -bar Agg silent! grep! <args>|cwindow|redraw!
-	nnoremap <Leader>ag :Ag<Space>
 endif
 " }}}
 
 " LSP config{{{
-nnoremap <silent> <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent> <leader>cf <cmd>lua vim.lsp.buf.code_action({ apply = true })<CR>
-nnoremap <silent> <leader>qf <cmd>lua vim.lsp.buf.code_action({ context = { only = { 'quickfix' } }, apply = true })<CR>
-
-nnoremap <silent> <leader>gd <cmd>lua require('lsp-setup').definition()<CR>
-nnoremap <silent> <leader>gy <cmd>lua require('lsp-setup').type_definition()<CR>
-nnoremap <silent> <leader>gi <cmd>lua require('lsp-setup').implementation()<CR>
-nnoremap <silent> <leader>gr <cmd>lua require('lsp-setup').references()<CR>
-
-nnoremap <silent> <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> <leader>rr <cmd>lua vim.lsp.buf.rename()<CR>
-
-nnoremap <silent> <leader>cd <cmd>Trouble diagnostics toggle<CR>
-nnoremap <silent> <leader>co <cmd>lua require('fzf-lua').lsp_document_symbols()<CR>
-nnoremap <silent> <leader>cs <cmd>lua require('fzf-lua').lsp_workspace_symbols()<CR>
-nnoremap <silent> <leader>cj <cmd>lua vim.diagnostic.goto_next()<CR>
-nnoremap <silent> <leader>ck <cmd>lua vim.diagnostic.goto_prev()<CR>
-nnoremap <silent> <leader>cp <cmd>lua vim.diagnostic.setqflist()<CR>
-" }}}
-
-" Typescript {{{ 
-let g:neoformat_enabled_typescript = ['prettier']
-autocmd FileType typescript let g:neoformat_run_all_formatters = 1
+command! LspAutoformatToggle lua require('lsp-setup').toggle_autoformat()
 " }}}
 
 " Markdown {{{
@@ -642,26 +387,10 @@ let g:WebDevIconsTabAirLineBeforeGlyphPadding = ' '
 
 " Behave Gherkin config {{{
 let g:behave_path = ""
-autocmd FileType gherkin nmap <leader>gt  :call behave#goto_step_definition()<CR>
-" }}}
-
-" Git configurtion{{{
-nnoremap <Leader>gst :Gstatus<CR>
-nnoremap <Leader>gp :Git push<CR>
-nnoremap <Leader>gb :Gblame<CR>
 " }}}
 
 " Abbrevations{{{
 iabbrev pdbd import sys, pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
-" }}}
-
-" Terminal config {{{
-augroup TerminalStuff
-	" Fix problem when you run a fullscreen command (vifm,top,...)
-	autocmd!
-	autocmd TermOpen * set sidescrolloff=0
-	autocmd TermClose * set sidescrolloff=15 " Copy value from the Scrolling section
-augroup END
 " }}}
 
 " Scrolling {{{
@@ -696,7 +425,7 @@ highlight link javaOperatorSpecial Operator
 " Cucumber
 hi! def link cucumberGiven     Include
 
-nmap <leader>sy :call <SID>SynStack()<cr>
+command! SynStack call <SID>SynStack()
 
 function! s:SynStack()
     if exists("*synstack")
@@ -725,28 +454,6 @@ let g:rainbow_active = 1
 
 "}}}
 
-" LargeFile {{{
-" file is large from 10mb
-let g:LargeFile = 1024 * 1024 * 10
-augroup LargeFile 
-  au!
-  autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
-augroup END
-
-function! LargeFile()
- " no syntax highlighting etc
- set eventignore+=FileType
- " save memory when other file is viewed
- setlocal bufhidden=unload
- " is read-only (write with :w new_filename)
- setlocal buftype=nowrite
- " no undo possible
- setlocal undolevels=-1
- " display message
- autocmd VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
-endfunction
-" }}}
-
 " GutenTags {{{
 let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git']
 " }}}
@@ -762,6 +469,9 @@ lua require('local-fzf')
 lua require('mason-tools-setup')
 lua require('lsp-setup')
 lua require('dap-setup')
+lua require('autocmds')
+lua require('keymaps')
+lua require('project-local').setup()
 "}}}
 
 " Quick-Scope {{{
@@ -770,15 +480,6 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " Vista {{{
 let g:vista#renderer#enable_icon = 1
-nnoremap <Leader>fv :Vista!!<CR>
 "}}}
-
-
-" Git mappings {{{
-nnoremap <Leader>gst :G<CR>
-nnoremap <Leader>gco :G checkout 
-nnoremap <Leader>gp :G push<CR>
-nnoremap <Leader>gpf :G push --force-with-lease --force-if-includes<CR>
-" }}}
 
 " cwjk"rpb"ryiwn@a
