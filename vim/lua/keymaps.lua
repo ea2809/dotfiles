@@ -8,12 +8,7 @@ map({ 'n', 'v', 'o' }, 'j', 'gj')
 
 map('n', 'n', 'nzzzv')
 map('n', 'N', 'Nzzzv')
-map('i', '<CR>', function()
-  if vim.fn.pumvisible() == 1 then
-    return '<C-y>'
-  end
-  return '<C-g>u<CR>'
-end, { expr = true, silent = true })
+map('i', '<CR>', [[pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"]], { expr = true, silent = true })
 
 map('v', '<Down>', ":m '>+1<CR>gv=gv")
 map('v', '<Up>', ":m '<-2<CR>gv=gv")
@@ -85,7 +80,8 @@ map('n', '<leader>wt', ':ToggleWorkspace<CR>')
 
 map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { silent = true })
 map('n', '<leader>cf', '<cmd>lua vim.lsp.buf.code_action({ apply = true })<CR>', { silent = true })
-map('n', '<leader>qf', "<cmd>lua vim.lsp.buf.code_action({ context = { only = { 'quickfix' } }, apply = true })<CR>", { silent = true })
+map('n', '<leader>qf', "<cmd>lua vim.lsp.buf.code_action({ context = { only = { 'quickfix' } }, apply = true })<CR>",
+  { silent = true })
 map('n', '<leader>gd', "<cmd>lua require('lsp-setup').definition()<CR>", { silent = true })
 map('n', '<leader>gy', "<cmd>lua require('lsp-setup').type_definition()<CR>", { silent = true })
 map('n', '<leader>gi', "<cmd>lua require('lsp-setup').implementation()<CR>", { silent = true })
