@@ -90,7 +90,7 @@ vim.opt_local.colorcolumn = '100'
 ### Installed/managed language servers
 
 - Go: `gopls`
-- Python: `pyright`, `ruff`
+- Python: `pyright`, `ruff`, `mypy`
 - Rust: `rust-analyzer`
 - Clojure: `clojure-lsp`
 - Java: `jdtls` (via `ftplugin/java.lua`)
@@ -137,6 +137,7 @@ Managed by Mason + setup:
 
 - `pyright` for analysis/completion
 - `ruff` server for lint/fix workflow
+- `mypy` available via Mason for optional strict type checks
 - `debugpy` for debugging
 
 ### Rust

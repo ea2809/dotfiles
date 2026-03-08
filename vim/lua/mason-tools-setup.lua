@@ -21,6 +21,7 @@ mason_tool_installer.setup({
 
     -- Formatters / linters
     'ruff',
+    'mypy',
     'isort',
     'golangci-lint',
     'cljfmt',

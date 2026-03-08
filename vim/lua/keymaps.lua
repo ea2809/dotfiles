@@ -110,3 +110,7 @@ map('n', '<Leader>gco', ':G checkout ')
 map('n', '<Leader>gp', ':G push<CR>')
 map('n', '<Leader>gpf', ':G push --force-with-lease --force-if-includes<CR>')
 map('n', '<Leader>gb', ':Gblame<CR>')
+
+-- Keep vim-commentary always available.
+map('n', 'gcc', '<Plug>CommentaryLine', { remap = true })
+map({ 'n', 'x' }, 'gc', '<Plug>Commentary', { remap = true })
