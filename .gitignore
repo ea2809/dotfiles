@@ -9,5 +9,6 @@ venv
 
 # Karabiner host-specific configs (keep default and example)
 karabiner/config.*.json
+karabiner/index.html
 !karabiner/config.default.json
 !karabiner/config.example-*.json

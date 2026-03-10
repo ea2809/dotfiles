@@ -107,7 +107,8 @@ createifno ~/.zshrc 'export NVM_DIR=~/.nvm'
 createifno ~/.zshrc 'source $(brew --prefix nvm)/nvm.sh'
 
 echo "VIM section is needed in KARABINER"
-python ./karabiner/spacefn.py
+pip install git+https://github.com/ea2809/karabiner-configurator.git
+karabiner-configurator ~/dotfiles/karabiner/
 
 echo "Vifm configuration"
 createdir ~/.config/vifm/
