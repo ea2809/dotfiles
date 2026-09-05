@@ -50,7 +50,16 @@
       "shell": {"program": "PyCharm"}
     },
     {
-      "name": "x to ChatGPT",
+      "name": "shift x to Claude",
+      "complex": [
+        {
+          "from": {"keycode": "x", "mandatory": ["shift"]},
+          "shell": {"program": "Claude"}
+        }
+      ]
+    },
+    {
+      "name": "x to Codex",
       "from": {"keycode": "x"},
       "shell": {"program": "ChatGPT"}
     },
