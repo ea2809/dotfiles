@@ -134,6 +134,40 @@
   ],
   "normal_definitions": [
     {
+      "name": "Sweep launchers: Shift X Claude, X Codex",
+      "complex": [
+        {
+          "from": {
+            "keycode": "x",
+            "mandatory": [
+              "right_command",
+              "right_control",
+              "right_option",
+              "shift"
+            ],
+            "optional": []
+          },
+          "shell": {
+            "program": "Claude"
+          }
+        },
+        {
+          "from": {
+            "keycode": "x",
+            "mandatory": [
+              "right_command",
+              "right_control",
+              "right_option"
+            ],
+            "optional": []
+          },
+          "shell": {
+            "program": "ChatGPT"
+          }
+        }
+      ]
+    },
+    {
       "name": "Escape to caps lock",
       "from": {"keycode": "escape"},
       "if_alone": {"keycode": "escape"},

@@ -76,3 +76,17 @@ also preserves Hyper+X for Codex instead of introducing a duplicate for Claude.
 
 See Karabiner's [modifier reference](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/from/modifiers/)
 and [first-match rule ordering](https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-evaluation-priority/).
+
+## Aurora Sweep launcher transport
+
+The Sweep Space layer sends X with right Command+Control+Option, leaving Shift
+free. A normal Karabiner rule opens Codex for that chord and Claude when either
+Shift is added. The built-in SpaceFN shortcuts and legacy left Hyper+X are
+unchanged. Flash the matching Sweep firmware to use the new chord; the previous
+firmware includes Shift in Hyper+X and cannot distinguish an extra held Shift.
+
+Right here refers to the modifier identities sent over USB/Bluetooth, not the
+keyboard half or where you press the keys. Only the Sweep X chord changes.
+Using left Command+Control+Option plus left Shift would recreate the existing
+left Hyper+X Codex chord, so the right identities keep the new launcher rule
+distinct. Either physical Shift selects Claude.

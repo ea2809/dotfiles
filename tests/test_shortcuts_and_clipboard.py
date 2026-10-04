@@ -27,7 +27,7 @@ class SpaceFNTests(unittest.TestCase):
                     for manipulator in rule["manipulators"]
                     if manipulator["from"].get("key_code") == "x"
                 ]
-                self.assertEqual(len(x_rules), 3)
+                self.assertEqual(len(x_rules), 5)
                 self.assertEqual(x_rules[0][0], "SpaceFN: shift x to Claude")
                 self.assertEqual(x_rules[0][1]["from"]["modifiers"]["mandatory"], ["shift"])
                 self.assertEqual(x_rules[0][1]["to"]["shell_command"], "open -a 'Claude'")
@@ -36,6 +36,37 @@ class SpaceFNTests(unittest.TestCase):
                 self.assertEqual(x_rules[1][1]["to"]["shell_command"], "open -a 'ChatGPT'")
                 self.assertEqual(x_rules[2][0], "Hyper x to Codex")
                 self.assertEqual(x_rules[2][1]["to"]["shell_command"], "open -a 'ChatGPT'")
+
+                # Evaluate the actual rule order for the Sweep and built-in keyboard.
+                def launcher(modifiers, spacefn=False):
+                    for _, manipulator in x_rules:
+                        if manipulator.get("conditions") and not spacefn:
+                            continue
+                        spec = manipulator["from"].get("modifiers", {})
+                        consumed = set()
+                        for required in spec.get("mandatory", []):
+                            choices = ({required} if required.startswith(("left_", "right_"))
+                                       else {f"left_{required}", f"right_{required}"})
+                            present = modifiers & choices
+                            if not present:
+                                break
+                            consumed.update(present)
+                        else:
+                            optional = spec.get("optional", [])
+                            if "any" in optional or modifiers <= consumed | set(optional):
+                                return manipulator["to"]["shell_command"]
+                    return None
+
+                sweep = {"right_command", "right_control", "right_option"}
+                for modifiers, spacefn, app in (
+                    (sweep, False, "ChatGPT"),
+                    (sweep | {"left_shift"}, False, "Claude"),
+                    (sweep | {"right_shift"}, False, "Claude"),
+                    (set(), True, "ChatGPT"),
+                    ({"left_shift"}, True, "Claude"),
+                    ({"left_command", "left_control", "left_option", "left_shift"}, False, "ChatGPT"),
+                ):
+                    self.assertEqual(launcher(modifiers, spacefn), f"open -a '{app}'")
 
 
 class ClipboardTests(unittest.TestCase):
