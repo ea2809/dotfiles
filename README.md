@@ -68,6 +68,13 @@ reload only the macOS configuration:
 tmux source-file ~/dotfiles/tmux/tmux-osx.conf
 ```
 
+## Alfred workflows
+
+If Alfred 5 is installed, `bash install.sh config` links the workflows in
+`alfred/` into Alfred without overwriting an existing workflow.
+[Restart Bluetooth](alfred/README.md): run `bt restart` in Alfred when a
+Bluetooth device refuses to reconnect.
+
 ## Verify changes
 
 ```sh

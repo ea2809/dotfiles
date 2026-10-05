@@ -1,7 +1,6 @@
 #!/bin/bash
 
 ####
-# Author: ea2809 (Enrique García Galán)
 # Description: Download the Mac chromedriver and move it to the expected site
 ####
 function updateChrome() {

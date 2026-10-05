@@ -1,5 +1,5 @@
 {
-  "title": "Change enter key (enrique)",
+  "title": "Change enter key",
   "rules": [
     {
       "description": "Change enter to right control if pressed with other keys, to enter if pressed alone.",

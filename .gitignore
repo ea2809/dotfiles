@@ -3,6 +3,9 @@ tags
 workspace
 vim/java
 *.zwc
+.nvimlog
+nvim.log
+__pycache__/
 
 .metals
 venv
@@ -12,6 +15,3 @@ karabiner/config.*.json
 karabiner/index.html
 !karabiner/config.default.json
 !karabiner/config.example-*.json
-
-# Python regression-test bytecode
-__pycache__/

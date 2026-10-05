@@ -1,0 +1,217 @@
+#!/usr/bin/env bash
+# treecat — print every file in a directory tree with headers
+# Usage:
+#   treecat [DIR] [options]
+# Arguments:
+#   DIR                       Directory to traverse (default: current directory)
+# Options:
+#   -L, --follow              Follow symlinks (off by default to avoid loops)
+#   -x, --exclude NAME        Exclude directories named NAME (can repeat)
+#                             e.g. -x .git -x node_modules
+#   -e, --ext LIST            Only print content for files with these extensions (repeatable).
+#                             LIST can be comma-separated or passed multiple times.
+#                             Examples: -e txt -e md,markdown -e py,sh
+#       --hex-binaries        For binary files, print a hex dump instead of raw bytes
+#       --no-content          Only list files, don't print their content
+#       --stats               Show file count and total size at the end
+#   -h, --help                Show this help
+#
+# Notes:
+#   - Extension matching is case-insensitive and should be given without the dot.
+#   - If no -e/--ext is provided, all files show content.
+#   - All files are listed, but only matching extensions show content.
+#   - Excluded directories (-x) won't be traversed.
+
+set -euo pipefail
+
+FOLLOW_SYMLINKS=0
+HEX_BINARIES=0
+NO_CONTENT=0
+SHOW_STATS=0
+EXCLUDES=()
+INCLUDE_EXTS=()   # list of allowed extensions (no dots)
+TARGET_DIR="."
+ORIGINAL_DIR=""
+
+usage() { sed -n '2,30p' "$0"; }
+
+# split a comma list into INCLUDE_EXTS
+_add_exts() {
+  local arg="$1"
+  local IFS=','
+  for ext in $arg; do
+    ext="${ext#.}"        # drop leading dot if provided
+    [[ -n "$ext" ]] && INCLUDE_EXTS+=("$ext")
+  done
+}
+
+# Check if file matches any of the include extensions (case-insensitive)
+_matches_extension() {
+  local file="$1"
+  
+  # If no extensions specified, match all files
+  if ((${#INCLUDE_EXTS[@]} == 0)); then
+    return 0
+  fi
+  
+  # Get file extension (lowercase) - portable way
+  local file_ext="${file##*.}"
+  file_ext=$(echo "$file_ext" | tr '[:upper:]' '[:lower:]')
+  
+  # Check if it matches any of our include extensions
+  for ext in "${INCLUDE_EXTS[@]}"; do
+    local ext_lower=$(echo "$ext" | tr '[:upper:]' '[:lower:]')
+    if [[ "$ext_lower" == "$file_ext" ]]; then
+      return 0
+    fi
+  done
+  
+  return 1
+}
+
+# Parse first positional argument as directory if it doesn't start with -
+if [[ $# -gt 0 && "$1" != -* ]]; then
+  TARGET_DIR="$1"
+  ORIGINAL_DIR="$1"
+  shift
+fi
+
+while (($#)); do
+  case "$1" in
+    -L|--follow) FOLLOW_SYMLINKS=1 ;;
+    --hex-binaries) HEX_BINARIES=1 ;;
+    --no-content) NO_CONTENT=1 ;;
+    --stats) SHOW_STATS=1 ;;
+    -x|--exclude)
+      [[ $# -ge 2 ]] || { echo "error: -x|--exclude needs a name" >&2; exit 1; }
+      EXCLUDES+=("$2"); shift ;;
+    -e|--ext)
+      [[ $# -ge 2 ]] || { echo "error: -e|--ext needs a list (e.g. 'txt,md')" >&2; exit 1; }
+      _add_exts "$2"; shift ;;
+    -h|--help) usage; exit 0 ;;
+    *) echo "unknown option: $1" >&2; usage; exit 1 ;;
+  esac
+  shift
+done
+
+# Validate target directory
+if [[ ! -d "$TARGET_DIR" ]]; then
+  echo "error: directory not found: $TARGET_DIR" >&2
+  exit 1
+fi
+
+# Store the original target for display purposes
+if [[ -z "$ORIGINAL_DIR" ]]; then
+  ORIGINAL_DIR="."
+fi
+
+# Change to target directory to make paths relative
+cd "$TARGET_DIR"
+
+# Base find
+if (( FOLLOW_SYMLINKS )); then
+  FIND=(find -L .)
+else
+  FIND=(find .)
+fi
+
+CMD=("${FIND[@]}")
+
+# Exclude/prune directories if requested (stops traversal into those dirs)
+if ((${#EXCLUDES[@]})); then
+  PRUNE=( \( )
+  for i in "${!EXCLUDES[@]}"; do
+    (( i > 0 )) && PRUNE+=( -o )
+    PRUNE+=( -type d -name "${EXCLUDES[$i]}" )
+  done
+  PRUNE+=( \) -prune -o )
+  CMD+=("${PRUNE[@]}")
+fi
+
+# All regular files
+CMD+=( -type f -print0 )
+
+# Stats tracking
+FILE_COUNT=0
+TOTAL_SIZE=0
+CONTENT_FILE_COUNT=0
+
+# Execute find and print files with headers
+"${CMD[@]}" 2>/dev/null |
+while IFS= read -r -d '' file; do
+  # Clean up the path for display - use original directory name
+  display_path="${file#./}"
+  if [[ "$ORIGINAL_DIR" != "." ]]; then
+    display_path="${ORIGINAL_DIR%/}/$display_path"
+  else
+    display_path="./$display_path"
+  fi
+  
+  # Check if we should print content for this file
+  SHOULD_PRINT_CONTENT=0
+  if _matches_extension "$file"; then
+    SHOULD_PRINT_CONTENT=1
+    ((CONTENT_FILE_COUNT++))
+  fi
+  
+  
+  if (( NO_CONTENT )); then
+    # Just show file info, not content
+    printf '=== FILE: %s\n' "$display_path"
+    if command -v stat >/dev/null 2>&1; then
+      if [[ "$(uname)" == "Darwin" ]]; then
+        stat -f "Size: %z bytes, Modified: %Sm" "$file"
+      else
+        stat --printf="Size: %s bytes, Modified: %y\n" "$file"
+      fi
+    fi
+  elif (( SHOULD_PRINT_CONTENT )); then
+    printf '=== BEGIN FILE: %s\n' "$display_path"
+    # Print content only for matching files
+    if (( HEX_BINARIES )); then
+      if grep -Iq . -- "$file" 2>/dev/null; then
+        cat -- "$file"
+      else
+        if command -v hexdump >/dev/null 2>&1; then
+          hexdump -C -- "$file"
+        else
+          xxd -- "$file" 2>/dev/null || cat -- "$file"
+        fi
+      fi
+    else
+      cat -- "$file"
+    fi
+    printf '\n=== END FILE: %s\n' "$display_path"
+  else
+    # File listed but content not printed
+    printf '=== FILE: %s\n' "$display_path"
+  fi
+  
+  
+  # Track stats if requested
+  if (( SHOW_STATS )); then
+    ((FILE_COUNT++))
+    if [[ "$(uname)" == "Darwin" ]]; then
+      size=$(stat -f %z "$file")
+    else
+      size=$(stat -c %s "$file")
+    fi
+    ((TOTAL_SIZE+=size))
+  fi
+done
+
+# Print stats if requested
+if (( SHOW_STATS )); then
+  printf '\n===== SUMMARY =====\n'
+  printf 'Total files found: %d\n' "$FILE_COUNT"
+  if ((${#INCLUDE_EXTS[@]} > 0)); then
+    printf 'Files with content printed: %d\n' "$CONTENT_FILE_COUNT"
+  fi
+  if (( TOTAL_SIZE >= 1048576 )); then
+    printf 'Total size: %.2f MB\n' "$(awk "BEGIN {print $TOTAL_SIZE/1048576}")"
+  elif (( TOTAL_SIZE >= 1024 )); then
+    printf 'Total size: %.2f KB\n' "$(awk "BEGIN {print $TOTAL_SIZE/1024}")"
+  else
+    printf 'Total size: %d bytes\n' "$TOTAL_SIZE"
+  fi
+fi

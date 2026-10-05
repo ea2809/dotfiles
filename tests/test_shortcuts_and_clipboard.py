@@ -1,6 +1,7 @@
 import json
 import os
 from pathlib import Path
+import plistlib
 import shutil
 import subprocess
 import tempfile
@@ -123,6 +124,61 @@ class ClipboardTests(unittest.TestCase):
         tmux("set-buffer", "nonempty buffer")
         tmux("run-shell", "tmux save-buffer - | sh ~/dotfiles/tmux/copy-if-not-empty.sh")
         self.assertEqual(self.clipboard.read_bytes(), b"nonempty buffer")
+
+
+class BluetoothRestartTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory(prefix="dotfiles-bluetooth-test-")
+        self.addCleanup(self.temp.cleanup)
+        self.directory = Path(self.temp.name)
+        self.calls = self.directory / "calls"
+        blueutil = self.directory / "blueutil"
+        blueutil.write_text('#!/bin/sh\nprintf "%s\\n" "$*" >> "$BLUETOOTH_TEST_CALLS"\n')
+        blueutil.chmod(0o700)
+        sleep = self.directory / "sleep"
+        sleep.write_text('#!/bin/sh\nprintf "sleep %s\\n" "$*" >> "$BLUETOOTH_TEST_CALLS"\n')
+        sleep.chmod(0o700)
+        self.env = dict(os.environ, PATH=f"{self.directory}:{os.environ['PATH']}",
+                        BLUETOOTH_TEST_CALLS=str(self.calls))
+
+    def test_bluetooth_is_power_cycled(self):
+        result = subprocess.run([str(ROOT / "bin/restart-bluetooth")], env=self.env,
+                                check=True, capture_output=True, text=True)
+        self.assertEqual(self.calls.read_text().splitlines(), ["--power 0", "sleep 2", "--power 1"])
+        self.assertEqual(result.stdout, "Bluetooth restarted\n")
+
+    def test_alfred_workflow_runs_the_restart_script(self):
+        with (ROOT / "alfred/restart-bluetooth/info.plist").open("rb") as plist:
+            workflow = plistlib.load(plist)
+        keyword, script, notification = workflow["objects"]
+        self.assertEqual(keyword["config"]["keyword"], "bt")
+        self.assertTrue(keyword["config"]["withspace"])
+        self.assertEqual(script["config"]["script"],
+                         '"$alfred_workflow_bundlepath/restart-bluetooth"')
+        self.assertEqual(notification["config"]["text"], "{query}")
+        self.assertEqual(workflow["bundleid"], "com.dotfiles.restart-bluetooth")
+        self.assertNotIn("createdby", workflow)
+
+    @unittest.skipUnless(os.uname().sysname == "Darwin", "Alfred is only available on macOS")
+    def test_alfred_installer_is_idempotent(self):
+        alfred_app = self.directory / "Alfred 5.app"
+        alfred_app.mkdir()
+        preferences = self.directory / "Alfred.alfredpreferences"
+        env = dict(self.env, ALFRED_APP_PATH=str(alfred_app),
+                   ALFRED_PREFERENCES_DIR=str(preferences), DOTFILES_DIR=str(ROOT))
+        installer = ROOT / "scripts/mac/install-alfred-workflows.sh"
+
+        first = subprocess.run(["bash", str(installer)], env=env, check=True,
+                               capture_output=True, text=True)
+        workflow_link = (preferences / "workflows" /
+                         "user.workflow.com.dotfiles.restart-bluetooth")
+        self.assertTrue(workflow_link.is_symlink())
+        self.assertEqual(workflow_link.resolve(), ROOT / "alfred/restart-bluetooth")
+        self.assertEqual(first.stdout, "Linked Alfred Bluetooth workflow\n")
+
+        second = subprocess.run(["bash", str(installer)], env=env, check=True,
+                                capture_output=True, text=True)
+        self.assertEqual(second.stdout, "Alfred Bluetooth workflow is already linked\n")
 
 
 if __name__ == "__main__":

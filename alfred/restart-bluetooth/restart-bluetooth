@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+blueutil_bin="${BLUEUTIL_BIN:-$(command -v blueutil || true)}"
+restart_delay="${BLUETOOTH_RESTART_DELAY_SECONDS:-2}"
+
+if [[ -z "$blueutil_bin" ]]; then
+  echo "blueutil is not installed. Run: brew install blueutil" >&2
+  exit 127
+fi
+
+powered_off=false
+
+restore_bluetooth() {
+  if [[ "$powered_off" == true ]]; then
+    "$blueutil_bin" --power 1 >/dev/null 2>&1 || true
+  fi
+}
+
+trap restore_bluetooth EXIT INT TERM
+
+"$blueutil_bin" --power 0
+powered_off=true
+sleep "$restart_delay"
+"$blueutil_bin" --power 1
+powered_off=false
+
+trap - EXIT INT TERM
+echo "Bluetooth restarted"

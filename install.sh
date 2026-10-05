@@ -75,6 +75,7 @@ config() {
   createifno "$HOME/.zshrc" 'export NVM_DIR="$HOME/.nvm"'
   createifno "$HOME/.zshrc" '[ ! -s "$(brew --prefix nvm)/nvm.sh" ] || source "$(brew --prefix nvm)/nvm.sh"'
   bash "$DOTFILES_DIR/scripts/global/git.sh"
+  bash "$DOTFILES_DIR/scripts/mac/install-alfred-workflows.sh"
 }
 
 keyboard() {

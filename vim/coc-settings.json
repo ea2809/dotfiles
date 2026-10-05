@@ -25,7 +25,7 @@
   // "suggest.noselect": false,
 
   // Show help
-  "java.jdt.ls.java.home": "/Users/enrique/.sdkman/candidates/java/current",
+  "java.jdt.ls.java.home": "~/.sdkman/candidates/java/current",
   "java.signatureHelp.enabled": true,
   "snippets.ultisnips.pythonPrompt": false
 }

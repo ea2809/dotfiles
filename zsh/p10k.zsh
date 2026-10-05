@@ -30,7 +30,7 @@
   autoload -Uz is-at-least && is-at-least 5.1 || return
 
 
-	# Enrique's extra config
+	# Local extra config
   typeset -g ZLE_RPROMPT_INDENT=0  # No spaces
   typeset -g POWERLEVEL9K_LEFT_SEGMENT_END_SEPARATOR='' # After prompt no space
 
