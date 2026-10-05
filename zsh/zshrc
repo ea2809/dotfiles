@@ -1,10 +1,10 @@
 typeset -g BASE_ZSH_CONFIG=${0:a:h}
 
-source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
+source "$(brew --prefix antidote)/share/antidote/antidote.zsh"
 source <(antidote init)
 export GOPATH=$HOME/go
 path+=("$GOPATH/bin")
-path+=('~/dotfiles/bin')
+path+=("$HOME/dotfiles/bin")
 export PATH
 
 
@@ -32,13 +32,13 @@ antidote bundle ohmyzsh/ohmyzsh path:plugins/command-not-found
 antidote bundle ohmyzsh/ohmyzsh path:plugins/golang
 antidote bundle ohmyzsh/ohmyzsh path:plugins/colorize
 antidote bundle ohmyzsh/ohmyzsh path:plugins/fzf
-antidote bundle compleat
-antidote bundle zsh-users/fizsh
+antidote bundle ohmyzsh/ohmyzsh path:plugins/compleat
+# fizsh is a standalone shell; highlighting and history plugins follow.
 antidote bundle zsh-users/zsh-syntax-highlighting
 antidote bundle zsh-users/zsh-history-substring-search
 antidote bundle zsh-users/zsh-completions
 antidote bundle zsh-users/zsh-autosuggestions
-antidote bundle wfxr/forgit
+antidote bundle wfxr/forgit branch:main
 antidote bundle romkatv/powerlevel10k
 
 setopt prompt_subst

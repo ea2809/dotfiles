@@ -1,133 +1,147 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-# Install vim-plug
-if [ ! -f ~/.local/share/nvim/site/autoload/plug.vim ]; then
-  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+STAGE=${1:-all}
 
 checklink() {
-  # Link $1 to $2 if $2 does not exist
-  IN=$1
-  OUT=$2
-  if [ ! -f $OUT ]; then
-    echo "Linking file $OUT"
-    ln -s $IN $OUT
-  elif [ -L $OUT ]; then
-    # Check both files are the same
-    if [ $IN -ef $OUT ]; then
-      echo "File is linked as we expected ($IN -> $OUT)"
-    else
-      echo "File is linked to other file"
-      movefile $IN $OUT
-    fi
-  else
-    echo "File $OUT exists and is not linked"
-    movefile $IN $OUT
+  local source=$1 destination=$2 backup index=0
+  [[ -e "$source" ]] || { echo "Missing source: $source" >&2; return 1; }
+  mkdir -p "$(dirname "$destination")"
+  if [[ -L "$destination" && "$source" -ef "$destination" ]]; then
+    echo "Already linked: $destination"
+    return
   fi
-}
-
-movefile() {
-  # Create file $1 with $2 link, if file exists a backup file will be created
-  local FILE=$IN
-  local CONTENT=$OUT
-  if [ -f $FILE ]; then
-    echo "File $FILE moved with extension backup."
-    mv $FILE $FILE.backup
+  if [[ -e "$destination" || -L "$destination" ]]; then
+    backup="$destination.backup"
+    while [[ -e "$backup" || -L "$backup" ]]; do
+      index=$((index + 1)); backup="$destination.backup.$index"
+    done
+    mv "$destination" "$backup"
+    echo "Backed up: $destination -> $backup"
   fi
-  checklink $IN $OUT
-}
-
-checkfile() {
-  # Create file $1 with $2 data, if file exists a backup file will be created
-  local FILE=$1
-  local CONTENT=$2
-  if [ -f $FILE ]; then
-    echo "File $FILE moved with extension backup."
-    mv $FILE $FILE.backup
-  fi
-  echo "Creating $FILE"
-  echo $CONTENT >$FILE
+  ln -s "$source" "$destination"
 }
 
 createifno() {
-  # Create file $1 with $2 data if file does not exists
-  local FILE=$1
-  local CONTENT=$2
-  if [ -f $FILE ]; then
-    echo "File $FILE exists"
-    grep -q "$CONTENT" "$FILE" || {
-      echo "Appending $FILE"
-      echo $CONTENT >>$FILE
-    }
-  else
-    echo "Creating $FILE"
-    echo $CONTENT >$FILE
+  local file=$1 content=$2
+  mkdir -p "$(dirname "$file")"
+  touch "$file"
+  if ! grep -Fqx -- "$content" "$file"; then
+    # Start on a fresh line even when the existing file has no final newline.
+    [[ ! -s "$file" ]] || printf '\n' >> "$file"
+    printf '%s\n' "$content" >> "$file"
   fi
 }
 
-createdir() {
-  # Create dir if it does not exists
-  local DIR=$1
-  if [ ! -d $DIR ]; then
-    echo "Creating directory $DIR"
-    mkdir -p $DIR
+packages() {
+  if ! command -v brew >/dev/null 2>&1; then
+    if [[ -x /opt/homebrew/bin/brew ]]; then
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [[ -x /usr/local/bin/brew ]]; then
+      eval "$(/usr/local/bin/brew shellenv)"
+    else
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      if [[ -x /opt/homebrew/bin/brew ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+      else
+        eval "$(/usr/local/bin/brew shellenv)"
+      fi
+    fi
   fi
+  brew update
+  # Bundle upgrades its declared dependencies and leaves unrelated packages alone.
+  brew bundle install --file="$DOTFILES_DIR/Brewfile"
 }
 
-echo "Install Brew"
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew bundle
+config() {
+  checklink "$DOTFILES_DIR/vim/es.utf-8.spl" "$HOME/.vim/spell/es.utf-8.spl"
+  checklink "$DOTFILES_DIR/vim/es.utf-8.sug" "$HOME/.vim/spell/es.utf-8.sug"
+  checklink "$DOTFILES_DIR/vim/vimrc" "$HOME/.vimrc"
+  checklink "$DOTFILES_DIR/vim/init.vim" "$HOME/.config/nvim/init.vim"
+  checklink "$DOTFILES_DIR/vim/coc-settings.json" "$HOME/.config/nvim/coc-settings.json"
+  checklink "$DOTFILES_DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
+  checklink "$DOTFILES_DIR/vifm/palenight.vifm" "$HOME/.config/vifm/colors/palenight.vifm"
+  checklink "$DOTFILES_DIR/vifm/gruvbox.vifm" "$HOME/.config/vifm/colors/gruvbox.vifm"
+  checklink "$DOTFILES_DIR/vifm/vifmrc" "$HOME/.config/vifm/vifmrc"
+  checklink "$DOTFILES_DIR/bat/config" "$HOME/.config/bat/config"
+  checklink "$DOTFILES_DIR/vim/ideavimrc" "$HOME/.ideavimrc"
+  checklink "$DOTFILES_DIR/zsh/wezterm.lua" "$HOME/.wezterm.lua"
+  createifno "$HOME/.zshrc" 'if [[ -x /opt/homebrew/bin/brew ]]; then eval "$(/opt/homebrew/bin/brew shellenv)"; elif [[ -x /usr/local/bin/brew ]]; then eval "$(/usr/local/bin/brew shellenv)"; fi'
+  createifno "$HOME/.zshrc" 'source ~/dotfiles/zsh/zshrc'
+  createifno "$HOME/.zshrc" '[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh'
+  createifno "$HOME/.zshrc" 'command -v pyenv >/dev/null && eval "$(pyenv init - zsh)"'
+  mkdir -p "$HOME/.nvm"
+  createifno "$HOME/.zshrc" 'export NVM_DIR="$HOME/.nvm"'
+  createifno "$HOME/.zshrc" '[ ! -s "$(brew --prefix nvm)/nvm.sh" ] || source "$(brew --prefix nvm)/nvm.sh"'
+  bash "$DOTFILES_DIR/scripts/global/git.sh"
+}
 
-echo "Move vim dictionary"
-createdir ~/.vim/spell/
-checklink ~/dotfiles/vim/es.utf-8.spl ~/.vim/spell/es.utf-8.spl
-checklink ~/dotfiles/vim/es.utf-8.sug ~/.vim/spell/es.utf-8.sug
+keyboard() {
+  if ! python3 "$DOTFILES_DIR/scripts/mac/check-karabiner-app.py"; then
+    if brew list --cask karabiner-elements >/dev/null 2>&1; then
+      brew upgrade --cask karabiner-elements
+    else
+      brew install --cask karabiner-elements
+    fi
+  fi
+  if ! command -v karabiner-configurator >/dev/null 2>&1; then
+    # Homebrew Python disallows global pip installs; isolate the external tool.
+    python3 -m venv "$HOME/.local/share/dotfiles/karabiner-venv"
+    source "$HOME/.local/share/dotfiles/karabiner-venv/bin/activate"
+    python3 -m pip install karabiner-configurator
+  fi
+  python3 "$DOTFILES_DIR/scripts/mac/check-karabiner.py"
+  karabiner-configurator "$DOTFILES_DIR/karabiner/" --no-html -v
+}
 
-echo "Vim configuration"
-createdir ~/.config/nvim/
-checklink ~/dotfiles/vim/vimrc ~/.vimrc
-checklink ~/dotfiles/vim/init.vim ~/.config/nvim/init.vim
-checklink ~/dotfiles/vim/coc-settings.json ~/.config/nvim/coc-settings.json
+check() {
+  if [[ -x "$HOME/.local/share/dotfiles/karabiner-venv/bin/karabiner-configurator" ]]; then
+    source "$HOME/.local/share/dotfiles/karabiner-venv/bin/activate"
+  fi
+  brew bundle check --verbose --file="$DOTFILES_DIR/Brewfile"
+  python3 "$DOTFILES_DIR/scripts/mac/check-karabiner-app.py"
+  python3 "$DOTFILES_DIR/scripts/mac/check-karabiner.py" --exact
+  "$HOME/venvs/nvim3/bin/python" -c 'import pynvim'
+  local entry source destination failed=0
+  while IFS='|' read -r source destination; do
+    if [[ ! -L "$HOME/$destination" || ! "$DOTFILES_DIR/$source" -ef "$HOME/$destination" ]]; then
+      echo "Missing/wrong link: $HOME/$destination" >&2; failed=1
+    fi
+  done <<'LINKS'
+vim/es.utf-8.spl|.vim/spell/es.utf-8.spl
+vim/es.utf-8.sug|.vim/spell/es.utf-8.sug
+vim/vimrc|.vimrc
+vim/init.vim|.config/nvim/init.vim
+vim/coc-settings.json|.config/nvim/coc-settings.json
+tmux/tmux.conf|.tmux.conf
+vifm/palenight.vifm|.config/vifm/colors/palenight.vifm
+vifm/gruvbox.vifm|.config/vifm/colors/gruvbox.vifm
+vifm/vifmrc|.config/vifm/vifmrc
+bat/config|.config/bat/config
+vim/ideavimrc|.ideavimrc
+zsh/wezterm.lua|.wezterm.lua
+LINKS
+  return "$failed"
+}
 
-echo "Tmux configuration"
-checklink ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
+main() {
+  case "$STAGE" in
+    all|packages|config|python|plugins|shell|keyboard|check) ;;
+    *) echo "Usage: $0 [all|packages|config|python|plugins|shell|keyboard|check]" >&2; return 2 ;;
+  esac
+  [[ $(uname -s) == Darwin ]] || { echo 'Use scripts/ubuntu/install.sh on Ubuntu.' >&2; return 1; }
+  # Existing configurations assume this canonical checkout location.
+  [[ "$DOTFILES_DIR" -ef "$HOME/dotfiles" ]] || { echo 'Clone this repository at ~/dotfiles before installing.' >&2; return 1; }
+  case "$STAGE" in
+    all) packages; config; bash "$DOTFILES_DIR/scripts/global/python-nvim.sh"; bash "$DOTFILES_DIR/scripts/global/editor-plugins.sh"; zsh "$DOTFILES_DIR/scripts/global/shell-plugins.zsh"; keyboard; check ;;
+    shell) zsh "$DOTFILES_DIR/scripts/global/shell-plugins.zsh" ;;
+    plugins) bash "$DOTFILES_DIR/scripts/global/editor-plugins.sh" ;;
+    python) bash "$DOTFILES_DIR/scripts/global/python-nvim.sh" ;;
+    *) "$STAGE" ;;
+  esac
+}
 
-echo "ZSH configuration"
-createifno ~/.zshrc "source ~/dotfiles/zsh/zshrc"
-createifno ~/.zshrc "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh"
-
-createifno ~/.zshrc 'export PATH="/Users/enrique/go/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"'
-createifno ~/.zshrc 'eval "$(pyenv init --path)"'
-
-echo "NVM configuration"
-echo "VIM section is needed in KARABINER"
-mkdir ~/.nvm
-createifno ~/.zshrc 'export NVM_DIR=~/.nvm'
-createifno ~/.zshrc 'source $(brew --prefix nvm)/nvm.sh'
-
-echo "VIM section is needed in KARABINER"
-if ! command -v karabiner-configurator >/dev/null 2>&1; then
-  python3 -m pip install karabiner-configurator
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  main
 fi
-karabiner-configurator ~/dotfiles/karabiner/ -v
-
-echo "Vifm configuration"
-createdir ~/.config/vifm/
-createdir ~/.config/vifm/colors
-checklink ~/dotfiles/vifm/palenight.vifm ~/.config/vifm/colors/palenight.vifm
-checklink ~/dotfiles/vifm/gruvbox.vifm ~/.config/vifm/colors/gruvbox.vifm
-checklink ~/dotfiles/vifm/vifmrc ~/.config/vifm/vifmrc
-
-echo "Bat configuration"
-createdir ~/.config/bat/
-checklink ~/dotfiles/bat/config ~/.config/bat/config
-
-echo "Configure git configuration"
-bash ./scripts/global/git.sh
-
-echo "IdeaVim"
-checklink ~/dotfiles/vim/ideavimrc ~/.ideavimrc
-
-echo "WezTerm"
-checklink ~/dotfiles/zsh/wezterm.lua ~/.wezterm.lua

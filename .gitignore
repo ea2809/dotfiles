@@ -12,3 +12,6 @@ karabiner/config.*.json
 karabiner/index.html
 !karabiner/config.default.json
 !karabiner/config.example-*.json
+
+# Python regression-test bytecode
+__pycache__/
