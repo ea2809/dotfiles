@@ -137,7 +137,9 @@ TOTAL_SIZE=0
 CONTENT_FILE_COUNT=0
 
 # Execute find and print files with headers
-"${CMD[@]}" 2>/dev/null |
+file_list=$(mktemp "${TMPDIR:-/tmp}/treecat.XXXXXX")
+trap 'rm -f "$file_list"' EXIT
+"${CMD[@]}" > "$file_list"
 while IFS= read -r -d '' file; do
   # Clean up the path for display - use original directory name
   display_path="${file#./}"
@@ -151,7 +153,7 @@ while IFS= read -r -d '' file; do
   SHOULD_PRINT_CONTENT=0
   if _matches_extension "$file"; then
     SHOULD_PRINT_CONTENT=1
-    ((CONTENT_FILE_COUNT++))
+    CONTENT_FILE_COUNT=$((CONTENT_FILE_COUNT + 1))
   fi
   
   
@@ -190,15 +192,15 @@ while IFS= read -r -d '' file; do
   
   # Track stats if requested
   if (( SHOW_STATS )); then
-    ((FILE_COUNT++))
+    FILE_COUNT=$((FILE_COUNT + 1))
     if [[ "$(uname)" == "Darwin" ]]; then
       size=$(stat -f %z "$file")
     else
       size=$(stat -c %s "$file")
     fi
-    ((TOTAL_SIZE+=size))
+    TOTAL_SIZE=$((TOTAL_SIZE + size))
   fi
-done
+done < "$file_list"
 
 # Print stats if requested
 if (( SHOW_STATS )); then
